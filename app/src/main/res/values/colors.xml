@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="gray">#616161</color>
+    <color name="white">#FFFFFF</color>
+    <color name="orange">#F15A24</color>
+    <color name="gray_bg_color">#313131</color>
+    <color name="text_color">#0B0B0B</color>
+    <!-- 浅浅蓝摁下 -->
+    <color name="blue_baby_press">#D9E8F0</color>
+    <color name="gray_lite">#c5c5c5</color>
+    <color name="gray_little1">#D1D1D1</color>
+    <color name="green2">#00a944</color>
+    <!-- 键盘绿 焦点 -->
+    <color name="btn_green_focused">#0fa400</color>
+
+    <color name="green_circle">#00FD04</color>
+</resources>
