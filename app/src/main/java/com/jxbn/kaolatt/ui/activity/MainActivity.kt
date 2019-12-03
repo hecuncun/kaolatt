@@ -82,7 +82,7 @@ class MainActivity : BaseActivity() {
         mIndex = index
         toolbar_right_img.visibility = View.GONE
         toolbar_right_tv.visibility = View.GONE
-        im_back.visibility = View.GONE
+        iv_back.visibility = View.GONE
 
         when (index) {
             FRAGMENT_HOME -> {

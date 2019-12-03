@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">考拉淘淘</string>
+    <string name="user_agreement">同意<u>《用户注册协议》</u></string>
 </resources>
