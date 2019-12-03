@@ -1,6 +1,7 @@
 package com.jxbn.kaolatt.ui.activity
 
 import android.Manifest
+import android.content.Intent
 import android.support.design.bottomnavigation.LabelVisibilityMode
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.FragmentTransaction
@@ -129,6 +130,10 @@ class MainActivity : BaseActivity() {
                 toolbar_right_img.visibility = View.VISIBLE
                 toolbar_left_img.setImageDrawable(resources.getDrawable(R.drawable.icon_edit))
                 toolbar_right_img.setImageDrawable(resources.getDrawable(R.drawable.icon_msg))
+                toolbar_left_img.setOnClickListener {
+                    jumpToPersonalInfoActivity()
+                }
+                toolbar_right_img.setOnClickListener {  }
                 if (mMineFragment == null) {
                     mMineFragment = MineFragment.getInstance()
                     transaction.add(R.id.container, mMineFragment!!, "mine")
@@ -138,6 +143,11 @@ class MainActivity : BaseActivity() {
             }
         }
         transaction.commit()
+    }
+
+    private fun jumpToPersonalInfoActivity() {
+        val intent = Intent(this@MainActivity,PersonalInfoActivity::class.java)
+        startActivity(intent)
     }
 
     /**

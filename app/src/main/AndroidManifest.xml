@@ -32,6 +32,8 @@
         <activity android:name=".ui.activity.RegisterActivity"/>
         <activity android:name=".ui.activity.AgreementActivity"/>
         <activity android:name=".ui.activity.ForgetPwdActivity"/>
+        <activity android:name=".ui.activity.PersonalInfoActivity"/>
+        <activity android:name=".ui.activity.ScoreActivity"/>
     </application>
 
 </manifest>

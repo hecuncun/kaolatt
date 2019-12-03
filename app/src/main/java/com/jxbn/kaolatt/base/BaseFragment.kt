@@ -42,6 +42,7 @@ abstract class BaseFragment :Fragment(){
      * 初始化 View
      */
     abstract fun initView(view: View)
+    abstract fun initListener()
     /**
      * 懒加载
      */
@@ -63,6 +64,7 @@ abstract class BaseFragment :Fragment(){
 
         isViewPrepare = true
         initView(view)
+        initListener()
 
         lazyLoadDataIfPrepared()
     }

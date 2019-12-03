@@ -9,6 +9,9 @@ import com.lhzw.bluetooth.base.BaseFragment
  * Created by hecuncun on 2019/11/13
  */
 class ShoppingCartFragment : BaseFragment(){
+    override fun initListener() {
+    }
+
     companion object {
         fun getInstance():ShoppingCartFragment = ShoppingCartFragment()
     }
