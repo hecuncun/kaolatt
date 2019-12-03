@@ -80,12 +80,15 @@ class MainActivity : BaseActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         hideFragment(transaction)
         mIndex = index
+        toolbar_title.visibility=View.GONE
         toolbar_right_img.visibility = View.GONE
+        toolbar_left_img.visibility=View.GONE
         toolbar_right_tv.visibility = View.GONE
         iv_back.visibility = View.GONE
 
         when (index) {
             FRAGMENT_HOME -> {
+                toolbar_title.visibility=View.VISIBLE
                 toolbar_title.text ="首页"
 //                toolbar_right_img.visibility = View.VISIBLE
 //                toolbar_right_img.setImageResource(R.drawable.icon_ble_close)
@@ -101,7 +104,7 @@ class MainActivity : BaseActivity() {
               //  toolbar_title.text = getString(R.string.main_sport_record)
                 if (mSortFragment == null) {
                     mSortFragment = SortFragment.getInstance()
-                    transaction.add(R.id.container, mSortFragment!!, "sports")
+                    transaction.add(R.id.container, mSortFragment!!, "sort")
                 } else {
                     transaction.show(mSortFragment!!)
                 }
@@ -114,17 +117,21 @@ class MainActivity : BaseActivity() {
 
                 if (mShoppingCartFragment == null) {
                     mShoppingCartFragment = ShoppingCartFragment.getInstance()
-                    transaction.add(R.id.container, mShoppingCartFragment!!, "setting")
+                    transaction.add(R.id.container, mShoppingCartFragment!!, "shoppingCart")
                 } else {
                     transaction.show(mShoppingCartFragment!!)
                 }
             }
 
             FRAGMENT_MINE -> {
-               // toolbar_title.text = getString(R.string.main_connect)
+                toolbar_title.visibility = View.GONE
+                toolbar_left_img.visibility = View.VISIBLE
+                toolbar_right_img.visibility = View.VISIBLE
+                toolbar_left_img.setImageDrawable(resources.getDrawable(R.drawable.icon_edit))
+                toolbar_right_img.setImageDrawable(resources.getDrawable(R.drawable.icon_msg))
                 if (mMineFragment == null) {
                     mMineFragment = MineFragment.getInstance()
-                    transaction.add(R.id.container, mMineFragment!!, "connect")
+                    transaction.add(R.id.container, mMineFragment!!, "mine")
                 } else {
                     transaction.show(mMineFragment!!)
                 }
