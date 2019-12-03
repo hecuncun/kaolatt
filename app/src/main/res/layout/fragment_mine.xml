@@ -30,6 +30,7 @@
             android:padding="@dimen/dp_5"
             android:text="ID:SDSDSDSD"
             android:textColor="@color/white"/>
+
     </LinearLayout>
 
     <LinearLayout
