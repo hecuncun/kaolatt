@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!--相机权限-->
     <uses-permission android:name="android.permission.CAMERA" />
+
+
     <application
         android:name=".application.App"
         android:allowBackup="true"
@@ -15,6 +17,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!--设计图大小-->
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="360"/>
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="640"/>
+
+
         <activity android:name=".ui.activity.MainActivity">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN"/>-->
@@ -34,6 +46,11 @@
         <activity android:name=".ui.activity.ForgetPwdActivity"/>
         <activity android:name=".ui.activity.PersonalInfoActivity"/>
         <activity android:name=".ui.activity.ScoreActivity"/>
+        <activity android:name=".ui.activity.SettingActivity"/>
+        <activity android:name=".ui.activity.AboutUsActivity"/>
+        <activity android:name=".ui.activity.FeedBackActivity"/>
+        <activity android:name=".ui.activity.ChangePwdActivity"/>
+        <activity android:name=".ui.activity.ScoreDetailActivity"/>
     </application>
 
 </manifest>
