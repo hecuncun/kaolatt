@@ -51,6 +51,8 @@
         <activity android:name=".ui.activity.FeedBackActivity"/>
         <activity android:name=".ui.activity.ChangePwdActivity"/>
         <activity android:name=".ui.activity.ScoreDetailActivity"/>
+        <activity android:name=".ui.activity.CouponActivity"/>
+        <activity android:name=".ui.activity.OrderAllActivity"/>
     </application>
 
 </manifest>

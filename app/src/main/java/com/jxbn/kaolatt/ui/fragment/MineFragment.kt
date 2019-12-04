@@ -1,8 +1,9 @@
 package com.jxbn.kaolatt.ui.fragment
-
 import android.content.Intent
 import android.view.View
 import com.jxbn.kaolatt.R
+import com.jxbn.kaolatt.ui.activity.CouponActivity
+import com.jxbn.kaolatt.ui.activity.OrderAllActivity
 import com.jxbn.kaolatt.ui.activity.ScoreActivity
 import com.jxbn.kaolatt.ui.activity.SettingActivity
 import com.lhzw.bluetooth.base.BaseFragment
@@ -16,6 +17,8 @@ class MineFragment : BaseFragment() {
     override fun initListener() {
         rl_my_score.setOnClickListener { jumpToScoreActivity() }
         rl_setting.setOnClickListener { jumpToSettingActivity() }
+        rl_coupon.setOnClickListener {  jumpToCouponActivity()}
+        tv_order_all.setOnClickListener { jumpToOrderAllActivity() }
     }
 
     private fun jumpToScoreActivity() {
@@ -24,6 +27,14 @@ class MineFragment : BaseFragment() {
     }
     private fun jumpToSettingActivity() {
         val intent =Intent(activity,SettingActivity::class.java)
+        startActivity(intent)
+    }
+    private fun jumpToCouponActivity() {
+        val intent =Intent(activity,CouponActivity::class.java)
+        startActivity(intent)
+    }
+    private fun jumpToOrderAllActivity() {
+        val intent =Intent(activity, OrderAllActivity::class.java)
         startActivity(intent)
     }
 
