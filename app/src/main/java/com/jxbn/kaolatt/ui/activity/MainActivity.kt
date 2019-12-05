@@ -128,8 +128,8 @@ class MainActivity : BaseActivity() {
                 toolbar_title.visibility = View.GONE
                 toolbar_left_img.visibility = View.VISIBLE
                 toolbar_right_img.visibility = View.VISIBLE
-                toolbar_left_img.setImageDrawable(resources.getDrawable(R.drawable.icon_edit))
-                toolbar_right_img.setImageDrawable(resources.getDrawable(R.drawable.icon_msg))
+                toolbar_left_img.setImageDrawable(resources.getDrawable(R.mipmap.icon_ziliao))
+                toolbar_right_img.setImageDrawable(resources.getDrawable(R.mipmap.icon_message))
                 toolbar_left_img.setOnClickListener {
                     jumpToPersonalInfoActivity()
                 }

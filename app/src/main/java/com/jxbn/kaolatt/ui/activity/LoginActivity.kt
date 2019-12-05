@@ -4,7 +4,6 @@ import android.content.Intent
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.UserInfo
 import com.jxbn.kaolatt.ext.showToast
@@ -34,8 +33,8 @@ class LoginActivity : BaseActivity() {
         tv_register.setOnClickListener { jumpToRegisterActivity() }
         tv_forget_pwd.setOnClickListener { jumpToForgetPwdActivity() }
         tv_login.setOnClickListener { doLogin() }
-        iv_eye.setOnClickListener {
-            showOrHidden() }
+        iv_eye.setOnClickListener { showOrHidden() }
+        iv_clear.setOnClickListener {et_name.setText("")}
 
     }
 
@@ -81,14 +80,14 @@ class LoginActivity : BaseActivity() {
         if (showOrHidden) {
             showOrHidden = false
             //否则隐藏密码、
-            // et_pwd.setImageResource(R.drawable.login_btn_notshow)
+            iv_eye.setImageResource(R.mipmap.icon_login_unlook)
             et_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
             //光标最后
             et_pwd.setSelection(et_pwd.text.toString().length)
         } else {
             showOrHidden = true
             //如果选中，显示密码
-            // et_pwd.setImageResource(R.drawable.login_btn_show)
+            iv_eye.setImageResource(R.mipmap.icon_login_look)
             et_pwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
             //光标最后
             et_pwd.setSelection(et_pwd.text.toString().length)

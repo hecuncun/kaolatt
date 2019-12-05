@@ -9,12 +9,13 @@
     <RelativeLayout
         android:id="@+id/rl_about_us"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp">
 
         <TextView
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp_10"
+            android:layout_marginLeft="15dp"
             android:textSize="@dimen/text_size_big"
             android:text="关于我们"
             android:textColor="@color/text_color_gray"/>
@@ -25,20 +26,22 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/arrow_right"/>
+            android:src="@mipmap/right_arrow"/>
     </RelativeLayout>
 
     <View style="@style/horizontalGrayLine"/>
     <RelativeLayout
         android:id="@+id/rl_feedback"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:gravity="center"
+        android:layout_height="50dp">
 
         <TextView
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp_10"
             android:textSize="@dimen/text_size_big"
+            android:layout_marginLeft="15dp"
             android:text="建议反馈"
             android:textColor="@color/text_color_gray"/>
 
@@ -48,20 +51,22 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/arrow_right"/>
+            android:src="@mipmap/right_arrow"/>
     </RelativeLayout>
 
     <View style="@style/horizontalGrayLine"/>
     <RelativeLayout
+        android:gravity="center"
         android:id="@+id/rl_change_pwd"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp">
 
         <TextView
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp_10"
             android:text="修改密码"
+            android:layout_marginLeft="15dp"
             android:textSize="@dimen/text_size_big"
             android:textColor="@color/text_color_gray"/>
 
@@ -71,20 +76,22 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/arrow_right"/>
+            android:src="@mipmap/right_arrow"/>
     </RelativeLayout>
 
     <View style="@style/horizontalGrayLine"/>
     <RelativeLayout
         android:id="@+id/rl_logout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:gravity="center"
+        android:layout_height="50dp">
 
         <TextView
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp_10"
             android:text="退出登录"
+            android:layout_marginLeft="15dp"
             android:textSize="@dimen/text_size_big"
             android:textColor="@color/text_color_gray"/>
 
@@ -94,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/arrow_right"/>
+            android:src="@mipmap/right_arrow"/>
     </RelativeLayout>
 
     <View style="@style/horizontalGrayLine"/>

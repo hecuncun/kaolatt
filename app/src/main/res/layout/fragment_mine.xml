@@ -13,29 +13,29 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_180"
+            android:layout_height="214dp"
             android:background="@color/colorPrimary"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:src="@drawable/icon_head_photo"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dp_5"
+                android:layout_marginTop="@dimen/dp_10"
                 android:text="考拉"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_bigger"/>
+                android:textSize="@dimen/text_size_big"/>
 
             <TextView
                 android:id="@+id/tv_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dp_5"
+                android:layout_marginTop="@dimen/dp_10"
                 android:text="ID:SDSDSDSD"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_normal"/>
@@ -44,24 +44,25 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="140dp"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="130dp"
+            android:layout_marginTop="142dp"
             android:background="@drawable/bg_white_round"
             android:orientation="vertical">
 
             <LinearLayout
-
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="44dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:padding="@dimen/dp_10"
+                    android:paddingLeft="@dimen/dp_17"
                     android:text="我的订单"
                     android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_normal"/>
@@ -70,8 +71,10 @@
                     android:id="@+id/tv_order_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:text="查看全部>"/>
+                    android:drawablePadding="@dimen/dp_5"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:paddingRight="@dimen/dp_17"
+                    android:text="查看全部"/>
             </LinearLayout>
 
             <View
@@ -88,41 +91,62 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableTop="@drawable/icon_evaluate"
+                    android:drawablePadding="@dimen/dp_12"
+                    android:drawableTop="@mipmap/icon_pay"
                     android:gravity="center"
                     android:text="待付款"
-                    android:textColor="@color/text_color_gray"/>
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/text_size_normal"/>
 
-                <TextView
-                    android:id="@+id/tv_wait_receive"
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableTop="@drawable/icon_evaluate"
-                    android:gravity="center"
-                    android:text="待收货"
-                    android:textColor="@color/text_color_gray"/>
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:id="@+id/tv_wait_receive"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableTop="@mipmap/icon_deliver"
+                        android:gravity="center"
+                        android:text="待收货"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/text_size_normal"/>
+                    <TextView
+                        android:layout_marginTop="@dimen/dp_15"
+                       android:layout_alignParentRight="true"
+                       android:layout_marginRight="@dimen/dp_15"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_smaller"
+                        android:background="@drawable/bg_red_circle"
+                        android:text="12"/>
+                </RelativeLayout>
+
 
                 <TextView
                     android:id="@+id/tv_wait_evaluate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableTop="@drawable/icon_evaluate"
+                    android:drawablePadding="@dimen/dp_12"
+                    android:drawableTop="@mipmap/icon_evaluate"
                     android:gravity="center"
                     android:text="待评价"
-                    android:textColor="@color/text_color_gray"/>
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/text_size_normal"/>
 
                 <TextView
                     android:id="@+id/tv_complete"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableTop="@drawable/icon_evaluate"
+                    android:drawablePadding="@dimen/dp_12"
+                    android:drawableTop="@mipmap/icon_send"
                     android:gravity="center"
                     android:text="已完成"
                     android:textColor="@color/text_color_gray"/>
@@ -132,11 +156,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:drawableTop="@drawable/icon_evaluate"
+                    android:drawablePadding="@dimen/dp_12"
+                    android:drawableTop="@mipmap/icon_refund"
                     android:gravity="center"
                     android:text="退货"
-                    android:textColor="@color/text_color_gray"/>
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/text_size_normal"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -144,10 +169,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="280dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginTop="297dp"
             android:background="@drawable/bg_white_round"
             android:orientation="vertical">
 
@@ -157,9 +182,9 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/icon_evaluate"
-                    android:drawablePadding="@dimen/dp_10"
+                    android:layout_height="50dp"
+                    android:drawableLeft="@mipmap/icon_menu01"
+                    android:drawablePadding="@dimen/dp_6"
                     android:padding="@dimen/dp_16"
                     android:text="我的收藏"
                     android:textColor="@color/text_color_gray"
@@ -171,7 +196,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dp_10"
-                    android:src="@drawable/arrow_right"/>
+                    android:src="@mipmap/right_arrow"/>
             </RelativeLayout>
 
             <View style="@style/horizontalGrayLine"/>
@@ -184,8 +209,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/icon_evaluate"
-                    android:drawablePadding="@dimen/dp_10"
+                    android:drawableLeft="@mipmap/icon_menu02"
+                    android:drawablePadding="@dimen/dp_6"
                     android:padding="@dimen/dp_16"
                     android:text="优惠券"
                     android:textColor="@color/text_color_gray"
@@ -197,7 +222,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dp_10"
-                    android:src="@drawable/arrow_right"/>
+                    android:src="@mipmap/right_arrow"/>
             </RelativeLayout>
 
             <View style="@style/horizontalGrayLine"/>
@@ -210,8 +235,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/icon_evaluate"
-                    android:drawablePadding="@dimen/dp_10"
+                    android:drawableLeft="@mipmap/icon_menu03"
+                    android:drawablePadding="@dimen/dp_6"
                     android:padding="@dimen/dp_16"
                     android:text="我的积分"
                     android:textColor="@color/text_color_gray"
@@ -223,7 +248,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dp_10"
-                    android:src="@drawable/arrow_right"/>
+                    android:src="@mipmap/right_arrow"/>
             </RelativeLayout>
 
             <View style="@style/horizontalGrayLine"/>
@@ -236,8 +261,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/icon_evaluate"
-                    android:drawablePadding="@dimen/dp_10"
+                    android:drawableLeft="@mipmap/icon_menu04"
+                    android:drawablePadding="@dimen/dp_6"
                     android:padding="@dimen/dp_16"
                     android:text="设置"
                     android:textColor="@color/text_color_gray"
@@ -249,7 +274,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dp_10"
-                    android:src="@drawable/arrow_right"/>
+                    android:src="@mipmap/right_arrow"/>
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>

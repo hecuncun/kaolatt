@@ -7,7 +7,7 @@
 <include layout="@layout/toolbar"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="75dp"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:gravity="center_vertical"
@@ -17,26 +17,28 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:padding="@dimen/dp_10"
+            android:textSize="@dimen/text_size_normal"
             android:textColor="@color/text_color_gray"
             android:text="头像"/>
         <ImageView
             android:id="@+id/iv_head_photo"
             android:layout_marginTop="@dimen/dp_10"
             android:layout_marginBottom="@dimen/dp_10"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:src="@drawable/icon_head_photo"/>
         <ImageView
-            android:layout_margin="@dimen/dp_10"
+            android:layout_marginRight="22dp"
+            android:layout_marginLeft="@dimen/dp_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/arrow_right"/>
+            android:src="@mipmap/right_arrow"/>
     </LinearLayout>
     <View
         style="@style/horizontalGrayLine"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:gravity="center_vertical"
@@ -46,12 +48,15 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:padding="@dimen/dp_10"
+            android:textSize="@dimen/text_size_normal"
             android:textColor="@color/text_color_gray"
             android:text="ID号"/>
         <TextView
-            android:layout_margin="@dimen/dp_10"
+           android:layout_marginRight="22dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_999999"
+            android:textSize="@dimen/text_size_normal"
             android:text="TL00000100000"/>
     </LinearLayout>
     <View

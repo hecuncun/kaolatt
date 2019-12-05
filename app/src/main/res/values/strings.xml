@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">考拉淘淘</string>
     <string name="user_agreement">同意<u>《用户注册协议》</u></string>
+    <string name="user_account_hint">请输入您的账号</string>
+    <string name="user_pwd_hint">请输入您的密码</string>
+    <string name="login">登录</string>
+    <string name="register">手机注册</string>
+    <string name="forget_pwd">忘记密码？</string>
 </resources>

@@ -10,43 +10,47 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_60"
-        android:src="@mipmap/ic_launcher"/>
+        android:layout_marginTop="@dimen/dp_97"
+        android:src="@mipmap/logo"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_60">
+        android:layout_marginTop="@dimen/dp_68">
 
         <EditText
             android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/et_bg_selector"
-            android:hint="请输入您的账号"
+            android:hint="@string/user_account_hint"
+            android:textSize="@dimen/text_size_normal"
             android:padding="@dimen/dp_10"/>
 
         <ImageView
+            android:id="@+id/iv_clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_10"
-            android:src="@drawable/icon_delete"/>
+            android:padding="@dimen/dp_10"
+            android:src="@mipmap/icon_login_close"/>
     </RelativeLayout>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_30">
+        android:layout_marginTop="@dimen/dp_20">
 
         <EditText
             android:id="@+id/et_pwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/et_bg_selector"
-            android:hint="请输入您的密码"
+            android:textSize="@dimen/text_size_normal"
+            android:hint="@string/user_pwd_hint"
             android:padding="@dimen/dp_10"/>
 
         <ImageView
@@ -54,35 +58,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_10"
-            android:src="@drawable/icon_eye_open"/>
+            android:padding="@dimen/dp_10"
+            android:src="@mipmap/icon_login_look"/>
     </RelativeLayout>
 
 
     <TextView
         android:id="@+id/tv_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="@dimen/dp_30"
         android:background="@drawable/bg_blue_btn"
         android:gravity="center"
-        android:padding="@dimen/dp_10"
-        android:text="登录"
+        android:text="@string/login"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_big"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10">
+        android:layout_marginTop="@dimen/dp_20">
 
         <TextView
             android:id="@+id/tv_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp_10"
-            android:text="手机注册"
+            android:text="@string/register"
             android:textColor="@color/text_color_gray"
             android:textSize="@dimen/text_size_normal"/>
 
@@ -91,8 +94,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:padding="@dimen/dp_10"
-            android:text="忘记密码"
+            android:layout_alignParentEnd="true"
+            android:text="@string/forget_pwd"
             android:textColor="@color/text_color_gray"
             android:textSize="@dimen/text_size_normal"/>
     </RelativeLayout>
