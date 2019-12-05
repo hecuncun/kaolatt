@@ -25,6 +25,7 @@ class OrderAdapter:BaseQuickAdapter<OrderBean,BaseViewHolder>(R.layout.item_orde
                             2->"待评价"
                             3->"已完成"
                             4->"退货中"
+                            5->"退货完成"
                             else ->""})
         helper.getView<TextView>(R.id.tv_cancel_order).visibility=if(item.type==0) View.VISIBLE else View.GONE
         helper.getView<TextView>(R.id.tv_confirm_order).text= when(item.type){
@@ -33,6 +34,7 @@ class OrderAdapter:BaseQuickAdapter<OrderBean,BaseViewHolder>(R.layout.item_orde
             2->"去评价"
             3->"删除订单"
             4->"查看详情"
+            5->"查看详情"
             else ->""}
     }
 

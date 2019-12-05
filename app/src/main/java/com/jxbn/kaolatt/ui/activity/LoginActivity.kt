@@ -1,6 +1,8 @@
 package com.jxbn.kaolatt.ui.activity
 
 import android.content.Intent
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.base.BaseActivity
@@ -32,6 +34,8 @@ class LoginActivity : BaseActivity() {
         tv_register.setOnClickListener { jumpToRegisterActivity() }
         tv_forget_pwd.setOnClickListener { jumpToForgetPwdActivity() }
         tv_login.setOnClickListener { doLogin() }
+        iv_eye.setOnClickListener {
+            showOrHidden() }
 
     }
 
@@ -39,18 +43,19 @@ class LoginActivity : BaseActivity() {
      * 登录
      */
     private fun doLogin() {
+        jumpToMainActivity()
         val name = et_name.text.toString().trim()
         val pwd = et_pwd.text.toString().trim()
-        if (name.isNotEmpty() and pwd.isNotEmpty()){
+        if (name.isNotEmpty() and pwd.isNotEmpty()) {
             val loadingView = LoadingView(this@LoginActivity)
             loadingView.setLoadingTitle("登录中...")
             loadingView.show()
             val observable = SLMRetrofit.getInstance().api.loginCall(name, pwd)
             observable.compose(ThreadSwitchTransformer()).subscribe(object : CallbackObserver<UserInfo>() {
                 override fun onSucceed(t: UserInfo?, desc: String?) {
-                   showToast("${t?.token}")
+                    showToast("${t?.token}")
                     loadingView.dismiss()
-                    jumpToMainActivity()
+                   // jumpToMainActivity()
                 }
 
                 override fun onFailed() {
@@ -58,10 +63,36 @@ class LoginActivity : BaseActivity() {
                     showToast("登陆失败")
                 }
             })
-        }else{
+        } else {
             showToast("请输入用户名和密码")
         }
 
+    }
+
+    /**
+     * 密码显示隐藏
+     */
+    private var showOrHidden = false
+
+    private fun showOrHidden() {
+        if (et_pwd.text.toString().trim().isEmpty()) {
+            return
+        }
+        if (showOrHidden) {
+            showOrHidden = false
+            //否则隐藏密码、
+            // et_pwd.setImageResource(R.drawable.login_btn_notshow)
+            et_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
+            //光标最后
+            et_pwd.setSelection(et_pwd.text.toString().length)
+        } else {
+            showOrHidden = true
+            //如果选中，显示密码
+            // et_pwd.setImageResource(R.drawable.login_btn_show)
+            et_pwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            //光标最后
+            et_pwd.setSelection(et_pwd.text.toString().length)
+        }
     }
 
     private fun jumpToRegisterActivity() {

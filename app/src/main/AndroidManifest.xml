@@ -53,6 +53,7 @@
         <activity android:name=".ui.activity.ScoreDetailActivity"/>
         <activity android:name=".ui.activity.CouponActivity"/>
         <activity android:name=".ui.activity.OrderAllActivity"/>
+        <activity android:name=".ui.activity.OrderDetailActivity"/>
     </application>
 
 </manifest>

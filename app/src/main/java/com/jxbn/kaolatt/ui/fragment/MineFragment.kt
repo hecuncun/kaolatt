@@ -18,7 +18,13 @@ class MineFragment : BaseFragment() {
         rl_my_score.setOnClickListener { jumpToScoreActivity() }
         rl_setting.setOnClickListener { jumpToSettingActivity() }
         rl_coupon.setOnClickListener {  jumpToCouponActivity()}
-        tv_order_all.setOnClickListener { jumpToOrderAllActivity() }
+        tv_order_all.setOnClickListener { jumpToOrderAllActivity(10) }
+        tv_wait_pay.setOnClickListener { jumpToOrderAllActivity(0) }
+        tv_wait_receive.setOnClickListener { jumpToOrderAllActivity(1) }
+        tv_wait_evaluate.setOnClickListener { jumpToOrderAllActivity(2) }
+        tv_complete.setOnClickListener { jumpToOrderAllActivity(3) }
+        tv_reject.setOnClickListener {  jumpToOrderAllActivity(4) }
+
     }
 
     private fun jumpToScoreActivity() {
@@ -33,8 +39,9 @@ class MineFragment : BaseFragment() {
         val intent =Intent(activity,CouponActivity::class.java)
         startActivity(intent)
     }
-    private fun jumpToOrderAllActivity() {
+    private fun jumpToOrderAllActivity(type:Int) {
         val intent =Intent(activity, OrderAllActivity::class.java)
+        intent.putExtra("type",type)
         startActivity(intent)
     }
 
