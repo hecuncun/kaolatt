@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:padding="8dp"
+                android:padding="10dp"
                 android:text=" 雅诗兰黛旗舰店雅诗兰黛肌透肌底肌底修护眼部精华霜 15ml"
                 android:textColor="@color/text_color_666666"
                 android:textSize="14sp"/>
@@ -65,7 +65,7 @@
                 android:padding="8dp"
                 android:text="销量120"
                 android:textColor="@color/text_color_666666"
-                android:textSize="14sp"/>
+                android:textSize="12sp"/>
         </LinearLayout>
     </LinearLayout>
 

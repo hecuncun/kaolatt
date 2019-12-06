@@ -22,7 +22,7 @@ class CouponActivity:BaseActivity() {
     override fun initData() {
         val list = mutableListOf<CouponBean>()
         for (i in 1..20){
-            list.add(CouponBean(10f.plus(i.times(5)),"满200可用","2019.12.02","2020.3.21"))
+            list.add(CouponBean(10f.plus(i.times(5)),"满200可用","2019.12.02","2020.3.21",i%3))
         }
         couponAdapter.addData(list)
     }

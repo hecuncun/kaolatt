@@ -26,4 +26,8 @@ class LogoutDialog(context: Context):BaseAlertDialog<LogoutDialog>(context) {
     fun setConfirmListener(listener:View.OnClickListener){
         tv_confirm.setOnClickListener(listener)
     }
+
+    fun setTitle(title:String){
+        tv_title.text=title
+    }
 }
