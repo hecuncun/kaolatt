@@ -5,9 +5,11 @@
               android:layout_height="match_parent">
     <include layout="@layout/toolbar"/>
     <TextView
-        android:padding="@dimen/dp_10"
+        android:padding="@dimen/dp_16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_big"
+        android:textColor="@color/text_color_gray"
         android:text="考拉淘淘是一款跨境购物APP"/>
 
 </LinearLayout>

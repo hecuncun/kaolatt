@@ -18,11 +18,10 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:background="@drawable/bg_blue_btn"
         android:gravity="center"
-        android:padding="@dimen/dp_10"
         android:text="确认"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_big"/>

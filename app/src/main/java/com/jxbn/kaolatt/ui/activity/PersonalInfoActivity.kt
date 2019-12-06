@@ -37,6 +37,14 @@ class PersonalInfoActivity:BaseActivity() {
         iv_head_photo.setOnClickListener {
             showList()
         }
+        ll_nick_name.setOnClickListener {
+            jumpToNickNameActivity()
+        }
+    }
+
+    private fun jumpToNickNameActivity() {
+        val intent = Intent(this@PersonalInfoActivity,NickNameActivity::class.java)
+        startActivity(intent)
     }
 
     private fun showList() {

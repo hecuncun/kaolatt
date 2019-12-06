@@ -2,10 +2,7 @@ package com.jxbn.kaolatt.ui.fragment
 import android.content.Intent
 import android.view.View
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.ui.activity.CouponActivity
-import com.jxbn.kaolatt.ui.activity.OrderAllActivity
-import com.jxbn.kaolatt.ui.activity.ScoreActivity
-import com.jxbn.kaolatt.ui.activity.SettingActivity
+import com.jxbn.kaolatt.ui.activity.*
 import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_mine.*
 
@@ -24,6 +21,7 @@ class MineFragment : BaseFragment() {
         tv_wait_evaluate.setOnClickListener { jumpToOrderAllActivity(2) }
         tv_complete.setOnClickListener { jumpToOrderAllActivity(3) }
         tv_reject.setOnClickListener {  jumpToOrderAllActivity(4) }
+        rl_collection.setOnClickListener {  jumpToCollectionActivity()}
 
     }
 
@@ -42,6 +40,10 @@ class MineFragment : BaseFragment() {
     private fun jumpToOrderAllActivity(type:Int) {
         val intent =Intent(activity, OrderAllActivity::class.java)
         intent.putExtra("type",type)
+        startActivity(intent)
+    }
+    private fun jumpToCollectionActivity() {
+        val intent =Intent(activity, CollectionActivity::class.java)
         startActivity(intent)
     }
 

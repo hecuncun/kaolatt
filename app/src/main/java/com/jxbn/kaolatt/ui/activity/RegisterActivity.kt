@@ -22,6 +22,7 @@ class RegisterActivity:BaseActivity() {
     private val REQUEST_FRONT = 0X333
     private val REQUEST_BACK = 0X334
     private var tag =REQUEST_FRONT
+    private var agree = false
     override fun attachLayoutRes(): Int= R.layout.activity_register
 
     override fun initData() {
@@ -47,6 +48,10 @@ class RegisterActivity:BaseActivity() {
         iv_back.setOnClickListener {
            finish()
        }
+        iv_agree.setOnClickListener {
+            agree=!agree
+            iv_agree.setImageDrawable(if (agree)resources.getDrawable(R.mipmap.icon_chenkbox) else resources.getDrawable(R.mipmap.icon_chenkbox_pre))
+        }
         tv_agreement.setOnClickListener{
           jumpToAgreementActivity()
         }

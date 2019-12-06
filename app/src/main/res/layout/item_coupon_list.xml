@@ -10,13 +10,16 @@
               android:orientation="horizontal">
 
     <ImageView
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:padding="@dimen/dp_10"
-        android:src="@mipmap/ic_launcher"/>
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:background="@drawable/bg_gray_kuang_rec"
+        android:src="@mipmap/icon_coupon"/>
 
     <LinearLayout
+        android:layout_marginLeft="@dimen/dp_10"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -28,9 +31,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="平台通用优惠券"
+            android:textSize="13sp"
             android:textColor="@color/text_color_gray"/>
 
         <LinearLayout
+
+            android:layout_marginTop="@dimen/dp_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -39,17 +45,20 @@
                 android:id="@+id/tv_start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="10sp"
                 android:text="2019.9.4"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="10sp"
                 android:text=" 一 "/>
 
             <TextView
                 android:id="@+id/tv_end_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="10sp"
                 android:text="2019.9.4"/>
 
         </LinearLayout>
@@ -64,15 +73,15 @@
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             android:layout_centerInParent="true"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@mipmap/icon_youhui"/>
         <TextView
-            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_20"
             android:layout_centerHorizontal="true"
             android:id="@+id/tv_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="26sp"
+            android:textSize="13sp"
             android:text="￥50"/>
         <TextView
             android:layout_centerHorizontal="true"
@@ -80,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="11sp"
             android:layout_below="@+id/tv_money"
             android:text="满200可用"/>
     </RelativeLayout>

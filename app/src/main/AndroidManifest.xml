@@ -54,6 +54,8 @@
         <activity android:name=".ui.activity.CouponActivity"/>
         <activity android:name=".ui.activity.OrderAllActivity"/>
         <activity android:name=".ui.activity.OrderDetailActivity"/>
+        <activity android:name=".ui.activity.NickNameActivity"/>
+        <activity android:name=".ui.activity.CollectionActivity"/>
     </application>
 
 </manifest>
