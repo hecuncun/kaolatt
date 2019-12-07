@@ -85,14 +85,18 @@ class MainActivity : BaseActivity() {
         toolbar_right_img.visibility = View.GONE
         toolbar_left_img.visibility=View.GONE
         toolbar_right_tv.visibility = View.GONE
+        tool_bar_search.visibility=View.GONE
         iv_back.visibility = View.GONE
 
         when (index) {
             FRAGMENT_HOME -> {
-                toolbar_title.visibility=View.VISIBLE
-                toolbar_title.text ="首页"
-//                toolbar_right_img.visibility = View.VISIBLE
-//                toolbar_right_img.setImageResource(R.drawable.icon_ble_close)
+                tool_bar_search.visibility=View.VISIBLE
+                toolbar_left_img.visibility=View.VISIBLE
+                toolbar_right_img.visibility=View.VISIBLE
+                toolbar_left_img.setImageResource(R.mipmap.icon_logo)
+                toolbar_right_img.setImageResource(R.mipmap.icon_message)
+                tool_bar_search.setOnClickListener { jumpToSearchActivity() }
+                toolbar_right_img.setOnClickListener { jumpToMsgActivity() }
                 if (mHomeFragment == null) {
                     mHomeFragment = HomeFragment.getInstance()
                     transaction.add(R.id.container, mHomeFragment!!, "home")
@@ -145,8 +149,19 @@ class MainActivity : BaseActivity() {
         transaction.commit()
     }
 
+    private fun jumpToMsgActivity() {
+        val intent = Intent(this@MainActivity,MsgActivity::class.java)
+        startActivity(intent)
+
+    }
+
     private fun jumpToPersonalInfoActivity() {
         val intent = Intent(this@MainActivity,PersonalInfoActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun jumpToSearchActivity() {
+        val intent = Intent(this@MainActivity,SearchActivity::class.java)
         startActivity(intent)
     }
 

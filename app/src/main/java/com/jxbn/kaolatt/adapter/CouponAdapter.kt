@@ -1,5 +1,6 @@
 package com.jxbn.kaolatt.adapter
 
+import android.view.View
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -18,11 +19,22 @@ class CouponAdapter:BaseQuickAdapter<CouponBean,BaseViewHolder>(R.layout.item_co
                 .setText(R.id.tv_end_time,item.endTime)
         helper.getView<ImageView>(R.id.iv_type).setImageResource(
                 when(item.type){
-                    0->R.mipmap.icon_youhui
-                    1->R.mipmap.icon_guoqi
-                    2->R.mipmap.icon_shiyong
+                    0->R.mipmap.icon_youhui//优惠
+                    1->R.mipmap.icon_huise//过期
+                    2->R.mipmap.icon_huise//已使用
                     else->R.mipmap.icon_youhui
                 }
         )
+      val ivState =  helper.getView<ImageView>(R.id.iv_state)
+        when(item.type){
+            0->{ivState.visibility=View.GONE}
+            1->{ivState.visibility=View.VISIBLE
+                ivState.setImageResource(R.mipmap.icon_guoqi)
+            }
+            2->{
+                ivState.visibility=View.VISIBLE
+                ivState.setImageResource(R.mipmap.icon_shiyong)
+            }
+        }
     }
 }

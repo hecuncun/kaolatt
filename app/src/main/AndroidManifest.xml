@@ -56,6 +56,11 @@
         <activity android:name=".ui.activity.OrderDetailActivity"/>
         <activity android:name=".ui.activity.NickNameActivity"/>
         <activity android:name=".ui.activity.CollectionActivity"/>
+        <activity android:name=".ui.activity.EvaluateActivity"/>
+        <activity android:name=".ui.activity.ReturnGoodsActivity"/>
+        <activity android:name=".ui.activity.DeliveryActivity"/>
+        <activity android:name=".ui.activity.SearchActivity"/>
+        <activity android:name=".ui.activity.MsgActivity"/>
     </application>
 
 </manifest>

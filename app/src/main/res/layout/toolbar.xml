@@ -33,6 +33,19 @@
             android:text=""
             android:textColor="@color/white"
             android:textSize="18sp" />
+        <TextView
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:id="@+id/tool_bar_search"
+            android:layout_width="210dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:drawablePadding="7dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp_10"
+            android:drawableLeft="@mipmap/icon_sousuo"
+            android:hint="精选运动鞋服"
+            android:background="@drawable/bg_white_round_16"/>
 
         <TextView
             android:id="@+id/toolbar_right_tv"

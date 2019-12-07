@@ -18,6 +18,7 @@ class OrderAdapter:BaseQuickAdapter<OrderBean,BaseViewHolder>(R.layout.item_orde
                 .setText(R.id.tv_goods_num,item.goodsNum.toString())
                 .setText(R.id.tv_money,item.money.toString())
                 .setText(R.id.tv_mark,item.mark)
+                .setText(R.id.tv_cancel_order,if (item.type==1){"查看物流"}else{"取消订单"})
                 .setText(R.id.tv_order_type,
                         when(item.type){
                             0->"待付款"
@@ -27,7 +28,9 @@ class OrderAdapter:BaseQuickAdapter<OrderBean,BaseViewHolder>(R.layout.item_orde
                             4->"退货中"
                             5->"退货完成"
                             else ->""})
-        helper.getView<TextView>(R.id.tv_cancel_order).visibility=if(item.type==0) View.VISIBLE else View.GONE
+
+        helper.getView<TextView>(R.id.tv_cancel_order).visibility=if(item.type==0 || item.type==1) View.VISIBLE else View.GONE
+        helper.getView<TextView>(R.id.tv_cancel_order).setTextColor(if (item.type==0) mContext.resources.getColor(R.color.text_color_666666) else  mContext.resources.getColor(R.color.colorPrimary))
         helper.getView<TextView>(R.id.tv_confirm_order).text= when(item.type){
             0->"立即付款"
             1->"确认收货"
@@ -36,6 +39,11 @@ class OrderAdapter:BaseQuickAdapter<OrderBean,BaseViewHolder>(R.layout.item_orde
             4->"查看详情"
             5->"查看详情"
             else ->""}
+
+        helper.addOnClickListener(R.id.tv_confirm_order)
+        helper.addOnClickListener(R.id.tv_cancel_order)
     }
+
+
 
 }

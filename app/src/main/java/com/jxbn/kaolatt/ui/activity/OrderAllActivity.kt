@@ -5,7 +5,6 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.R.id.iv_back
 import com.jxbn.kaolatt.adapter.OrderAdapter
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.OrderBean
@@ -56,8 +55,23 @@ class OrderAllActivity:BaseActivity() {
         orderAdapter.setOnItemClickListener { adapter, view, position ->
             jumpToOrderDetailActivity()
         }
+        orderAdapter.setOnItemChildClickListener { adapter, view, position ->
+         when(view.id){
+             R.id.tv_confirm_order ->{//立即付款，确认收货，去评价，删除订单，查看详情
+                 jumpToEvaluateActivity()
+               }
+                 R.id.tv_cancel_order->{
+                     //取消订单，查看物流
+                 }
+
+         }
+        }
     }
 
+    private fun jumpToEvaluateActivity() {
+        val intent = Intent(this@OrderAllActivity,EvaluateActivity::class.java)
+        startActivity(intent)
+    }
     private fun jumpToOrderDetailActivity() {
         val intent = Intent(this@OrderAllActivity,OrderDetailActivity::class.java)
         startActivity(intent)
