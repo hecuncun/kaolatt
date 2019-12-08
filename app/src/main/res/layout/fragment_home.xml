@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:orientation="vertical">
+<com.jxbn.kaolatt.widget.CustomScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:overScrollMode="never">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,17 +21,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:background="@color/colorPrimary"/>
-            <com.zhouwei.mzbanner.MZBannerView
-                android:id="@+id/banner"
+
+            <com.stx.xhb.xbanner.XBanner
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/xbanner"
                 android:layout_width="match_parent"
-                android:layout_height="178dp"
+                android:layout_height="180dp"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_20"
-                app:open_mz_mode="true"
-                app:canLoop="true"
-                app:indicatorAlign="center"
-                app:indicatorPaddingLeft="10dp"/>
+                app:AutoPlayTime="3000"
+                app:isShowIndicatorOnlyOne="true"
+                app:isShowNumberIndicator="true"
+                app:pageChangeDuration="800"
+                app:pointNormal="@drawable/shape_noraml"
+                app:pointSelect="@drawable/shape_selected"
+                app:pointsContainerBackground="#44aaaaaa"
+                app:pointsPosition="RIGHT"
+                app:tipTextSize="12sp"/>
 
         </RelativeLayout>
 
@@ -114,6 +124,7 @@
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_good"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="none"/>
@@ -144,6 +155,7 @@
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_famous"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="none"/>
@@ -174,10 +186,22 @@
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_more_recommend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:scrollbars="none"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginBottom="14dp"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:text="上拉加载更多..."
+            android:textColor="@color/text_color_666666"
+            android:textSize="12sp"/>
     </LinearLayout>
 
 
-</ScrollView>
+</com.jxbn.kaolatt.widget.CustomScrollView>
