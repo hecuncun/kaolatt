@@ -1,5 +1,6 @@
 package com.jxbn.kaolatt.ui.fragment
 
+import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -11,6 +12,7 @@ import com.jxbn.kaolatt.bean.BannerBean
 import com.jxbn.kaolatt.bean.GoodsBean
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.glide.GlideUtils
+import com.jxbn.kaolatt.ui.activity.GoodsDetailActivity
 import com.jxbn.kaolatt.widget.CustomScrollView
 import com.lhzw.bluetooth.base.BaseFragment
 import com.orhanobut.logger.Logger
@@ -51,6 +53,13 @@ class HomeFragment : BaseFragment() {
             moreRecommendAdapter.loadMoreEnd()
             }
         })
+
+
+        goodAdapter.setOnItemClickListener { adapter, view, position ->
+            val intent = Intent(activity,GoodsDetailActivity::class.java)
+            startActivity(intent)
+
+        }
     }
 
     companion object {

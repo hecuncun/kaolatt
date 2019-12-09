@@ -61,6 +61,8 @@
         <activity android:name=".ui.activity.DeliveryActivity"/>
         <activity android:name=".ui.activity.SearchActivity"/>
         <activity android:name=".ui.activity.MsgActivity"/>
+        <activity android:name=".ui.activity.GoodsDetailActivity"/>
+        <activity android:name=".ui.activity.EvaluateListActivity"/>
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package com.jxbn.kaolatt.ui.activity
 
 import android.view.View
 import com.jxbn.kaolatt.R
+import com.jxbn.kaolatt.R.id.iv_back
 import com.jxbn.kaolatt.base.BaseActivity
 import kotlinx.android.synthetic.main.toolbar.*
 

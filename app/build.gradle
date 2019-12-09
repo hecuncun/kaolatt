@@ -47,9 +47,9 @@ dependencies {
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.5.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
-    //RxJava/RxAndroid
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+//    //RxJava/RxAndroid
+//    implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
+//    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
     //https://github.com/LitePalFramework/LitePal/issues?page=2&q=is%3Aissue+is%3Aopen
     //https://www.jianshu.com/p/89a337f585db LitePal用法与实践
     implementation 'org.litepal.android:kotlin:3.0.0'
