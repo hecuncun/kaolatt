@@ -61,10 +61,9 @@ abstract class BaseActivity :AppCompatActivity(){
          EventBus.getDefault().register(this)
         }
         initView()
-        initListener()
         initData()
+        initListener()
         initStateBarColor()
-
     }
 
     open fun initStateBarColor() {
