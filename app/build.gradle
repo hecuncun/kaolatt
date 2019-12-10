@@ -53,6 +53,10 @@ dependencies {
     //https://github.com/LitePalFramework/LitePal/issues?page=2&q=is%3Aissue+is%3Aopen
     //https://www.jianshu.com/p/89a337f585db LitePal用法与实践
     implementation 'org.litepal.android:kotlin:3.0.0'
+    //万能适配器
+    implementation 'com.zhy:base-adapter:3.0.3'
+    //布兰柯基工具类  https://github.com/Blankj/AndroidUtilCode
+    implementation 'com.blankj:utilcode:1.17.3'
     // RecyclerView
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
     //图片选择器

@@ -16,6 +16,7 @@ import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.glide.GlideUtils
 import com.jxbn.kaolatt.widget.GoodsDetailBottomDialog
 import com.jxbn.kaolatt.widget.MaskBottomDialog
+import com.jxbn.kaolatt.widget.ServiceDialog
 import com.jxbn.kaolatt.widget.SpaceItemDecoration
 import com.stx.xhb.xbanner.XBanner
 import kotlinx.android.synthetic.main.activity_goods_detail.*
@@ -26,8 +27,8 @@ import kotlinx.android.synthetic.main.activity_goods_detail.*
 class GoodsDetailActivity : BaseActivity() {
     val mask1 = mutableListOf<String>()//标签1
     val mask2 = mutableListOf<String>()//标签2
-    var maskDialog:MaskBottomDialog?=null
-    var goodsDetailBottomDialog:GoodsDetailBottomDialog?=null
+    var maskDialog: MaskBottomDialog? = null
+    var goodsDetailBottomDialog: GoodsDetailBottomDialog? = null
     private var bannerList = mutableListOf<BannerBean>()
 
     private val evaluateAdapter: EvaluateAdapter by lazy {
@@ -41,7 +42,7 @@ class GoodsDetailActivity : BaseActivity() {
 
     override fun initData() {
         val list = mutableListOf<EvaluateBean>()
-        for (i in 0..1) {
+        for (i in 0..2) {
             list.add(EvaluateBean("https://upload.jianshu.io/users/upload_avatars/9988193/fc26c109-1ae6-4327-a298-2def343e9cd8.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp",
                     "老子说", "谢谢博主的分享！"))
         }
@@ -49,13 +50,13 @@ class GoodsDetailActivity : BaseActivity() {
 
         //初始化弹窗数据
 
-        for (i in 0..3){
+        for (i in 0..3) {
             mask1.add("规格$i")
             mask2.add("规格$i")
         }
-        val goodsMaskBean =  GoodsMaskBean("","￥650","销量300",mask1,mask2)
-        maskDialog = MaskBottomDialog(this,goodsMaskBean)
-      goodsDetailBottomDialog=GoodsDetailBottomDialog(this)
+        val goodsMaskBean = GoodsMaskBean("", "￥650", "销量300", mask1, mask2)
+        maskDialog = MaskBottomDialog(this, goodsMaskBean)
+        goodsDetailBottomDialog = GoodsDetailBottomDialog(this)
     }
 
     override fun initView() {
@@ -72,7 +73,7 @@ class GoodsDetailActivity : BaseActivity() {
             itemAnimator = DefaultItemAnimator()
             addItemDecoration(recyclerViewItemDecoration)
             setHasFixedSize(true)
-            isNestedScrollingEnabled=false
+            isNestedScrollingEnabled = false
         }
 
     }
@@ -131,14 +132,14 @@ class GoodsDetailActivity : BaseActivity() {
     }
 
     override fun initListener() {
-        iv_back.setOnClickListener {  finish()}
+        iv_back.setOnClickListener { finish() }
         tv_all_evaluate.setOnClickListener {
-            val intent = Intent(this@GoodsDetailActivity,EvaluateListActivity::class.java)
+            val intent = Intent(this@GoodsDetailActivity, EvaluateListActivity::class.java)
             startActivity(intent)
         }
         tv_mask.setOnClickListener {
             maskDialog!!.show()
-            maskDialog!!.setOnChoseListener(MaskBottomDialog.OnChoseListener{tab1: String?, tab2: String?, num: String? ->
+            maskDialog!!.setOnChoseListener(MaskBottomDialog.OnChoseListener { tab1: String?, tab2: String?, num: String? ->
                 showToast("选择了 $tab1,$tab2,数量$num")
             })
         }
@@ -146,5 +147,18 @@ class GoodsDetailActivity : BaseActivity() {
         tv_desc.setOnClickListener {
             goodsDetailBottomDialog!!.show()
         }
+
+        fl_ke_fu.setOnClickListener {
+            ServiceDialog.newInstance("11111111","22222222","").show(supportFragmentManager,"a")
+        }
+        tv_buy.setOnClickListener { //确认订单
+         jumpToConfirmOrderActivity()
+
+        }
+    }
+
+    private fun jumpToConfirmOrderActivity() {
+        val intent =Intent(this@GoodsDetailActivity,ConfirmOrderActivity::class.java)
+        startActivity(intent)
     }
 }

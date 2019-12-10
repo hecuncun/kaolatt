@@ -63,6 +63,9 @@
         <activity android:name=".ui.activity.MsgActivity"/>
         <activity android:name=".ui.activity.GoodsDetailActivity"/>
         <activity android:name=".ui.activity.EvaluateListActivity"/>
+        <activity android:name=".ui.activity.ConfirmOrderActivity"/>
+        <activity android:name=".ui.activity.PayActivity"/>
+        <activity android:name=".ui.activity.PaySuccessActivity"/>
     </application>
 
 </manifest>

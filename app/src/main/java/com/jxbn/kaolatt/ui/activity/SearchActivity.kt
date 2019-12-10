@@ -8,6 +8,7 @@ import com.jxbn.kaolatt.bean.GoodsBean
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.flowtag.FlowTagLayout
 import com.jxbn.kaolatt.flowtag.TagAdapter
+import com.jxbn.kaolatt.widget.SortEditDialog
 import kotlinx.android.synthetic.main.activity_search.*
 
 /**
@@ -23,6 +24,7 @@ class SearchActivity:BaseActivity() {
     private val hotTagAdapter:TagAdapter<String> by lazy {
         TagAdapter<String>(this)
     }
+
     override fun attachLayoutRes(): Int = R.layout.activity_search
 
     private val list = mutableListOf<GoodsBean>()
@@ -36,6 +38,7 @@ class SearchActivity:BaseActivity() {
     override fun initView() {
         initTagLayout()
         initRecyclerView()
+
 
     }
 
@@ -79,5 +82,13 @@ class SearchActivity:BaseActivity() {
            showToast(if(goodsName.isEmpty()) "不能为空" else goodsName)
             // }
     }
+
+        tv_sort_price.setOnClickListener {
+            SortEditDialog.newInstance().setOnEnsureClickedListener { low, high ->
+               showToast("low=$low,high=$high")
+
+            }.show(supportFragmentManager,"v")
+
+        }
     }
 }
