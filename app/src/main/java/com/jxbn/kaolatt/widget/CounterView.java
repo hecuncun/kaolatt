@@ -19,6 +19,7 @@ public class CounterView extends LinearLayout {
     private TextView mTvNum;
     private TextView mTvAdd;
     private TextView mTvMinus;
+    private int resouce;
 
     public int getInitNum() {
         return mInitNum;
@@ -50,6 +51,7 @@ public class CounterView extends LinearLayout {
         mTvNum.setText(String.valueOf(mInitNum));
         mTvAdd = view.findViewById(R.id.tv_add);
         mTvMinus = view.findViewById(R.id.tv_minus);
+        mTvAdd.setBackgroundResource(resouce);
         initListener();
 
     }
@@ -62,6 +64,9 @@ public class CounterView extends LinearLayout {
                 if (mInitNum>mUpLimit){
                     mInitNum=mUpLimit;
                 }
+                if (mOnNumberChangedListener!=null){
+                    mOnNumberChangedListener.onChanged(mInitNum);
+                }
                 mTvNum.setText(String.valueOf(mInitNum));
             }
         });
@@ -73,6 +78,10 @@ public class CounterView extends LinearLayout {
                 if (mInitNum<mDownLimit){
                     mInitNum=mDownLimit;
                 }
+                if (mOnNumberChangedListener!=null){
+                    mOnNumberChangedListener.onChanged(mInitNum);
+                }
+
                 mTvNum.setText(String.valueOf(mInitNum));
             }
         });
@@ -83,7 +92,18 @@ public class CounterView extends LinearLayout {
         mInitNum = typedArray.getInt(R.styleable.CounterView_init_num, 1);
         mUpLimit = typedArray.getInt(R.styleable.CounterView_up_limit, 10000);
         mDownLimit = typedArray.getInt(R.styleable.CounterView_down_limit, 0);
+        resouce = typedArray.getResourceId(R.styleable.CounterView_btn_bg, R.drawable.bg_white_round);
         typedArray.recycle();
+    }
+
+    public OnNumberChangedListener mOnNumberChangedListener;
+
+    public void setOnNumberChangedListener(OnNumberChangedListener onNumberChangedListener) {
+        mOnNumberChangedListener = onNumberChangedListener;
+    }
+
+    interface OnNumberChangedListener{
+        void onChanged(int num);
     }
 
 

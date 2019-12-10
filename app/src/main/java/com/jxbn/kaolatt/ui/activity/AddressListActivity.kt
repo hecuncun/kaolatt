@@ -4,8 +4,6 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.R.id.iv_back
-import com.jxbn.kaolatt.R.id.toolbar_right_tv
 import com.jxbn.kaolatt.adapter.AddressAdapter
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.AddressBean
@@ -72,6 +70,7 @@ class AddressListActivity : BaseActivity() {
                     })
                 }
                 R.id.tv_edit -> {
+                    jumpToAddAddressActivity(1)
                 }
                 else -> {
                 }
@@ -81,11 +80,12 @@ class AddressListActivity : BaseActivity() {
 
     override fun initListener() {
         iv_back.setOnClickListener { finish() }
-        toolbar_right_tv.setOnClickListener { jumpToAddAddressActivity() }
+        toolbar_right_tv.setOnClickListener { jumpToAddAddressActivity(0) }
     }
 
-    private fun jumpToAddAddressActivity() {
+    private fun jumpToAddAddressActivity(from:Int) {//0 新增 1修改
         val intent = Intent(this@AddressListActivity,AddAddressActivity::class.java)
+        intent.putExtra("from",from)
         startActivity(intent)
     }
 }

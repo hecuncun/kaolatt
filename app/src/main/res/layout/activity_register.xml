@@ -167,41 +167,41 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/dp_10"
-            android:text="上传您的身份证正面照片"
-            android:textSize="@dimen/text_size_big"/>
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="@dimen/dp_10"-->
+            <!--android:text="上传您的身份证正面照片"-->
+            <!--android:textSize="@dimen/text_size_big"/>-->
 
-        <ImageView
-            android:id="@+id/iv_id_card_front"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher"/>
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_id_card_front"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="200dp"-->
+            <!--android:layout_marginLeft="@dimen/dp_10"-->
+            <!--android:layout_marginRight="@dimen/dp_10"-->
+            <!--android:scaleType="fitXY"-->
+            <!--android:src="@mipmap/ic_launcher"/>-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/dp_10"
-            android:text="上传您的身份证背面照片"
-            android:textSize="@dimen/text_size_big"/>
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="@dimen/dp_10"-->
+            <!--android:text="上传您的身份证背面照片"-->
+            <!--android:textSize="@dimen/text_size_big"/>-->
 
-        <ImageView
-            android:id="@+id/iv_id_card_back"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher"/>
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_id_card_back"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="200dp"-->
+            <!--android:layout_marginLeft="@dimen/dp_10"-->
+            <!--android:layout_marginRight="@dimen/dp_10"-->
+            <!--android:scaleType="fitXY"-->
+            <!--android:src="@mipmap/ic_launcher"/>-->
 
-        <View
-            style="@style/horizontalGrayLine"
-            android:layout_marginTop="@dimen/dp_10"/>
+        <!--<View-->
+            <!--style="@style/horizontalGrayLine"-->
+            <!--android:layout_marginTop="@dimen/dp_10"/>-->
 
 
     </LinearLayout>

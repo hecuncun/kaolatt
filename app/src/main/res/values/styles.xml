@@ -52,14 +52,6 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-    <!--自定义加减控件-->
-    <declare-styleable name="CounterView">
-        <!--初始值-->
-        <attr name="init_num" format="integer"/>
-        <!--上限-->
-        <attr name="up_limit" format="integer"/>
-        <!--下限-->
-        <attr name="down_limit" format="integer"/>
-    </declare-styleable>
+
 
 </resources>

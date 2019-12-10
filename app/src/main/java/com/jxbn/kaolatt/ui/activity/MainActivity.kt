@@ -81,6 +81,7 @@ class MainActivity : BaseActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         hideFragment(transaction)
         mIndex = index
+        toolbar.visibility=View.VISIBLE
         toolbar_title.visibility=View.GONE
         toolbar_right_img.visibility = View.GONE
         toolbar_left_img.visibility=View.GONE
@@ -118,8 +119,8 @@ class MainActivity : BaseActivity() {
             FRAGMENT_SHOPPING_CART -> {
               //  toolbar_title.text = getString(R.string.main_setting)
               //  toolbar_right_tv.visibility = View.VISIBLE
-                //toolbar_right_tv.text = "保存"
-
+              //  toolbar_right_tv.text = "保存"
+                toolbar.visibility=View.GONE
                 if (mShoppingCartFragment == null) {
                     mShoppingCartFragment = ShoppingCartFragment.getInstance()
                     transaction.add(R.id.container, mShoppingCartFragment!!, "shoppingCart")
@@ -129,6 +130,7 @@ class MainActivity : BaseActivity() {
             }
 
             FRAGMENT_MINE -> {
+
                 toolbar_title.visibility = View.GONE
                 toolbar_left_img.visibility = View.VISIBLE
                 toolbar_right_img.visibility = View.VISIBLE
