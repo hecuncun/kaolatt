@@ -58,10 +58,21 @@ class ConfirmOrderActivity : BaseActivity() {
         tv_pay.setOnClickListener {
             jumpToPayActivity()
         }
+
+        rl_address.setOnClickListener {
+            //新增地址
+            jumpToAddressListActivity()
+        }
     }
 
     private fun jumpToPayActivity() {
         val intent = Intent(this@ConfirmOrderActivity, PayActivity::class.java)
+        startActivity(intent)
+
+    }
+
+    private fun jumpToAddressListActivity() {
+        val intent = Intent(this@ConfirmOrderActivity, AddressListActivity::class.java)
         startActivity(intent)
 
     }

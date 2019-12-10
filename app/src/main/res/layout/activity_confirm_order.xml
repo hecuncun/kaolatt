@@ -7,6 +7,7 @@
     <include layout="@layout/toolbar"/>
 
     <RelativeLayout
+        android:id="@+id/rl_address"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_margin="@dimen/dp_10"

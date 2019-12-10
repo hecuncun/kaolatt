@@ -66,6 +66,8 @@
         <activity android:name=".ui.activity.ConfirmOrderActivity"/>
         <activity android:name=".ui.activity.PayActivity"/>
         <activity android:name=".ui.activity.PaySuccessActivity"/>
+        <activity android:name=".ui.activity.AddressListActivity"/>
+        <activity android:name=".ui.activity.AddAddressActivity"/>
     </application>
 
 </manifest>
