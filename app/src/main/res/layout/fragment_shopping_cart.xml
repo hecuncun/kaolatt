@@ -8,9 +8,58 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_marginTop="@dimen/dp_10"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="@dimen/dp_10"
         android:scrollbars="none"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@drawable/bg_white_round"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:button="@drawable/check_box_bg"
+                android:gravity="center"
+                android:padding="@dimen/dp_10"
+                android:text="全选"
+                android:textColor="@color/text_color_666666"
+                android:textSize="14sp"/>
+            <TextView
+                android:id="@+id/tv_total_money"
+                android:padding="@dimen/dp_10"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:text=""/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_blue_right_round"
+            android:gravity="center"
+            android:text="结算"
+            android:textColor="@color/white"
+            android:textSize="15sp"/>
+
+
+    </LinearLayout>
 </LinearLayout>

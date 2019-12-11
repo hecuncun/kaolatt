@@ -18,6 +18,6 @@ class MsgAdapter:BaseQuickAdapter<MsgBean,BaseViewHolder>(R.layout.item_msg_list
                 .setText(R.id.tv_from,item.from)
                 .setText(R.id.tv_date,item.data)
         val img = helper.getView<ImageView>(R.id.iv_img)
-        GlideUtils.showRound(img,item.imgUrl,R.drawable.ic_launcher_background,6)
+        GlideUtils.showRound(img,"https://www.dior.cn/beauty/version-5.1563986503609/resize-image/ep/3000/2000/90/0/%252FY0112000%252FY0112000_C011200066_E01_ZHC.jpg",R.drawable.ic_launcher_background,6)
     }
 }

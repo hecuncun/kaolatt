@@ -92,17 +92,7 @@ class HomeFragment : BaseFragment() {
         }
         rv_more_recommend.setHasFixedSize(true)
         rv_more_recommend.isNestedScrollingEnabled=false
-
-//        moreRecommendAdapter.setOnLoadMoreListener({
-//            val list3 = mutableSetOf<GoodsBean>()
-//            Logger.e("OnLoadMoreListener==${listMore.size}")
-//            //请求接口，显示更多
-//            for(i in 0..3){
-//                list3.add(GoodsBean("SK2小黑瓶安瓶精华",500f,"￥800","200","https://www.dior.cn/beauty/version-5.1563986503609/resize-image/ep/3000/2000/90/0/%252FY0112000%252FY0112000_C011200066_E01_ZHC.jpg"))
-//            }
-//            moreRecommendAdapter.addData(list3)
-//            moreRecommendAdapter.loadMoreComplete()
-//    },rv_famous)
+        initRvData()
     }
 
     private fun initBanner() {
@@ -122,24 +112,22 @@ class HomeFragment : BaseFragment() {
 
     }
 
-    private fun jumpToDailyStatisticsActivity() {
-//        val intent = Intent(activity,DailyStatisticsActivity::class.java)
-//        startActivity(intent)
-    }
 
     override fun lazyLoad() {
-        initRvData()
+
     }
 
-    private val list = mutableListOf<GoodsBean>()
+    private val listGood = mutableListOf<GoodsBean>()
+    private val listFamous = mutableListOf<GoodsBean>()
     private val listMore = mutableListOf<GoodsBean>()
     private fun initRvData() {
         for (i in 0..3) {
-            list.add(GoodsBean("SK2小黑瓶安瓶精华", 500f, "￥800", "200", "https://www.dior.cn/beauty/version-5.1563986503609/resize-image/ep/3000/2000/90/0/%252FY0112000%252FY0112000_C011200066_E01_ZHC.jpg"))
+            listGood.add(GoodsBean("SK2小黑瓶安瓶精华", 500f, "￥800", "200", "https://www.dior.cn/beauty/version-5.1563986503609/resize-image/ep/3000/2000/90/0/%252FY0112000%252FY0112000_C011200066_E01_ZHC.jpg"))
+            listFamous.add(GoodsBean("SK2小黑瓶安瓶精华", 500f, "￥800", "200", "https://www.dior.cn/beauty/version-5.1563986503609/resize-image/ep/3000/2000/90/0/%252FY0112000%252FY0112000_C011200066_E01_ZHC.jpg"))
             listMore.add(GoodsBean("SK2小黑瓶安瓶精华", 500f, "￥800", "200", "https://www.dior.cn/beauty/version-5.1563986503609/resize-image/ep/3000/2000/90/0/%252FY0112000%252FY0112000_C011200066_E01_ZHC.jpg"))
         }
-        goodAdapter.addData(list)
-        famousAdapter.addData(list)
+        goodAdapter.addData(listGood)
+        famousAdapter.addData(listFamous)
         moreRecommendAdapter.addData(listMore)
 
 

@@ -29,6 +29,7 @@
             android:id="@+id/iv_goods"
             android:layout_width="85dp"
             android:layout_height="85dp"
+            android:scaleType="fitXY"
             android:layout_gravity="center_vertical"
             android:src="@mipmap/ic_launcher"/>
 
@@ -73,12 +74,44 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp"/>
 
-                <com.jxbn.kaolatt.widget.CounterView
-                    android:id="@+id/counter_view"
+                <LinearLayout
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:btn_bg="@drawable/bg_white_circle"/>
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_minus"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:background="@drawable/bg_white_circle"
+                        android:gravity="center"
+                        android:text="-"
+                        android:textColor="@color/text_color_999999"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:text="0"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/text_size_normal"/>
+
+
+                    <TextView
+                        android:id="@+id/tv_add"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:background="@drawable/bg_white_circle"
+                        android:gravity="center"
+                        android:text="+"
+                        android:textColor="@color/text_color_999999"
+                        android:textSize="20sp"/>
+                </LinearLayout>
             </LinearLayout>
 
 

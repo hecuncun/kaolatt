@@ -6,6 +6,8 @@ import android.view.View
 import com.flyco.dialog.utils.CornerUtils
 import com.flyco.dialog.widget.internal.BaseAlertDialog
 import com.jxbn.kaolatt.R
+import com.jxbn.kaolatt.R.id.tv_cancel
+import com.jxbn.kaolatt.R.id.tv_confirm
 import kotlinx.android.synthetic.main.dialog_logout.*
 
 /**

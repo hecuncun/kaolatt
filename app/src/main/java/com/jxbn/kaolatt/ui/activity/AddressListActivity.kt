@@ -4,6 +4,8 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.jxbn.kaolatt.R
+import com.jxbn.kaolatt.R.id.iv_back
+import com.jxbn.kaolatt.R.id.toolbar_right_tv
 import com.jxbn.kaolatt.adapter.AddressAdapter
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.AddressBean

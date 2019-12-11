@@ -3,6 +3,7 @@ package com.jxbn.kaolatt.ui.activity
 import android.content.Intent
 import android.view.View
 import com.jxbn.kaolatt.R
+import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_order_detail.*
 import kotlinx.android.synthetic.main.toolbar.*
