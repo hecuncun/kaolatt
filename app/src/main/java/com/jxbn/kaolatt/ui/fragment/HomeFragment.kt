@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
 import com.jxbn.kaolatt.R
+import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.adapter.FamousAdapter
 import com.jxbn.kaolatt.adapter.GoodsAdapter
 import com.jxbn.kaolatt.bean.BannerBean
