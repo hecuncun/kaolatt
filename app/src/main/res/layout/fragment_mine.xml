@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
 
         <LinearLayout
@@ -19,8 +19,9 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="55dp"
-                android:layout_height="55dp"
+                android:id="@+id/iv_head_photo"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:src="@drawable/icon_head_photo"/>
 
             <TextView

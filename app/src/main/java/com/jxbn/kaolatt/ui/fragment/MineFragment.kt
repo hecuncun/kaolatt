@@ -1,7 +1,9 @@
 package com.jxbn.kaolatt.ui.fragment
 import android.content.Intent
+import android.graphics.Color
 import android.view.View
 import com.jxbn.kaolatt.R
+import com.jxbn.kaolatt.glide.GlideUtils
 import com.jxbn.kaolatt.ui.activity.*
 import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_mine.*
@@ -59,6 +61,7 @@ class MineFragment : BaseFragment() {
 
 
     override fun lazyLoad() {
+        GlideUtils.showCircleWithBorder(iv_head_photo,"https://upload-images.jianshu.io/upload_images/2791003-3edd10f695633e67?imageMogr2/auto-orient/strip|imageView2/2/w/640/format/webp",R.drawable.icon_head_photo,Color.parseColor("#FFFFFF"))
     }
 
 

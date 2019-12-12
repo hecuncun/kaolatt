@@ -1,7 +1,6 @@
 package com.jxbn.kaolatt.widget;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.design.widget.BottomSheetDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,7 +68,7 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
         adapter2.clearAndAddAll(mBean.getMask2());
 
 
-        GlideUtils.showCircleWithBorder(mImageView,mBean.getImgUrl(),R.mipmap.ic_launcher, Color.parseColor("#FFFFFF"));
+        GlideUtils.showRound(mImageView,mBean.getImgUrl(),R.mipmap.ic_launcher,8);
         mTvPrice.setText(mBean.getPrice());
         mTvSaleNum.setText(mBean.getSaleNum());
 
