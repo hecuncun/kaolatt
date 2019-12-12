@@ -44,7 +44,9 @@
                 <!--android:padding="@dimen/dp_8"-->
                 <!--android:src="@mipmap/icon_del_x"/>-->
         </RelativeLayout>
-
-
     </LinearLayout>
+    <com.kunminx.linkage.LinkageRecyclerView
+        android:id="@+id/linkage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

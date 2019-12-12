@@ -159,10 +159,15 @@
                 <View
                     style="@style/horizontalGrayLine"/>
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tv_all_evaluate"
@@ -202,9 +207,9 @@
     </ScrollView>
 
     <LinearLayout
-        android:layout_marginTop="1dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="1dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
@@ -220,6 +225,7 @@
                 android:layout_gravity="center"
                 android:src="@mipmap/icon_kefu"/>
         </FrameLayout>
+
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
@@ -236,10 +242,12 @@
                 android:layout_gravity="center"
                 android:src="@mipmap/icon_star"/>
         </FrameLayout>
+
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="@color/line_gray"/>
+
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -254,17 +262,17 @@
                 android:src="@mipmap/icon_cart_2"/>
 
             <TextView
-                android:layout_toRightOf="@id/iv_car"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:drawablePadding="@dimen/dp_10"
+                android:layout_toRightOf="@id/iv_car"
                 android:background="@drawable/bg_blue_btn"
+                android:drawablePadding="@dimen/dp_10"
+                android:gravity="center"
+                android:paddingBottom="2dp"
                 android:paddingLeft="6dp"
                 android:paddingRight="6dp"
                 android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:gravity="center"
                 android:text="10"
                 android:textColor="@color/white"/>
         </RelativeLayout>

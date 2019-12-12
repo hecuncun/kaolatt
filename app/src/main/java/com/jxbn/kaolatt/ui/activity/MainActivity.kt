@@ -110,7 +110,8 @@ class MainActivity : BaseActivity() {
                 toolbar.visibility=View.GONE
               //  toolbar_title.text = getString(R.string.main_sport_record)
                 if (mSortFragment == null) {
-                    mSortFragment = SortFragment.getInstance()
+                    //mSortFragment =MySortFragment()
+                    mSortFragment=SortFragment.getInstance()
                     transaction.add(R.id.container, mSortFragment!!, "sort")
                 } else {
                     transaction.show(mSortFragment!!)
