@@ -14,6 +14,7 @@ import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.bean.ElemeGroupedItem
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.ui.activity.GoodsDetailActivity
+import com.jxbn.kaolatt.ui.activity.SearchActivity
 import com.kunminx.linkage.LinkageRecyclerView
 import com.kunminx.linkage.adapter.viewholder.LinkagePrimaryViewHolder
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryFooterViewHolder
@@ -37,6 +38,11 @@ class SortFragment : BaseFragment() {
     private val MARQUEE_REPEAT_NONE_MODE = 0
 
     override fun initListener() {
+        ll_search.setOnClickListener { jumpToSearchActivity()  }
+    }
+    private fun jumpToSearchActivity() {
+        val intent = Intent(activity, SearchActivity::class.java)
+        startActivity(intent)
     }
 
     companion object {

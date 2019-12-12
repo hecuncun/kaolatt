@@ -114,6 +114,7 @@
                 android:textSize="@dimen/text_size_normal"/>
 
             <TextView
+                android:id="@+id/tv_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/dp_5"

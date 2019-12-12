@@ -84,6 +84,7 @@
             </LinearLayout>
             <View style="@style/horizontalGrayLine"/>
             <LinearLayout
+                android:id="@+id/ll_city_picker"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:gravity="center"
@@ -97,12 +98,12 @@
                     android:textSize="15sp"/>
 
                 <TextView
+                    android:id="@+id/tv_address"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_10"
-                    android:background="@null"
-                    android:hint="请选择所在地区"
+                    android:text="请选择所在地区"
                     android:textSize="15sp"
                     android:padding="@dimen/dp_10"/>
                 <ImageView
@@ -126,6 +127,7 @@
                     android:textSize="15sp"/>
 
                 <EditText
+                    android:id="@+id/et_address_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_10"

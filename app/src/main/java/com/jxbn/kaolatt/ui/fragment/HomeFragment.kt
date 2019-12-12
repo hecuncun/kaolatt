@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.adapter.FamousAdapter
 import com.jxbn.kaolatt.adapter.GoodsAdapter
 import com.jxbn.kaolatt.bean.BannerBean
@@ -14,6 +13,7 @@ import com.jxbn.kaolatt.bean.GoodsBean
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.glide.GlideUtils
 import com.jxbn.kaolatt.ui.activity.GoodsDetailActivity
+import com.jxbn.kaolatt.ui.activity.GoodsFamousActivity
 import com.jxbn.kaolatt.widget.CustomScrollView
 import com.lhzw.bluetooth.base.BaseFragment
 import com.orhanobut.logger.Logger
@@ -59,8 +59,24 @@ class HomeFragment : BaseFragment() {
         goodAdapter.setOnItemClickListener { adapter, view, position ->
             val intent = Intent(activity,GoodsDetailActivity::class.java)
             startActivity(intent)
+        }
+
+
+        famousAdapter.setOnItemClickListener { adapter, view, position ->
+            val intent = Intent(activity, GoodsFamousActivity::class.java)
+            startActivity(intent)
+        }
+
+        moreRecommendAdapter.setOnItemClickListener { adapter, view, position ->
+            val intent = Intent(activity,GoodsDetailActivity::class.java)
+            startActivity(intent)
+        }
+
+        tv_more.setOnClickListener {
 
         }
+
+
     }
 
     companion object {

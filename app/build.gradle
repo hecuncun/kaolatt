@@ -85,4 +85,6 @@ dependencies {
     implementation 'com.zyp.cardview:cardview:1.0.1'
 
     implementation project(':linkage-recyclerview')
+    //城市选择
+    implementation 'liji.library.dev:citypickerview:5.1.0'
 }

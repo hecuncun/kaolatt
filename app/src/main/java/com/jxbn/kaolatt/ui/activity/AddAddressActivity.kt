@@ -8,6 +8,12 @@ import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.glide.GlideUtils
 import com.jxbn.kaolatt.widget.SelectDialog
+import com.lljjcoder.Interface.OnCityItemClickListener
+import com.lljjcoder.bean.CityBean
+import com.lljjcoder.bean.DistrictBean
+import com.lljjcoder.bean.ProvinceBean
+import com.lljjcoder.citywheel.CityConfig
+import com.lljjcoder.style.citypickerview.CityPickerView
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
@@ -23,12 +29,18 @@ class AddAddressActivity:BaseActivity() {
     private val REQUEST_BACK = 0X334
     private var tag =REQUEST_FRONT
 
+    private val cityPickerView by lazy {
+         CityPickerView()
+    }
+
     override fun attachLayoutRes(): Int= R.layout.activity_add_address
 
     override fun initData() {
     }
 
     override fun initView() {
+        cityPickerView.init(this)
+
         if(intent.extras.getInt("from")==0){
             toolbar_title.text="新增收货地址"
         }else{
@@ -65,7 +77,67 @@ class AddAddressActivity:BaseActivity() {
             dialog?.show()
         }
 
+        ll_city_picker.setOnClickListener {
+            //三级城市选择器
+            wheel()
+        }
+
+
     }
+
+    /**
+     * 弹出选择器
+     */
+  // private val  cityPickerView =  CityPickerView()
+    private fun wheel() {
+        val cityConfig = CityConfig.Builder()
+                .title("选择城市")
+                .visibleItemsCount(5)//显示个数
+                .province("北京市")//省
+                .city("北京市")//市
+                .district("昌平区")//区
+                .provinceCyclic(true)//循环显示
+                .cityCyclic(true)//循环显示
+                .districtCyclic(true)//循环显示
+                .setCityWheelType(CityConfig.WheelType.PRO_CITY_DIS)
+                // * 显示省市区三级联动的显示状态
+                //* PRO:只显示省份的一级选择器
+               // * PRO_CITY:显示省份和城市二级联动的选择器
+               // * PRO_CITY_DIS:显示省份和城市和县区三级联动的选择器
+                .setCustomItemLayout(R.layout.item_city)//自定义item的布局
+                .setCustomItemTextViewId(R.id.item_city_name_tv)
+                .setShowGAT(true)//显示港澳台数据
+                .build()
+
+        cityPickerView.setConfig(cityConfig)
+        cityPickerView.setOnCityItemClickListener(object : OnCityItemClickListener() {
+            override fun onSelected(province: ProvinceBean?, city: CityBean?, district: DistrictBean?) {
+                val sb = StringBuilder()
+               // sb.append("选择的结果：\n")
+                if (province != null) {
+                    sb.append(province.name+"\t")
+                }
+
+                if (city != null) {
+                    sb.append(city.name+ "\t")
+                }
+
+                if (district != null) {
+                    sb.append(district.name + "\t ")
+                }
+
+                tv_address.text=(sb.toString())
+
+            }
+
+            override fun onCancel() {
+               // ToastUtils.showLongToast(this@CitypickerWheelActivity, "已取消")
+            }
+        })
+        cityPickerView.showCityPicker()
+    }
+
+    //选择图片方式
 
     private fun selectImage(i: Int) {
         if (i == 0) {
