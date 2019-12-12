@@ -12,18 +12,19 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:layout_gravity="center_vertical">
 
-            <EditText
+            <TextView
                 android:id="@+id/et_search"
-                android:enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
+                android:gravity="left|center_vertical"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
                 android:background="@drawable/bg_white_round_16"
-                android:hint="精美好物"
+                android:text="精美好物"
                 android:paddingLeft="@dimen/dp_30"
                 android:paddingRight="@dimen/dp_30"/>
 

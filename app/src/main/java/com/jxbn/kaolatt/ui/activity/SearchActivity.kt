@@ -74,6 +74,7 @@ class SearchActivity:BaseActivity() {
     }
 
     override fun initListener() {
+        iv_back.setOnClickListener { finish() }
         iv_del.setOnClickListener {
             et_search.setText("")
         }
