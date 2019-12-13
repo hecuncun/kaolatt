@@ -4,17 +4,21 @@ import android.content.Intent
 import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
+import com.jxbn.kaolatt.bean.RegisterBean
+import com.jxbn.kaolatt.bean.UserInfoBean
+import com.jxbn.kaolatt.event.LoginEvent
+import com.jxbn.kaolatt.ext.showToast
+import com.jxbn.kaolatt.net.CallbackObserver
+import com.jxbn.kaolatt.net.SLMRetrofit
+import com.jxbn.kaolatt.net.ThreadSwitchTransformer
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by heCunCun on 2019/12/3
  */
 class RegisterActivity:BaseActivity() {
-//    private var dialog :SelectDialog?=null
-//    private val REQUEST_FRONT = 0X333
-//    private val REQUEST_BACK = 0X334
-//    private var tag =REQUEST_FRONT
     private var agree = false
     override fun attachLayoutRes(): Int= R.layout.activity_register
 
@@ -24,39 +28,79 @@ class RegisterActivity:BaseActivity() {
 
     override fun initView() {
       toolbar_title.text="注册"
-//         dialog = SelectDialog(this)
-//         dialog!!.setOnChoseListener{ resId->
-//            when(resId){
-//                R.id.tv_camera->selectImage(0)
-//                R.id.tv_photos->selectImage(1)
-//                else ->{
-//
-//                }
-//            }
-//        }
+
     }
 
     override fun initListener() {
-        iv_back.visibility= View.VISIBLE
+        iv_back.visibility = View.VISIBLE
         iv_back.setOnClickListener {
-           finish()
-       }
+            finish()
+        }
         iv_agree.setOnClickListener {
-            agree=!agree
-            iv_agree.setImageDrawable(if (agree)resources.getDrawable(R.mipmap.icon_chenkbox) else resources.getDrawable(R.mipmap.icon_chenkbox_pre))
+            agree = !agree
+            iv_agree.setImageDrawable(if (agree) resources.getDrawable(R.mipmap.icon_chenkbox) else resources.getDrawable(R.mipmap.icon_chenkbox_pre))
         }
-        tv_agreement.setOnClickListener{
-          jumpToAgreementActivity()
+        tv_agreement.setOnClickListener {
+            jumpToAgreementActivity()
         }
-//        iv_id_card_front.setOnClickListener{
-//            tag=REQUEST_FRONT
-//            dialog?.show()
-//        }
-//
-//        iv_id_card_back.setOnClickListener {
-//            tag=REQUEST_BACK
-//            dialog?.show()
-//        }
+
+        //获取验证码
+        tv_code.setOnClickListener {
+            //获得验证码
+            if (et_phone.text.toString().isEmpty()) {
+                showToast("请输入手机号")
+                return@setOnClickListener
+            }
+            val observable = SLMRetrofit.getInstance().api.registerCodeCall(et_phone.text.toString(), 1)
+            observable.compose(ThreadSwitchTransformer()).subscribe(object : CallbackObserver<RegisterBean>() {
+                override fun onSucceed(t: RegisterBean?, desc: String?) {
+                    showToast("验证码发送成功")
+                }
+
+                override fun onFailed() {
+
+                }
+            })
+        }
+
+        //注册操作
+        tv_confirm.setOnClickListener {
+            if (!agree){
+                showToast("请先点击同意用户注册协议")
+                return@setOnClickListener
+            }
+
+            if (et_pwd.text.toString().trim().isEmpty() or et_pwd_confirm.text.toString().trim().isEmpty()
+                    or et_code.text.toString().trim().isEmpty() or et_phone.text.toString().trim().isEmpty()){
+                showToast("请将信息补充完整")
+                return@setOnClickListener
+            }
+            if (et_pwd.text.toString().trim() != et_pwd_confirm.text.toString().trim()){
+                showToast("两次输入密码不一致")
+                return@setOnClickListener
+            }
+
+         val observable = SLMRetrofit.getInstance().api.registerCall(et_phone.text.toString().trim(),et_code.text.toString().trim(),et_pwd.text.toString().trim())
+            observable.compose(ThreadSwitchTransformer()).subscribe(object :CallbackObserver<UserInfoBean>(){
+                override fun onSucceed(t: UserInfoBean?, desc: String?) {
+                    isLogin=true //登录成功
+                    t?.uid
+                    t?.nickname
+                    t?.phone
+                    t?.pwd
+                    t?.path//头像
+                    t?.integral//积分
+                    showToast("注册成功")
+                    EventBus.getDefault().post(LoginEvent(true))
+                    finish()
+                }
+
+                override fun onFailed() {
+
+                }
+            })
+
+        }
 
     }
 
@@ -65,64 +109,5 @@ class RegisterActivity:BaseActivity() {
         startActivity(intent)
     }
 
-//    private fun selectImage(i: Int) {
-//        if (i == 0) {
-//            PictureSelector.create(this)
-//                    .openCamera(PictureMimeType.ofImage())
-//                    .enableCrop(true)// 是否裁剪 true or false
-//                    .compress(true)// 是否压缩 true or false
-//                    .withAspectRatio(3, 2)// int 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
-//                    .circleDimmedLayer(false)// 是否圆形裁剪 true or false
-//                    .showCropFrame(false)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false   true or false
-//                    .showCropGrid(false)// 是否显示裁剪矩形网格 圆形裁剪时建议设为false    true or false
-//                    .minimumCompressSize(200)// 小于100kb的图片不压缩
-//                    .synOrAsy(true)//同步true或异步false 压缩 默认同步
-//                    .rotateEnabled(true) // 裁剪是否可旋转图片 true or false
-//                    .scaleEnabled(true)// 裁剪是否可放大缩小图片 true or false
-//                    .isDragFrame(false)// 是否可拖动裁剪框(固定)
-//                    .forResult(tag)
-//        } else {
-//            PictureSelector.create(this)
-//                    .openGallery(PictureMimeType.ofImage()) //全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
-//                    .maxSelectNum(1)// 最大图片选择数量 int
-//                    .imageSpanCount(3)
-//                    .selectionMode(PictureConfig.SINGLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
-//                    .previewImage(true)// 是否可预览图片 true or false
-//                    .isCamera(true)// 是否显示拍照按钮 true or false
-//                    .imageFormat(PictureMimeType.PNG)// 拍照保存图片格式后缀,默认jpeg
-//                    .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
-//                    .enableCrop(true)// 是否裁剪 true or false
-//                    .compress(true)// 是否压缩 true or false
-//                    .withAspectRatio(3, 2)// int 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
-//                    .circleDimmedLayer(false)// 是否圆形裁剪 true or false
-//                    .showCropFrame(false)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false   true or false
-//                    .showCropGrid(false)// 是否显示裁剪矩形网格 圆形裁剪时建议设为false    true or false
-//                    .minimumCompressSize(200)// 小于100kb的图片不压缩
-//                    .synOrAsy(true)//同步true或异步false 压缩 默认同步
-//                    .rotateEnabled(true) // 裁剪是否可旋转图片 true or false
-//                    .scaleEnabled(true).// 裁剪是否可放大缩小图片 true or false
-//                            isDragFrame(false).// 是否可拖动裁剪框(固定)
-//                            forResult(tag)
-//        }
-//    }
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (resultCode == Activity.RESULT_OK) {
-//            when (requestCode) {
-//                tag -> {
-//                    val selectList = PictureSelector.obtainMultipleResult(data)
-//                    if (selectList.size > 0) {
-//                        if(tag==REQUEST_FRONT){
-//                            GlideUtils.showRound(iv_id_card_front,selectList[0].compressPath,R.drawable.ic_launcher_background,6)
-//                        }else{
-//                            GlideUtils.showRound(iv_id_card_back,selectList[0].compressPath,R.drawable.ic_launcher_background,6)
-//                        }
-//
-//                    } else {
-//                        showToast("图片出现问题")
-//                    }
-//                }
-//            }
-//        }
-//    }
+
 }

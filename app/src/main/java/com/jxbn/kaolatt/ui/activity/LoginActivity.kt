@@ -5,18 +5,24 @@ import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
-import com.jxbn.kaolatt.bean.UserInfo
+import com.jxbn.kaolatt.bean.UserInfoBean
+import com.jxbn.kaolatt.event.LoginEvent
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.net.CallbackObserver
 import com.jxbn.kaolatt.net.SLMRetrofit
 import com.jxbn.kaolatt.net.ThreadSwitchTransformer
 import com.jxbn.kaolatt.widget.LoadingView
 import kotlinx.android.synthetic.main.activity_login.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * Created by heCunCun on 2019/12/3
  */
 class LoginActivity : BaseActivity() {
+
+    override fun useEventBus(): Boolean=true
+
     override fun attachLayoutRes(): Int = R.layout.activity_login
 
     override fun initData() {
@@ -50,9 +56,9 @@ class LoginActivity : BaseActivity() {
             loadingView.setLoadingTitle("登录中...")
             loadingView.show()
             val observable = SLMRetrofit.getInstance().api.loginCall(name, pwd)
-            observable.compose(ThreadSwitchTransformer()).subscribe(object : CallbackObserver<UserInfo>() {
-                override fun onSucceed(t: UserInfo?, desc: String?) {
-                    showToast("${t?.token}")
+            observable.compose(ThreadSwitchTransformer()).subscribe(object : CallbackObserver<UserInfoBean>() {
+                override fun onSucceed(t: UserInfoBean?, desc: String?) {
+                    showToast("登录成功")
                     loadingView.dismiss()
                    // jumpToMainActivity()
                 }
@@ -108,5 +114,17 @@ class LoginActivity : BaseActivity() {
         val intent = Intent(this@LoginActivity, ForgetPwdActivity::class.java)
         startActivity(intent)
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun loginEvent(event: LoginEvent) {
+        if (event.isLogin) {
+
+            finish()
+
+        } else {
+
+        }
+    }
+
 
 }

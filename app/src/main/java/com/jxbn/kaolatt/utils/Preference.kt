@@ -14,7 +14,7 @@ import kotlin.reflect.KProperty
 class Preference<T>(val name: String, private val default: T) {
 
     companion object {
-        private val file_name = "ye_wan_file"
+        private val file_name = "kao_la_file"
 
         private val prefs: SharedPreferences by lazy {
             App.context.getSharedPreferences(file_name, Context.MODE_PRIVATE)

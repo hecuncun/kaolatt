@@ -5,7 +5,7 @@ package com.jxbn.kaolatt.base;
  */
 public class BaseBean<T> {
 
-    private static final String SUCCESSED_CODE="0";//请求成功 code=0;
+    private static final String SUCCESSED_CODE="10001";//请求成功 code=10001;
 
     private String code;
     private String message;

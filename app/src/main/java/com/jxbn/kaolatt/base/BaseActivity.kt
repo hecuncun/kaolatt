@@ -17,8 +17,10 @@ import android.view.MotionEvent
 import android.view.WindowManager
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.application.App
+import com.jxbn.kaolatt.constants.Constant
 import com.jxbn.kaolatt.utils.CommonUtil
 import com.jxbn.kaolatt.utils.KeyBoardUtil
+import com.jxbn.kaolatt.utils.Preference
 import com.jxbn.kaolatt.utils.StatusBarUtil
 import org.greenrobot.eventbus.EventBus
 import java.util.*
@@ -27,6 +29,10 @@ import java.util.*
  * Created by hecuncun on 2019/11/11
  */
 abstract class BaseActivity :AppCompatActivity(){
+    /**
+     * check login
+     */
+    protected var isLogin: Boolean by Preference(Constant.LOGIN_KEY, false)
 
     /**
      * 布局文件id

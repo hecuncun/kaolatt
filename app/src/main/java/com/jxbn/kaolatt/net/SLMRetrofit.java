@@ -2,7 +2,7 @@ package com.jxbn.kaolatt.net;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.jxbn.kaolatt.constants.Constants;
+import com.jxbn.kaolatt.constants.Constant;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -28,7 +28,7 @@ public class SLMRetrofit {
     private SLMRetrofit() {
         Gson gson = new GsonBuilder().create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
+                .baseUrl(Constant.BASE_URL)
                 .client(genericClient())
                 .addConverterFactory(GsonConverterFactory.create(gson))  //数据的处理时，只有请求成功后，才能需要解析data的数据,其他时候我们直接抛异常处理 json解析
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//支持RxJava
@@ -83,7 +83,7 @@ public class SLMRetrofit {
 //                                .addHeader("Accept-Encoding", "gzip,sdch")
                                 .addHeader("Connection", "keep-alive")
                                 .addHeader("Accept", "*/*")
-                                //.addHeader("x-access-token", SpUtils.getString(Constants.HTTP_TOOKEN,""))
+                                //.addHeader("x-access-token", SpUtils.getString(Constant.HTTP_TOOKEN,""))
                                 // .addHeader("Cookie", cookie)
                                 //.addHeader("Authorization","APPCODE " + Constant.OCR_APP_CODE)
                                 .build();

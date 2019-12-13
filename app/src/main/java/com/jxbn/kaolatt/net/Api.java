@@ -1,24 +1,46 @@
 package com.jxbn.kaolatt.net;
 
 import com.jxbn.kaolatt.base.BaseBean;
-import com.jxbn.kaolatt.bean.UserInfo;
+import com.jxbn.kaolatt.bean.RegisterBean;
+import com.jxbn.kaolatt.bean.UserInfoBean;
 
 import io.reactivex.Observable;
-import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
  * Created by hecuncun on 2019/5/13
  */
 public interface Api {
+
     /**
-     * 登录接口
-     * @param loginName
-     * @param password
+     *获取手机验证码
+     * @param phone
+     * @param type  1：注册，2：重置密码
      * @return
      */
-    @GET("security/login")
-    Observable<BaseBean<UserInfo>> loginCall(@Query("loginName") String loginName, @Query("password") String password);
+    @POST("appTcmnPhoneCode/insertSelective")
+    Observable<BaseBean<RegisterBean>> registerCodeCall(@Query("phone") String phone, @Query("type") int type);
+
+    /**
+     * 用户注册
+     * @param phone
+     * @param code
+     * @param pwd
+     * @return
+     */
+    @POST("appUserBase/insertSelective")
+    Observable<BaseBean<UserInfoBean>> registerCall(@Query("phone") String phone, @Query("code") String code, @Query("pwd") String pwd);
+
+    /**
+     * 登录接口
+     *
+     * @param phone
+     * @param pwd
+     * @return
+     */
+    @POST("appUserBase/logoin")
+    Observable<BaseBean<UserInfoBean>> loginCall(@Query("phone") String phone, @Query("pwd") String pwd);
 
 //    /**
 //     * 获取全员信息

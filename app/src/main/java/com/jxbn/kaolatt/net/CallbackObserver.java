@@ -5,7 +5,9 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.jxbn.kaolatt.base.BaseBean;
+import com.orhanobut.logger.Logger;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -33,14 +35,15 @@ public abstract class CallbackObserver<T> implements Observer<BaseBean<T>> {
             } else {
 
                 if (!TextUtils.isEmpty(tBaseResultBean.getMessage())){
-                   //showToast(tBaseResultBean.getMessage());
+                    ToastUtils.showShort(tBaseResultBean.getMessage());
+                    Logger.e(tBaseResultBean.getMessage());
                 }
                 onFailed();
             }
 
         } catch (Exception e) {
             Log.e("exception",e.getLocalizedMessage());
-          //  ToastUtil.showToast(e.getLocalizedMessage());
+            ToastUtils.showShort(e.getLocalizedMessage());
             onFailed();
         }
 
@@ -48,7 +51,7 @@ public abstract class CallbackObserver<T> implements Observer<BaseBean<T>> {
 
     @Override
     public void onError(Throwable t) {
-       // ToastUtil.showToast(t.getLocalizedMessage());
+        ToastUtils.showShort(t.getLocalizedMessage());
         onFailed();
     }
 

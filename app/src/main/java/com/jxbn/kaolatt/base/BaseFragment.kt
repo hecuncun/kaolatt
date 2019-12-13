@@ -16,6 +16,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jxbn.kaolatt.application.App
+import com.jxbn.kaolatt.constants.Constant
+import com.jxbn.kaolatt.utils.Preference
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 
@@ -23,6 +25,11 @@ import java.util.*
  * Created by hecuncun on 2019/11/12
  */
 abstract class BaseFragment :Fragment(){
+    /**
+     * check login
+     */
+    protected var isLogin: Boolean by Preference(Constant.LOGIN_KEY, false)
+
     /**
      * 视图是否加载完毕
      */
