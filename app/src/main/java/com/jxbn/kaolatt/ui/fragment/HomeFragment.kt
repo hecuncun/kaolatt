@@ -14,6 +14,8 @@ import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.glide.GlideUtils
 import com.jxbn.kaolatt.ui.activity.GoodsDetailActivity
 import com.jxbn.kaolatt.ui.activity.GoodsFamousActivity
+import com.jxbn.kaolatt.ui.activity.GoodsListActivity
+import com.jxbn.kaolatt.ui.activity.WebViewActivity
 import com.jxbn.kaolatt.widget.CustomScrollView
 import com.lhzw.bluetooth.base.BaseFragment
 import com.orhanobut.logger.Logger
@@ -73,10 +75,23 @@ class HomeFragment : BaseFragment() {
         }
 
         tv_more.setOnClickListener {
+            jumpToGoodsListActivity()
+        }
 
+        ll_web.setOnClickListener {
+            jumpToWebViewActivity()
         }
 
 
+    }
+
+    private fun jumpToWebViewActivity() {
+        val intent =   Intent(activity, WebViewActivity::class.java)
+        startActivity(intent)
+    }
+    private fun jumpToGoodsListActivity() {
+        val intent =   Intent(activity, GoodsListActivity::class.java)
+        startActivity(intent)
     }
 
     companion object {
@@ -124,6 +139,7 @@ class HomeFragment : BaseFragment() {
         })
         xbanner.setOnItemClickListener { banner, model, view, position ->
             showToast("点击$position")
+            jumpToWebViewActivity()
 
         }
 

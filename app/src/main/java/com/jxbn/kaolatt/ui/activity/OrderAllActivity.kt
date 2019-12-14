@@ -3,9 +3,7 @@ package com.jxbn.kaolatt.ui.activity
 import android.content.Intent
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.R.id.iv_back
 import com.jxbn.kaolatt.adapter.OrderAdapter
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.OrderBean
@@ -47,12 +45,12 @@ class OrderAllActivity:BaseActivity() {
             4->"退货订单"
             else->"全部订单"
         }
-        iv_back.visibility= View.VISIBLE
+       // iv_back.visibility= View.VISIBLE
         initRecyclerView()
     }
 
     override fun initListener() {
-        iv_back.setOnClickListener { finish() }
+      //  iv_back.setOnClickListener { finish() }
         orderAdapter.setOnItemClickListener { adapter, view, position ->
             jumpToOrderDetailActivity()
         }

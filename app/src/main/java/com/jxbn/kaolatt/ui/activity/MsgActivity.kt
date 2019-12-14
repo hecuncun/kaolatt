@@ -1,7 +1,7 @@
 package com.jxbn.kaolatt.ui.activity
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.adapter.MsgAdapter
 import com.jxbn.kaolatt.base.BaseActivity
@@ -28,7 +28,7 @@ class MsgActivity:BaseActivity(){
 
     override fun initView() {
         toolbar_title.text="消息"
-        iv_back.visibility = View.VISIBLE
+      //  iv_back.visibility = View.VISIBLE
         initRecyclerView()
 
     }
@@ -41,6 +41,16 @@ class MsgActivity:BaseActivity(){
     }
 
     override fun initListener() {
-        iv_back.setOnClickListener { finish() }
+        msgAdapter.setOnItemClickListener { adapter, view, position ->
+            jumpToWebViewActivity()
+        }
+    }
+
+    /**
+     * webView
+     */
+    private fun jumpToWebViewActivity() {
+      val intent =   Intent(this@MsgActivity,WebViewActivity::class.java)
+        startActivity(intent)
     }
 }

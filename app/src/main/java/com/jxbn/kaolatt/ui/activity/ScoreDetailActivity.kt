@@ -2,7 +2,6 @@ package com.jxbn.kaolatt.ui.activity
 
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.adapter.ScoreAdapter
 import com.jxbn.kaolatt.base.BaseActivity
@@ -43,7 +42,7 @@ class ScoreDetailActivity : BaseActivity() {
 
     override fun initView() {
         toolbar_title.text = "积分明细"
-        iv_back.visibility = View.VISIBLE
+      //  iv_back.visibility = View.VISIBLE
         initRecyclerView()
     }
 
@@ -57,6 +56,6 @@ class ScoreDetailActivity : BaseActivity() {
     }
 
     override fun initListener() {
-        iv_back.setOnClickListener { finish() }
+      //  iv_back.setOnClickListener { finish() }
     }
 }

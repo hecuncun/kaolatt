@@ -48,7 +48,7 @@ class AddAddressActivity:BaseActivity() {
         }
         toolbar_right_tv.text="购物须知"
         toolbar_right_tv.visibility= View.VISIBLE
-        iv_back.visibility=View.VISIBLE
+      //  iv_back.visibility=View.VISIBLE
 
 
         dialog = SelectDialog(this)
@@ -64,7 +64,7 @@ class AddAddressActivity:BaseActivity() {
     }
 
     override fun initListener() {
-        iv_back.setOnClickListener { finish() }
+      //  iv_back.setOnClickListener { finish() }
         toolbar_right_tv.setOnClickListener {  }
 
         iv_id_card_front.setOnClickListener{

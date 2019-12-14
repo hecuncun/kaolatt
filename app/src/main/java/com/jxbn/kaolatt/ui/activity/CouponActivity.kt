@@ -2,7 +2,6 @@ package com.jxbn.kaolatt.ui.activity
 
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.adapter.CouponAdapter
 import com.jxbn.kaolatt.base.BaseActivity
@@ -29,7 +28,7 @@ class CouponActivity:BaseActivity() {
 
     override fun initView() {
         toolbar_title.text="我的优惠券"
-        iv_back.visibility=View.VISIBLE
+      //  iv_back.visibility=View.VISIBLE
         initRecyclerView()
     }
 
@@ -42,6 +41,6 @@ class CouponActivity:BaseActivity() {
     }
 
     override fun initListener() {
-        iv_back.setOnClickListener { finish() }
+       // iv_back.setOnClickListener { finish() }
     }
 }

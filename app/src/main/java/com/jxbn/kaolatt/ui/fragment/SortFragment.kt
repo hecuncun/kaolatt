@@ -13,7 +13,6 @@ import com.google.gson.reflect.TypeToken
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.bean.ElemeGroupedItem
 import com.jxbn.kaolatt.ext.showToast
-import com.jxbn.kaolatt.ui.activity.GoodsDetailActivity
 import com.jxbn.kaolatt.ui.activity.SearchActivity
 import com.kunminx.linkage.LinkageRecyclerView
 import com.kunminx.linkage.adapter.viewholder.LinkagePrimaryViewHolder
@@ -154,7 +153,7 @@ class SortFragment : BaseFragment() {
             holder.itemView.setOnClickListener {
                 //点击商品,详情页
                 showToast(item.info.title)
-                val intent = Intent(activity, GoodsDetailActivity::class.java)
+                val intent = Intent(activity, SearchActivity::class.java)
                 startActivity(intent)
             }
 

@@ -1,6 +1,5 @@
 package com.jxbn.kaolatt.ui.activity
 
-import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
 import kotlinx.android.synthetic.main.toolbar.*
@@ -17,11 +16,11 @@ class AgreementActivity :BaseActivity() {
 
     override fun initView() {
         toolbar_title.text="用户注册协议"
-        iv_back.visibility= View.VISIBLE
+      //  iv_back.visibility= View.VISIBLE
 
     }
 
     override fun initListener() {
-        iv_back.setOnClickListener {finish()}
+     //   iv_back.setOnClickListener {finish()}
     }
 }

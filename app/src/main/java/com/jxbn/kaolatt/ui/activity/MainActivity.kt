@@ -81,16 +81,18 @@ class MainActivity : BaseActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         hideFragment(transaction)
         mIndex = index
-        toolbar.visibility=View.VISIBLE
         toolbar_title.visibility=View.GONE
         toolbar_right_img.visibility = View.GONE
         toolbar_left_img.visibility=View.GONE
         toolbar_right_tv.visibility = View.GONE
         tool_bar_search.visibility=View.GONE
-        iv_back.visibility = View.GONE
+        toolbar.visibility=View.GONE
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
 
         when (index) {
             FRAGMENT_HOME -> {
+                toolbar.visibility=View.VISIBLE
                 tool_bar_search.visibility=View.VISIBLE
                 toolbar_left_img.visibility=View.VISIBLE
                 toolbar_right_img.visibility=View.VISIBLE
@@ -132,7 +134,7 @@ class MainActivity : BaseActivity() {
             }
 
             FRAGMENT_MINE -> {
-
+                toolbar.visibility=View.VISIBLE
                 toolbar_title.visibility = View.GONE
                 toolbar_left_img.visibility = View.VISIBLE
                 toolbar_right_img.visibility = View.VISIBLE
@@ -141,7 +143,9 @@ class MainActivity : BaseActivity() {
                 toolbar_left_img.setOnClickListener {
                     jumpToPersonalInfoActivity()
                 }
-                toolbar_right_img.setOnClickListener {  }
+                toolbar_right_img.setOnClickListener {
+                    jumpToMsgActivity()
+                }
                 if (mMineFragment == null) {
                     mMineFragment = MineFragment.getInstance()
                     transaction.add(R.id.container, mMineFragment!!, "mine")

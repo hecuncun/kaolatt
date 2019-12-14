@@ -4,8 +4,6 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.R.id.iv_back
-import com.jxbn.kaolatt.R.id.toolbar_right_tv
 import com.jxbn.kaolatt.adapter.AddressAdapter
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.AddressBean
@@ -40,7 +38,7 @@ class AddressListActivity : BaseActivity() {
         toolbar_title.text = "收货地址"
         toolbar_right_tv.text = "新增"
         toolbar_right_tv.visibility = View.VISIBLE
-        iv_back.visibility = View.VISIBLE
+      //  iv_back.visibility = View.VISIBLE
         initRecyclerView()
     }
 
@@ -81,7 +79,7 @@ class AddressListActivity : BaseActivity() {
     }
 
     override fun initListener() {
-        iv_back.setOnClickListener { finish() }
+       // iv_back.setOnClickListener { finish() }
         toolbar_right_tv.setOnClickListener { jumpToAddAddressActivity(0) }
     }
 

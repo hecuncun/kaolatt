@@ -1,7 +1,6 @@
 package com.jxbn.kaolatt.ui.activity
 
 import android.content.Intent
-import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.RegisterBean
@@ -32,10 +31,10 @@ class RegisterActivity:BaseActivity() {
     }
 
     override fun initListener() {
-        iv_back.visibility = View.VISIBLE
-        iv_back.setOnClickListener {
-            finish()
-        }
+       // iv_back.visibility = View.VISIBLE
+//        iv_back.setOnClickListener {
+//            finish()
+//        }
         iv_agree.setOnClickListener {
             agree = !agree
             iv_agree.setImageDrawable(if (agree) resources.getDrawable(R.mipmap.icon_chenkbox) else resources.getDrawable(R.mipmap.icon_chenkbox_pre))

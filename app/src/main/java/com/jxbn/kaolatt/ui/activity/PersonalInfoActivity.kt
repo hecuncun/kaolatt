@@ -3,7 +3,6 @@ package com.jxbn.kaolatt.ui.activity
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
-import android.view.View
 import android.widget.Toast
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
@@ -13,7 +12,6 @@ import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
 import kotlinx.android.synthetic.main.activity_personal_info.*
-import kotlinx.android.synthetic.main.toolbar.*
 
 
 
@@ -28,12 +26,12 @@ class PersonalInfoActivity:BaseActivity() {
     }
 
     override fun initView() {
-       iv_back.visibility= View.VISIBLE
+      // iv_back.visibility= View.VISIBLE
 
     }
 
     override fun initListener() {
-        iv_back.setOnClickListener { finish() }
+      //  iv_back.setOnClickListener { finish() }
         iv_head_photo.setOnClickListener {
             showList()
         }

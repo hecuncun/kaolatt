@@ -33,7 +33,7 @@ class CollectionActivity:BaseActivity() {
         toolbar_title.text="我的收藏"
         toolbar_right_tv.text="编辑"
         toolbar_right_tv.visibility=View.VISIBLE
-        iv_back.visibility= View.VISIBLE
+       // iv_back.visibility= View.VISIBLE
         initRecyclerView()
     }
 
@@ -45,7 +45,7 @@ class CollectionActivity:BaseActivity() {
     }
 
     override fun initListener() {
-        iv_back.setOnClickListener { finish() }
+       // iv_back.setOnClickListener { finish() }
 
         toolbar_right_tv.setOnClickListener {
             if ( toolbar_right_tv.text == "编辑"){

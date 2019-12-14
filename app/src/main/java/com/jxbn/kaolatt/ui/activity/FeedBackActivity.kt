@@ -1,6 +1,5 @@
 package com.jxbn.kaolatt.ui.activity
 
-import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
 import kotlinx.android.synthetic.main.toolbar.*
@@ -16,10 +15,10 @@ class FeedBackActivity:BaseActivity() {
 
     override fun initView() {
         toolbar_title.text="意见反馈"
-        iv_back.visibility=View.VISIBLE
+       // iv_back.visibility=View.VISIBLE
     }
 
     override fun initListener() {
-        iv_back.setOnClickListener { finish() }
+       // iv_back.setOnClickListener { finish() }
     }
 }

@@ -21,7 +21,7 @@ class SettingActivity:BaseActivity() {
 
     override fun initView() {
         toolbar_title.text="设置"
-        iv_back.visibility= View.VISIBLE
+       // iv_back.visibility= View.VISIBLE
          dialog = LogoutDialog(this)
 
 
@@ -29,7 +29,7 @@ class SettingActivity:BaseActivity() {
     }
 
     override fun initListener() {
-        iv_back.setOnClickListener { finish() }
+       // iv_back.setOnClickListener { finish() }
         rl_about_us.setOnClickListener { jumpToAboutUsActivity() }
         rl_feedback.setOnClickListener { jumpToFeedbackActivity() }
         rl_change_pwd.setOnClickListener{ jumpToChangePwdActivity()}

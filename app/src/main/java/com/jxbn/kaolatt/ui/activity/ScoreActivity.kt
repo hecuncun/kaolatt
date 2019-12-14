@@ -17,13 +17,13 @@ class ScoreActivity : BaseActivity() {
 
     override fun initView() {
         toolbar_title.text = "我的积分"
-        iv_back.visibility = View.VISIBLE
+       // iv_back.visibility = View.VISIBLE
         toolbar_right_tv.text = "明细"
         toolbar_right_tv.visibility = View.VISIBLE
     }
 
     override fun initListener() {
-        iv_back.setOnClickListener { finish() }
+      //  iv_back.setOnClickListener { finish() }
         toolbar_right_tv.setOnClickListener {
             jumpToScoreDetailActivity()
         }

@@ -14,7 +14,9 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.MotionEvent
+import android.view.View
 import android.view.WindowManager
+import com.blankj.utilcode.util.KeyboardUtils
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.application.App
 import com.jxbn.kaolatt.constants.Constant
@@ -22,6 +24,7 @@ import com.jxbn.kaolatt.utils.CommonUtil
 import com.jxbn.kaolatt.utils.KeyBoardUtil
 import com.jxbn.kaolatt.utils.Preference
 import com.jxbn.kaolatt.utils.StatusBarUtil
+import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 
@@ -66,10 +69,23 @@ abstract class BaseActivity :AppCompatActivity(){
         if (useEventBus()){
          EventBus.getDefault().register(this)
         }
+        initToolBar()
         initView()
         initData()
         initListener()
         initStateBarColor()
+    }
+
+    private fun initToolBar() {
+        if (toolbar != null) {
+            toolbar.setNavigationIcon(R.mipmap.icon_return)
+            toolbar.title = ""
+            setSupportActionBar(toolbar)
+            toolbar.setNavigationOnClickListener(View.OnClickListener {
+                finish()
+                KeyboardUtils.hideSoftInput(this@BaseActivity)
+            })
+        }
     }
 
     open fun initStateBarColor() {

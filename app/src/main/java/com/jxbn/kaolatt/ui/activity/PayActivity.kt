@@ -1,9 +1,7 @@
 package com.jxbn.kaolatt.ui.activity
 
 import android.content.Intent
-import android.view.View
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_pay.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -20,11 +18,11 @@ class PayActivity:BaseActivity() {
 
     override fun initView() {
         toolbar_title.text="订单支付"
-        iv_back.visibility= View.VISIBLE
+        //iv_back.visibility= View.VISIBLE
     }
 
     override fun initListener() {
-        iv_back.setOnClickListener{finish()}
+      //  iv_back.setOnClickListener{finish()}
         ll_check_zfb.setOnClickListener {
             if (!isCheckZfb) {
                 iv_check_wechat.setImageResource(R.mipmap.icon_choose)

@@ -1,7 +1,6 @@
 package com.jxbn.kaolatt.ui.activity
 
 import android.content.Intent
-import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.ext.showToast
@@ -31,7 +30,7 @@ class ConfirmOrderActivity : BaseActivity() {
 
     override fun initView() {
         toolbar_title.text = "确认订单"
-        iv_back.visibility = View.VISIBLE
+      //  iv_back.visibility = View.VISIBLE
         initBottomDialog()
     }
 
@@ -45,7 +44,7 @@ class ConfirmOrderActivity : BaseActivity() {
     }
 
     override fun initListener() {
-        iv_back.setOnClickListener { finish() }
+     //   iv_back.setOnClickListener { finish() }
         tv_coupon.setOnClickListener {
             myBottomListDialog!!.show()
             myBottomListDialog!!.setListener { p0, p1, position, p3 ->

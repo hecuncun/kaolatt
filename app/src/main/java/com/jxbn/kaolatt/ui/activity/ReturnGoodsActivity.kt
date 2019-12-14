@@ -2,11 +2,9 @@ package com.jxbn.kaolatt.ui.activity
 
 import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
-import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.adapter.ComImageAdapter
 import com.jxbn.kaolatt.adapter.FullyGridLayoutManager
-
 import com.jxbn.kaolatt.base.BaseActivity
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
@@ -27,7 +25,7 @@ class ReturnGoodsActivity : BaseActivity() {
 
     override fun initView() {
         toolbar_title.text = "申请退换货"
-        iv_back.visibility = View.VISIBLE
+      // iv_back.visibility = View.VISIBLE
         initRvPhoto()
     }
 
@@ -64,7 +62,7 @@ class ReturnGoodsActivity : BaseActivity() {
     }
 
     override fun initListener() {
-        iv_back.setOnClickListener { finish() }
+       // iv_back.setOnClickListener { finish() }
 
     }
 

@@ -2,7 +2,6 @@ package com.jxbn.kaolatt.ui.activity
 
 import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
-import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.adapter.GoodsAdapter
 import com.jxbn.kaolatt.base.BaseActivity
@@ -24,7 +23,7 @@ class GoodsFamousActivity:BaseActivity() {
 
     override fun initView() {
        toolbar_title.text="大牌推荐"
-        iv_back.visibility= View.VISIBLE
+       // iv_back.visibility= View.VISIBLE
         initRecyclerView()
     }
 
@@ -40,7 +39,7 @@ class GoodsFamousActivity:BaseActivity() {
     }
 
     override fun initListener() {
-        iv_back.setOnClickListener { finish() }
+      //  iv_back.setOnClickListener { finish() }
         mAdapter.setOnItemClickListener { adapter, view, position ->
             val intent = Intent(this@GoodsFamousActivity,GoodsDetailActivity::class.java)
             startActivity(intent)
