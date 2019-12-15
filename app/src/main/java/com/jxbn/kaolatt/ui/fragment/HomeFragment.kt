@@ -8,10 +8,16 @@ import android.widget.ImageView
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.adapter.FamousAdapter
 import com.jxbn.kaolatt.adapter.GoodsAdapter
-import com.jxbn.kaolatt.bean.BannerBean
+import com.jxbn.kaolatt.adapter.GoodsListAdapter
+import com.jxbn.kaolatt.bean.BannerInfoBean
+import com.jxbn.kaolatt.bean.GoodListBean
 import com.jxbn.kaolatt.bean.GoodsBean
+import com.jxbn.kaolatt.constants.Constant
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.glide.GlideUtils
+import com.jxbn.kaolatt.net.CallbackListObserver
+import com.jxbn.kaolatt.net.SLMRetrofit
+import com.jxbn.kaolatt.net.ThreadSwitchTransformer
 import com.jxbn.kaolatt.ui.activity.GoodsDetailActivity
 import com.jxbn.kaolatt.ui.activity.GoodsFamousActivity
 import com.jxbn.kaolatt.ui.activity.GoodsListActivity
@@ -28,10 +34,10 @@ import kotlinx.android.synthetic.main.fragment_home.*
  */
 class HomeFragment : BaseFragment() {
 
-    private var bannerList = mutableListOf<BannerBean>()
 
-    private val goodAdapter: GoodsAdapter by lazy {
-        GoodsAdapter()
+
+    private val goodAdapter: GoodsListAdapter by lazy {
+        GoodsListAdapter()
     }
     private val famousAdapter: FamousAdapter by lazy {
         FamousAdapter()
@@ -79,14 +85,16 @@ class HomeFragment : BaseFragment() {
         }
 
         ll_web.setOnClickListener {
-            jumpToWebViewActivity()
+           // jumpToWebViewActivity()
         }
 
 
     }
 
-    private fun jumpToWebViewActivity() {
-        val intent =   Intent(activity, WebViewActivity::class.java)
+    private fun jumpToWebViewActivity(url:String,type:Int) {
+        val intent  =   Intent(activity, WebViewActivity::class.java)
+        intent.putExtra("url",url)
+        intent.putExtra("type",type)
         startActivity(intent)
     }
     private fun jumpToGoodsListActivity() {
@@ -101,7 +109,7 @@ class HomeFragment : BaseFragment() {
     override fun attachLayoutRes(): Int = R.layout.fragment_home
 
     override fun initView(view: View) {
-        initBanner()
+
         initRecyclerView()
     }
 
@@ -124,22 +132,40 @@ class HomeFragment : BaseFragment() {
         }
         rv_more_recommend.setHasFixedSize(true)
         rv_more_recommend.isNestedScrollingEnabled=false
-        initRvData()
+
     }
 
+  //  private var bannerList = mutableListOf<BannerBean>()
+    private var bannerList = mutableListOf<BannerInfoBean.DataBean>()
+
     private fun initBanner() {
-        for (i in 0..3) {
-            bannerList.add(BannerBean("https://icweiliimg6.pstatp.com/weili/l/799597196884705367.webp", "https://www.iqiyi.com/"))
-        }
-        xbanner.setBannerData(bannerList)
+        val observable =  SLMRetrofit.getInstance().api.homeBannerCall()
+        observable.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BannerInfoBean>(){
+            override fun onSucceed(bannerInfoBean: BannerInfoBean?) {
+               if(bannerInfoBean?.code == Constant.SUCCESSED_CODE){
+                   bannerList = bannerInfoBean.data
+                   xbanner.setBannerData(bannerList)
+               }
+            }
+
+            override fun onFailed() {
+            }
+        })
+
+
+//
+//        for (i in 0..3) {
+//            bannerList.add(BannerBean("https://icweiliimg6.pstatp.com/weili/l/799597196884705367.webp", "https://www.iqiyi.com/"))
+//        }
+
         xbanner.loadImage(XBanner.XBannerAdapter { banner, model, view, position ->
             //1、此处使用的Glide加载图片，可自行替换自己项目中的图片加载框架
             //2、返回的图片路径为Object类型，你只需要强转成你传输的类型就行，切记不要胡乱强转！
-            GlideUtils.showRound(view as ImageView, (model as BannerBean).imgUrl, R.drawable.home_ban_member01, 6)
+            GlideUtils.showRound(view as ImageView, Constant.BASE_URL+(model as BannerInfoBean.DataBean).cpPicture, R.drawable.home_ban_member01, 6)
         })
         xbanner.setOnItemClickListener { banner, model, view, position ->
             showToast("点击$position")
-            jumpToWebViewActivity()
+            jumpToWebViewActivity(bannerList[position].cpContent,0)
 
         }
 
@@ -147,19 +173,39 @@ class HomeFragment : BaseFragment() {
 
 
     override fun lazyLoad() {
-
+        initBanner()
+        initRvData()
     }
 
-    private val listGood = mutableListOf<GoodsBean>()
+    private var listGood = mutableListOf<GoodListBean.DataBean>()
     private val listFamous = mutableListOf<GoodsBean>()
     private val listMore = mutableListOf<GoodsBean>()
     private fun initRvData() {
+        val observable = SLMRetrofit.getInstance().api.goodListCall()
+        observable.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<GoodListBean>(){
+            override fun onSucceed(t: GoodListBean?) {
+                if (t?.code == Constant.SUCCESSED_CODE){
+                    listGood = t.data
+
+                    goodAdapter.addData(listGood)
+
+                }
+            }
+
+            override fun onFailed() {
+            }
+        })
+
+
+
+
+
         for (i in 0..3) {
-            listGood.add(GoodsBean("SK2小黑瓶安瓶精华", 500f, "￥800", "200", "https://www.dior.cn/beauty/version-5.1563986503609/resize-image/ep/3000/2000/90/0/%252FY0112000%252FY0112000_C011200066_E01_ZHC.jpg"))
+           // listGood.add(GoodsBean("SK2小黑瓶安瓶精华", 500f, "￥800", "200", "https://www.dior.cn/beauty/version-5.1563986503609/resize-image/ep/3000/2000/90/0/%252FY0112000%252FY0112000_C011200066_E01_ZHC.jpg"))
             listFamous.add(GoodsBean("SK2小黑瓶安瓶精华", 500f, "￥800", "200", "https://www.dior.cn/beauty/version-5.1563986503609/resize-image/ep/3000/2000/90/0/%252FY0112000%252FY0112000_C011200066_E01_ZHC.jpg"))
             listMore.add(GoodsBean("SK2小黑瓶安瓶精华", 500f, "￥800", "200", "https://www.dior.cn/beauty/version-5.1563986503609/resize-image/ep/3000/2000/90/0/%252FY0112000%252FY0112000_C011200066_E01_ZHC.jpg"))
         }
-        goodAdapter.addData(listGood)
+      //  goodAdapter.addData(listGood)
         famousAdapter.addData(listFamous)
         moreRecommendAdapter.addData(listMore)
 

@@ -19,6 +19,7 @@
         android:supportsRtl="true"
         android:appComponentFactory="kla"
         tools:replace="android:appComponentFactory"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
 
         <!--设计图大小-->

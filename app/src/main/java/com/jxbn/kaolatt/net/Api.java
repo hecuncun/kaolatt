@@ -1,6 +1,9 @@
 package com.jxbn.kaolatt.net;
 
 import com.jxbn.kaolatt.base.BaseBean;
+import com.jxbn.kaolatt.base.BaseNoDataBean;
+import com.jxbn.kaolatt.bean.BannerInfoBean;
+import com.jxbn.kaolatt.bean.GoodListBean;
 import com.jxbn.kaolatt.bean.RegisterBean;
 import com.jxbn.kaolatt.bean.UserInfoBean;
 
@@ -33,7 +36,7 @@ public interface Api {
     Observable<BaseBean<UserInfoBean>> registerCall(@Query("phone") String phone, @Query("code") String code, @Query("pwd") String pwd);
 
     /**
-     * 登录接口
+     * 登录
      *
      * @param phone
      * @param pwd
@@ -41,6 +44,30 @@ public interface Api {
      */
     @POST("appUserBase/logoin")
     Observable<BaseBean<UserInfoBean>> loginCall(@Query("phone") String phone, @Query("pwd") String pwd);
+
+    /**
+     *重置密码
+     * @param phone
+     * @param code
+     * @param pwd
+     * @return
+     */
+    @POST("appUserBase/resetPwd")
+    Observable<BaseNoDataBean> resetPwdCall(@Query("phone") String phone, @Query("code") String code, @Query("pwd") String pwd);
+
+    /**
+     * 首页轮播图
+     * @return
+     */
+    @POST("appTcmnCarouselPicture/searchAll")
+    Observable<BannerInfoBean> homeBannerCall();
+
+    /**
+     * 首页好物
+     * @return
+     */
+    @POST("appGoodsInfo/selectHomeExquisiteGoods")
+    Observable<GoodListBean> goodListCall();
 
 //    /**
 //     * 获取全员信息

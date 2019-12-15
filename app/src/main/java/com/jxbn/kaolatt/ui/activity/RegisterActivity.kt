@@ -69,17 +69,9 @@ class RegisterActivity:BaseActivity() {
                 return@setOnClickListener
             }
 
-            if (et_pwd.text.toString().trim().isEmpty() or et_pwd_confirm.text.toString().trim().isEmpty()
-                    or et_code.text.toString().trim().isEmpty() or et_phone.text.toString().trim().isEmpty()){
-                showToast("请将信息补充完整")
-                return@setOnClickListener
-            }
-            if (et_pwd.text.toString().trim() != et_pwd_confirm.text.toString().trim()){
-                showToast("两次输入密码不一致")
-                return@setOnClickListener
-            }
+            if (verify()) return@setOnClickListener
 
-         val observable = SLMRetrofit.getInstance().api.registerCall(et_phone.text.toString().trim(),et_code.text.toString().trim(),et_pwd.text.toString().trim())
+            val observable = SLMRetrofit.getInstance().api.registerCall(et_phone.text.toString().trim(),et_code.text.toString().trim(),et_pwd.text.toString().trim())
             observable.compose(ThreadSwitchTransformer()).subscribe(object :CallbackObserver<UserInfoBean>(){
                 override fun onSucceed(t: UserInfoBean?, desc: String?) {
                     isLogin=true //登录成功
@@ -101,6 +93,22 @@ class RegisterActivity:BaseActivity() {
 
         }
 
+    }
+
+    /**
+     * 校验密码，手机号，code等填写
+     */
+    private fun verify(): Boolean {
+        if (et_pwd.text.toString().trim().isEmpty() or et_pwd_confirm.text.toString().trim().isEmpty()
+                or et_code.text.toString().trim().isEmpty() or et_phone.text.toString().trim().isEmpty()) {
+            showToast("请将信息填写完整")
+            return true
+        }
+        if (et_pwd.text.toString().trim() != et_pwd_confirm.text.toString().trim()) {
+            showToast("两次输入密码不一致")
+            return true
+        }
+        return false
     }
 
     private fun jumpToAgreementActivity() {

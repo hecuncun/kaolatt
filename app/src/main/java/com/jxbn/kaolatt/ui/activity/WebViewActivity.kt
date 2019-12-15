@@ -13,23 +13,42 @@ import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by hecuncun on 2019/12/14
+ *
+ * type: 0 首页轮播图详情
  */
 class WebViewActivity :BaseActivity() {
+    private var type = 0
+    private var url =""
     override fun attachLayoutRes(): Int= R.layout.activity_webview
     override fun initData() {
 
     }
 
+    /**
+     * 富文本的样式做到适配屏幕
+     */
+    private fun getHtmlData(bodyHTML: String): String {
+        val head = ("<head>"
+                + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> "
+                + "<style>img{max-width: 100%; width:100%; height:auto;}*{margin:0px;}</style>"
+                + "</head>")
+        return "<html>$head<body>$bodyHTML</body></html>"
+    }
+
     override fun initView() {
-        toolbar_title.text="网页详情"
+        type = intent.extras.getInt("type")
+        url = intent.extras.getString("url")
+        when(type){
+            0-> toolbar_title.text="活动详情"
+        }
         initWeb()
-        setUrl(0)
+        setUrl(type)
     }
 
     private fun setUrl(type:Int) {
         webView.post {
            when(type){
-               0->webView.loadUrl("https://market.m.taobao.com/app/tb-source-app/aiguangjiepc/item/index.html?spm=a21bo.2017.2001.6.5af911d9qSt8sr&itemId=200404905502")
+               0->webView.loadDataWithBaseURL(null,getHtmlData(url), "text/html" , "utf-8", null)
            }
         }
 

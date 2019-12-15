@@ -19,6 +19,7 @@
             android:textSize="@dimen/text_size_big"/>
 
         <EditText
+            android:id="@+id/et_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_10"
@@ -43,6 +44,7 @@
             android:textSize="@dimen/text_size_big"/>
 
         <EditText
+            android:id="@+id/et_code"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_10"
@@ -52,6 +54,7 @@
             android:padding="@dimen/dp_10"/>
 
         <TextView
+            android:id="@+id/tv_code"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_40"
@@ -80,6 +83,7 @@
             android:textSize="@dimen/text_size_big"/>
 
         <EditText
+            android:id="@+id/et_pwd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_10"
@@ -106,6 +110,7 @@
             android:textSize="@dimen/text_size_big"/>
 
         <EditText
+            android:id="@+id/et_pwd_confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_10"
@@ -116,6 +121,7 @@
 
     <View style="@style/horizontalGrayLine"/>
     <TextView
+        android:id="@+id/tv_confirm"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/bg_blue_btn"

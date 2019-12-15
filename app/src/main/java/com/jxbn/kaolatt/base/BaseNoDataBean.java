@@ -1,17 +1,12 @@
 package com.jxbn.kaolatt.base;
 
-import com.jxbn.kaolatt.constants.Constant;
-
 /**
- * Created by hecuncun on 2019/5/13
+ * Created by hecuncun on 2019/12/15
  */
-public class BaseBean<T> {
-
-    private static final String SUCCESSED_CODE= Constant.SUCCESSED_CODE;//请求成功 code=10001;
-
+public class BaseNoDataBean {
     private String code;
     private String message;
-    private T data;
+    private Object data;
 
     public String getCode() {
         return code;
@@ -29,19 +24,11 @@ public class BaseBean<T> {
         this.message = message;
     }
 
-    public T getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
-    }
-
-    /**
-     * 判断请求是否成功
-     *
-     */
-    public boolean isSuccessed(){
-        return SUCCESSED_CODE.equals(code);
     }
 }
