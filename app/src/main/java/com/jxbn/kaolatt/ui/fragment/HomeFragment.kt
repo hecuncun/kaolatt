@@ -197,8 +197,8 @@ class HomeFragment : BaseFragment() {
         observable.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<GoodListBean>() {
             override fun onSucceed(t: GoodListBean?) {
                 if (t?.code == Constant.SUCCESSED_CODE) {
-                    listGood = t.data
-                    goodAdapter.addData(listGood)
+                    listGood .addAll(t.data)
+                    goodAdapter.setNewData(listGood)
                 }
             }
 
@@ -211,8 +211,8 @@ class HomeFragment : BaseFragment() {
         famousListCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<FamousListBean>() {
             override fun onSucceed(t: FamousListBean?) {
                 if (t?.code == Constant.SUCCESSED_CODE) {
-                    listFamous = t.data
-                    famousAdapter.addData(listFamous)
+                    listFamous.addAll(t.data)
+                    famousAdapter.setNewData(listFamous)
                 }
 
             }
@@ -227,8 +227,8 @@ class HomeFragment : BaseFragment() {
         goodsMoreListCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<GoodsMoreListBean>() {
             override fun onSucceed(t: GoodsMoreListBean?) {
                 if (t?.code == Constant.SUCCESSED_CODE) {
-                    listMore = t.data.rows
-                    moreRecommendAdapter.addData(listMore)
+                    listMore.addAll(t.data.rows)
+                    moreRecommendAdapter.setNewData(listMore)
                     total = t.data.total
                 }
             }
