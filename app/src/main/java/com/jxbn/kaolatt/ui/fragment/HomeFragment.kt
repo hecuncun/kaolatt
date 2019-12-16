@@ -6,12 +6,13 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.adapter.FamousAdapter
-import com.jxbn.kaolatt.adapter.GoodsAdapter
-import com.jxbn.kaolatt.adapter.GoodsListAdapter
+import com.jxbn.kaolatt.adapter.FamousListAdapter
+import com.jxbn.kaolatt.adapter.GoodListAdapter
+import com.jxbn.kaolatt.adapter.GoodsMoreAdapter
 import com.jxbn.kaolatt.bean.BannerInfoBean
+import com.jxbn.kaolatt.bean.FamousListBean
 import com.jxbn.kaolatt.bean.GoodListBean
-import com.jxbn.kaolatt.bean.GoodsBean
+import com.jxbn.kaolatt.bean.GoodsMoreListBean
 import com.jxbn.kaolatt.constants.Constant
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.glide.GlideUtils
@@ -24,7 +25,6 @@ import com.jxbn.kaolatt.ui.activity.GoodsListActivity
 import com.jxbn.kaolatt.ui.activity.WebViewActivity
 import com.jxbn.kaolatt.widget.CustomScrollView
 import com.lhzw.bluetooth.base.BaseFragment
-import com.orhanobut.logger.Logger
 import com.stx.xhb.xbanner.XBanner
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -34,38 +34,53 @@ import kotlinx.android.synthetic.main.fragment_home.*
  */
 class HomeFragment : BaseFragment() {
 
-
-
-    private val goodAdapter: GoodsListAdapter by lazy {
-        GoodsListAdapter()
+    private val goodAdapter: GoodListAdapter by lazy {
+        GoodListAdapter()
     }
-    private val famousAdapter: FamousAdapter by lazy {
-        FamousAdapter()
+    private val famousAdapter: FamousListAdapter by lazy {
+        FamousListAdapter()
     }
-    private val moreRecommendAdapter: GoodsAdapter by lazy {
-        GoodsAdapter()
+    private val moreRecommendAdapter: GoodsMoreAdapter by lazy {
+        GoodsMoreAdapter()
     }
 
     override fun initListener() {
-        scrollView.setOnScrollChangeListener(object :CustomScrollView.OnScrollChangeListener{
+        scrollView.setOnScrollChangeListener(object : CustomScrollView.OnScrollChangeListener {
             override fun onScrollToStart() {
             }
 
             override fun onScrollToEnd() {
+                currentPage++
+                if (currentPage > total) {
+                    return
+                }
+                //请求接口，显示更多
+                val goodsMoreListCall = SLMRetrofit.getInstance().api.goodsMoreListCall(currentPage, 1)
+                goodsMoreListCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<GoodsMoreListBean>() {
+                    override fun onSucceed(t: GoodsMoreListBean?) {
+                        if (t?.code == Constant.SUCCESSED_CODE) {
+                            listMore.addAll(t.data.rows)
+                            moreRecommendAdapter.setNewData(listMore)
+                            if (currentPage == total) {
+                                tv_loading_tip.text="已全部加载完成"
+                            } else {
+                                tv_loading_tip.text="上拉加载更多..."
+                            }
 
-            //请求接口，显示更多
-            for(i in 0..3){
-                listMore.add(GoodsBean("SK2小黑瓶安瓶精华",500f,"￥800","200","https://www.dior.cn/beauty/version-5.1563986503609/resize-image/ep/3000/2000/90/0/%252FY0112000%252FY0112000_C011200066_E01_ZHC.jpg"))
-            }
-            moreRecommendAdapter.setNewData(listMore)
-                Logger.e("OnLoadMoreListener==${listMore.size}")
-            moreRecommendAdapter.loadMoreEnd()
+                        }
+                    }
+
+                    override fun onFailed() {
+                    }
+                })
             }
         })
 
 
         goodAdapter.setOnItemClickListener { adapter, view, position ->
-            val intent = Intent(activity,GoodsDetailActivity::class.java)
+            //详情页
+            val intent = Intent(activity, GoodsDetailActivity::class.java)
+            intent.putExtra("gid", listGood[position].gid)
             startActivity(intent)
         }
 
@@ -76,7 +91,7 @@ class HomeFragment : BaseFragment() {
         }
 
         moreRecommendAdapter.setOnItemClickListener { adapter, view, position ->
-            val intent = Intent(activity,GoodsDetailActivity::class.java)
+            val intent = Intent(activity, GoodsDetailActivity::class.java)
             startActivity(intent)
         }
 
@@ -85,20 +100,21 @@ class HomeFragment : BaseFragment() {
         }
 
         ll_web.setOnClickListener {
-           // jumpToWebViewActivity()
+            // jumpToWebViewActivity()
         }
 
 
     }
 
-    private fun jumpToWebViewActivity(url:String,type:Int) {
-        val intent  =   Intent(activity, WebViewActivity::class.java)
-        intent.putExtra("url",url)
-        intent.putExtra("type",type)
+    private fun jumpToWebViewActivity(url: String, type: Int) {
+        val intent = Intent(activity, WebViewActivity::class.java)
+        intent.putExtra("url", url)
+        intent.putExtra("type", type)
         startActivity(intent)
     }
+
     private fun jumpToGoodsListActivity() {
-        val intent =   Intent(activity, GoodsListActivity::class.java)
+        val intent = Intent(activity, GoodsListActivity::class.java)
         startActivity(intent)
     }
 
@@ -119,53 +135,46 @@ class HomeFragment : BaseFragment() {
             adapter = goodAdapter
         }
         rv_good.setHasFixedSize(true)
-        rv_good.isNestedScrollingEnabled=false
+        rv_good.isNestedScrollingEnabled = false
         rv_famous.run {
-            layoutManager =LinearLayoutManager(activity)
+            layoutManager = LinearLayoutManager(activity)
             adapter = famousAdapter
         }
         rv_famous.setHasFixedSize(true)
-        rv_famous.isNestedScrollingEnabled=false
+        rv_famous.isNestedScrollingEnabled = false
         rv_more_recommend.run {
             layoutManager = GridLayoutManager(activity, 2)
             adapter = moreRecommendAdapter
         }
         rv_more_recommend.setHasFixedSize(true)
-        rv_more_recommend.isNestedScrollingEnabled=false
+        rv_more_recommend.isNestedScrollingEnabled = false
 
     }
 
-  //  private var bannerList = mutableListOf<BannerBean>()
     private var bannerList = mutableListOf<BannerInfoBean.DataBean>()
 
     private fun initBanner() {
-        val observable =  SLMRetrofit.getInstance().api.homeBannerCall()
-        observable.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BannerInfoBean>(){
+        val observable = SLMRetrofit.getInstance().api.homeBannerCall()
+        observable.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<BannerInfoBean>() {
             override fun onSucceed(bannerInfoBean: BannerInfoBean?) {
-               if(bannerInfoBean?.code == Constant.SUCCESSED_CODE){
-                   bannerList = bannerInfoBean.data
-                   xbanner.setBannerData(bannerList)
-               }
+                if (bannerInfoBean?.code == Constant.SUCCESSED_CODE) {
+                    bannerList = bannerInfoBean.data
+                    xbanner.setBannerData(bannerList)
+                }
             }
 
             override fun onFailed() {
             }
         })
 
-
-//
-//        for (i in 0..3) {
-//            bannerList.add(BannerBean("https://icweiliimg6.pstatp.com/weili/l/799597196884705367.webp", "https://www.iqiyi.com/"))
-//        }
-
         xbanner.loadImage(XBanner.XBannerAdapter { banner, model, view, position ->
             //1、此处使用的Glide加载图片，可自行替换自己项目中的图片加载框架
             //2、返回的图片路径为Object类型，你只需要强转成你传输的类型就行，切记不要胡乱强转！
-            GlideUtils.showRound(view as ImageView, Constant.BASE_URL+(model as BannerInfoBean.DataBean).cpPicture, R.drawable.home_ban_member01, 6)
+            GlideUtils.showRound(view as ImageView, Constant.BASE_URL + (model as BannerInfoBean.DataBean).cpPicture, R.drawable.home_ban_member01, 6)
         })
         xbanner.setOnItemClickListener { banner, model, view, position ->
             showToast("点击$position")
-            jumpToWebViewActivity(bannerList[position].cpContent,0)
+            jumpToWebViewActivity(bannerList[position].cpContent, 0)
 
         }
 
@@ -178,17 +187,18 @@ class HomeFragment : BaseFragment() {
     }
 
     private var listGood = mutableListOf<GoodListBean.DataBean>()
-    private val listFamous = mutableListOf<GoodsBean>()
-    private val listMore = mutableListOf<GoodsBean>()
+    private var listFamous = mutableListOf<FamousListBean.DataBean>()
+    private var listMore = mutableListOf<GoodsMoreListBean.DataBean.RowsBean>()
+    private var currentPage = 1
+    private var total = 1
     private fun initRvData() {
+        //好物
         val observable = SLMRetrofit.getInstance().api.goodListCall()
-        observable.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<GoodListBean>(){
+        observable.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<GoodListBean>() {
             override fun onSucceed(t: GoodListBean?) {
-                if (t?.code == Constant.SUCCESSED_CODE){
+                if (t?.code == Constant.SUCCESSED_CODE) {
                     listGood = t.data
-
                     goodAdapter.addData(listGood)
-
                 }
             }
 
@@ -196,19 +206,36 @@ class HomeFragment : BaseFragment() {
             }
         })
 
+        //大牌
+        val famousListCall = SLMRetrofit.getInstance().api.famousListCall()
+        famousListCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<FamousListBean>() {
+            override fun onSucceed(t: FamousListBean?) {
+                if (t?.code == Constant.SUCCESSED_CODE) {
+                    listFamous = t.data
+                    famousAdapter.addData(listFamous)
+                }
 
+            }
 
+            override fun onFailed() {
+            }
+        })
 
+        //更多
 
-        for (i in 0..3) {
-           // listGood.add(GoodsBean("SK2小黑瓶安瓶精华", 500f, "￥800", "200", "https://www.dior.cn/beauty/version-5.1563986503609/resize-image/ep/3000/2000/90/0/%252FY0112000%252FY0112000_C011200066_E01_ZHC.jpg"))
-            listFamous.add(GoodsBean("SK2小黑瓶安瓶精华", 500f, "￥800", "200", "https://www.dior.cn/beauty/version-5.1563986503609/resize-image/ep/3000/2000/90/0/%252FY0112000%252FY0112000_C011200066_E01_ZHC.jpg"))
-            listMore.add(GoodsBean("SK2小黑瓶安瓶精华", 500f, "￥800", "200", "https://www.dior.cn/beauty/version-5.1563986503609/resize-image/ep/3000/2000/90/0/%252FY0112000%252FY0112000_C011200066_E01_ZHC.jpg"))
-        }
-      //  goodAdapter.addData(listGood)
-        famousAdapter.addData(listFamous)
-        moreRecommendAdapter.addData(listMore)
+        val goodsMoreListCall = SLMRetrofit.getInstance().api.goodsMoreListCall(currentPage, 1)
+        goodsMoreListCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<GoodsMoreListBean>() {
+            override fun onSucceed(t: GoodsMoreListBean?) {
+                if (t?.code == Constant.SUCCESSED_CODE) {
+                    listMore = t.data.rows
+                    moreRecommendAdapter.addData(listMore)
+                    total = t.data.total
+                }
+            }
 
+            override fun onFailed() {
+            }
+        })
 
 
     }

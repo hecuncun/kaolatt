@@ -3,7 +3,10 @@ package com.jxbn.kaolatt.net;
 import com.jxbn.kaolatt.base.BaseBean;
 import com.jxbn.kaolatt.base.BaseNoDataBean;
 import com.jxbn.kaolatt.bean.BannerInfoBean;
+import com.jxbn.kaolatt.bean.FamousListBean;
 import com.jxbn.kaolatt.bean.GoodListBean;
+import com.jxbn.kaolatt.bean.GoodMoreListBean;
+import com.jxbn.kaolatt.bean.GoodsMoreListBean;
 import com.jxbn.kaolatt.bean.RegisterBean;
 import com.jxbn.kaolatt.bean.UserInfoBean;
 
@@ -68,6 +71,31 @@ public interface Api {
      */
     @POST("appGoodsInfo/selectHomeExquisiteGoods")
     Observable<GoodListBean> goodListCall();
+
+    /**
+     * 大牌
+     * @return
+     */
+    @POST("appGoodsInfo/searchBigClassList")
+    Observable<FamousListBean> famousListCall();
+
+    /**
+     * 更多推荐
+     * @param page 当前页码，从1开始
+     * @param type 1:综合排序，2：销量升降序，3：价格降序，4：价格升序，5：价格筛选
+     * @return
+     */
+    @POST("appGoodsInfo/searchForPage")
+    Observable<GoodsMoreListBean> goodsMoreListCall(@Query("page") int page, @Query("type") int type);
+
+    /**
+     * 更好好物
+     * @param page
+     * @return
+     */
+
+    @POST("appGoodsInfo/selectExquisiteGoods")
+    Observable<GoodMoreListBean> goodMoreListCall(@Query("page") int page);
 
 //    /**
 //     * 获取全员信息

@@ -2,6 +2,7 @@ package com.jxbn.kaolatt.ui.activity
 
 import android.content.Intent
 import com.jxbn.kaolatt.R
+import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.RegisterBean
 import com.jxbn.kaolatt.bean.UserInfoBean

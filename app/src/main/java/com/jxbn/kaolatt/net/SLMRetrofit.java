@@ -67,7 +67,7 @@ public class SLMRetrofit {
                 .connectTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS)
                 .writeTimeout(DEFAULT_READ_TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(DEFAULT_READ_TIME_OUT, TimeUnit.SECONDS)
-                .retryOnConnectionFailure(false) //失败后，是否重新连接，
+                .retryOnConnectionFailure(true) //失败后，是否重新连接，
         //启用Log日志
                 .addInterceptor(loggingInterceptor)  //添加拦截器  拦截器拿到了request之后，可以对request进行重写，可以添加，移除，替换请求头，也能对response的header进行重写，改变response的body
                 .addInterceptor(new Interceptor() {

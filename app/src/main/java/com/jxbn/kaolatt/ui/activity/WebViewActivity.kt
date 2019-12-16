@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebSettings
 import com.jxbn.kaolatt.R
+import com.jxbn.kaolatt.R.id.webView
 import com.jxbn.kaolatt.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_webview.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -109,6 +110,7 @@ class WebViewActivity :BaseActivity() {
      */
     private fun destroyWebView() {
         if (webView != null) {
+            webView.settings.setJavaScriptEnabled(false)
             webView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null)
             webView.clearHistory()
             (webView.parent as ViewGroup).removeView(webView)

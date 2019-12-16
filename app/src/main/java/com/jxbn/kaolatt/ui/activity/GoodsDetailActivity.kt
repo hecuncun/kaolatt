@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.widget.ImageView
 import android.widget.ScrollView
 import com.jxbn.kaolatt.R
+import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.adapter.EvaluateAdapter
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.BannerBean
@@ -41,6 +42,8 @@ class GoodsDetailActivity : BaseActivity() {
     override fun attachLayoutRes(): Int = R.layout.activity_goods_detail
 
     override fun initData() {
+      val gid = intent.extras.getString("gid")//商品id
+
         val list = mutableListOf<EvaluateBean>()
         for (i in 0..2) {
             list.add(EvaluateBean("https://upload.jianshu.io/users/upload_avatars/9988193/fc26c109-1ae6-4327-a298-2def343e9cd8.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp",
