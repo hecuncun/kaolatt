@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.widget.ImageView
 import android.widget.ScrollView
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.adapter.EvaluateAdapter
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.BannerBean
@@ -42,7 +41,7 @@ class GoodsDetailActivity : BaseActivity() {
     override fun attachLayoutRes(): Int = R.layout.activity_goods_detail
 
     override fun initData() {
-      val gid = intent.extras.getString("gid")//商品id
+     // val gid = intent.extras.getString("gid")//商品id
 
         val list = mutableListOf<EvaluateBean>()
         for (i in 0..2) {

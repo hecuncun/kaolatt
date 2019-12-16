@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
 import com.jxbn.kaolatt.R
+import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.adapter.FamousListAdapter
 import com.jxbn.kaolatt.adapter.GoodListAdapter
 import com.jxbn.kaolatt.adapter.GoodsMoreAdapter
@@ -87,6 +88,8 @@ class HomeFragment : BaseFragment() {
 
         famousAdapter.setOnItemClickListener { adapter, view, position ->
             val intent = Intent(activity, GoodsFamousActivity::class.java)
+            intent.putExtra("bcid",listFamous[position].bcid)
+            intent.putExtra("picture",listFamous[position].picture)
             startActivity(intent)
         }
 

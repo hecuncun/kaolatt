@@ -97,6 +97,16 @@ public interface Api {
     @POST("appGoodsInfo/selectExquisiteGoods")
     Observable<GoodMoreListBean> goodMoreListCall(@Query("page") int page);
 
+    /**
+     *
+     * @param page 当前页码，从1开始
+     * @param bigClassId 大牌id
+     * @param type 1:综合排序，2：销量升降序，3：价格降序，4：价格升序，5：价格筛选
+     * @return
+     */
+    @POST("appGoodsInfo/searchForPage")
+    Observable<GoodsMoreListBean> famousMoreListCall(@Query("page") int page, @Query("bigClassId") String bigClassId, @Query("type") int type);
+
 //    /**
 //     * 获取全员信息
 //     * @return
