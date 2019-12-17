@@ -116,4 +116,13 @@ object CommonUtil {
         return ""
     }
 
+    fun formatToIntString(origin: String): String {
+        var result = origin
+        if (origin.indexOf(".") > 0) {
+            result = origin.substring(0, origin.indexOf("."))
+        }
+        return result
+
+    }
+
 }

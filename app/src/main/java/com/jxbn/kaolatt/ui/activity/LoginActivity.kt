@@ -4,6 +4,7 @@ import android.content.Intent
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import com.jxbn.kaolatt.R
+import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.UserInfoBean
 import com.jxbn.kaolatt.event.LoginEvent
@@ -57,8 +58,10 @@ class LoginActivity : BaseActivity() {
             loadingView.show()
             val observable = SLMRetrofit.getInstance().api.loginCall(name, pwd)
             observable.compose(ThreadSwitchTransformer()).subscribe(object : CallbackObserver<UserInfoBean>() {
-                override fun onSucceed(t: UserInfoBean?, desc: String?) {
+                override fun onSucceed(t: UserInfoBean, desc: String?) {
                     showToast("登录成功")
+                        uid =  t.uid  //保存用户id
+                        isLogin =true //登录状态
                     loadingView.dismiss()
                    // jumpToMainActivity()
                 }

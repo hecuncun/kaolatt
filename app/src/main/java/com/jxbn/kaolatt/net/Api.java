@@ -7,6 +7,8 @@ import com.jxbn.kaolatt.bean.FamousListBean;
 import com.jxbn.kaolatt.bean.GoodListBean;
 import com.jxbn.kaolatt.bean.GoodMoreListBean;
 import com.jxbn.kaolatt.bean.GoodsMoreListBean;
+import com.jxbn.kaolatt.bean.HotTagList;
+import com.jxbn.kaolatt.bean.MsgListBean;
 import com.jxbn.kaolatt.bean.RegisterBean;
 import com.jxbn.kaolatt.bean.UserInfoBean;
 
@@ -107,8 +109,38 @@ public interface Api {
     @POST("appGoodsInfo/searchForPage")
     Observable<GoodsMoreListBean> famousMoreListCall(@Query("page") int page, @Query("bigClassId") String bigClassId, @Query("type") int type);
 
+    /**
+     * 未读消息数
+     * @param uid
+     * @return
+     */
+    @POST("appActiveMessage/searchCount")
+    Observable<BaseNoDataBean> unReadMsgCall(@Query("uid") String uid);
+
+    /**
+     * 消息列表
+     * @param page
+     * @param uid
+     * @return
+     */
+    @POST("appActiveMessage/searchForPage")
+    Observable<MsgListBean> msgListCall(@Query("page") int page,@Query("uid") String uid);
+
+    /**
+     * 更新消息状态
+     * @param uid
+     * @param mid
+     * @return
+     */
+    @POST("appActiveMessage/updateById")
+    Observable<BaseNoDataBean> updateMsgStateCall(@Query("uid") String uid,@Query("mid") String mid);
+    /**
+     * 热门搜索
+     */
+    @POST("appGoodsHot/searchAll")
+    Observable<HotTagList> hotTagCall();
 //    /**
-//     * 获取全员信息
+//     * 获取全员信息e
 //     * @return
 //     */
 //    @GET("security/user")

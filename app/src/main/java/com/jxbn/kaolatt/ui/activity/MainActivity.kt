@@ -9,11 +9,18 @@ import android.view.KeyEvent
 import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
+import com.jxbn.kaolatt.base.BaseNoDataBean
+import com.jxbn.kaolatt.constants.Constant
 import com.jxbn.kaolatt.ext.showToast
+import com.jxbn.kaolatt.ext.startActivityCheckLogin
+import com.jxbn.kaolatt.net.CallbackListObserver
+import com.jxbn.kaolatt.net.SLMRetrofit
+import com.jxbn.kaolatt.net.ThreadSwitchTransformer
 import com.jxbn.kaolatt.ui.fragment.HomeFragment
 import com.jxbn.kaolatt.ui.fragment.MineFragment
 import com.jxbn.kaolatt.ui.fragment.ShoppingCartFragment
 import com.jxbn.kaolatt.ui.fragment.SortFragment
+import com.jxbn.kaolatt.utils.CommonUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -40,6 +47,25 @@ class MainActivity : BaseActivity() {
         } else {
             requestPermission(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE), PERMISS_REQUEST_CODE)
         }
+
+        //初始化用户未读消息
+        val unReadMsgCall = SLMRetrofit.getInstance().api.unReadMsgCall(uid)
+        unReadMsgCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
+            override fun onSucceed(t: BaseNoDataBean?) {
+                if (t?.code==Constant.SUCCESSED_CODE){
+                   val unreadNum = t.data.toString()
+                    if (unreadNum == "0.0"){
+                        toolbar_msg_num.visibility=View.GONE
+                    }else{
+                        toolbar_msg_num.visibility=View.VISIBLE
+                        toolbar_msg_num.text =CommonUtil.formatToIntString(unreadNum)
+                    }
+                }
+            }
+
+            override fun onFailed() {
+            }
+        })
 
     }
 
@@ -86,6 +112,7 @@ class MainActivity : BaseActivity() {
         toolbar_left_img.visibility=View.GONE
         toolbar_right_tv.visibility = View.GONE
         tool_bar_search.visibility=View.GONE
+        toolbar_msg_num.visibility=View.GONE
         toolbar.visibility=View.GONE
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
@@ -99,7 +126,7 @@ class MainActivity : BaseActivity() {
                 toolbar_left_img.setImageResource(R.mipmap.icon_logo)
                 toolbar_right_img.setImageResource(R.mipmap.icon_message)
                 tool_bar_search.setOnClickListener { jumpToSearchActivity() }
-                toolbar_right_img.setOnClickListener { jumpToMsgActivity() }
+                toolbar_fl_msg.setOnClickListener { jumpToMsgActivity() }
                 if (mHomeFragment == null) {
                     mHomeFragment = HomeFragment.getInstance()
                     transaction.add(R.id.container, mHomeFragment!!, "home")
@@ -158,8 +185,8 @@ class MainActivity : BaseActivity() {
     }
 
     private fun jumpToMsgActivity() {
-        val intent = Intent(this@MainActivity,MsgActivity::class.java)
-        startActivity(intent)
+
+      startActivityCheckLogin(MsgActivity::class.java)
 
     }
 

@@ -22,8 +22,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SLMRetrofit {
     private static SLMRetrofit mService;
     private Api mApi;
-    private static final int DEFAULT_TIME_OUT = 20;//超时时间
-    private static final int DEFAULT_READ_TIME_OUT = 20;
+    private static final int DEFAULT_TIME_OUT = 10;//超时时间
+    private static final int DEFAULT_READ_TIME_OUT = 10;
 
     private SLMRetrofit() {
         Gson gson = new GsonBuilder().create();

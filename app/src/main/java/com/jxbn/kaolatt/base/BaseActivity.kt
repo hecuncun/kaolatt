@@ -36,6 +36,10 @@ abstract class BaseActivity :AppCompatActivity(){
      * check login
      */
     protected var isLogin: Boolean by Preference(Constant.LOGIN_KEY, false)
+    /**
+     * 用户id
+     */
+    protected var uid:String by Preference(Constant.UID,"")
 
     /**
      * 布局文件id

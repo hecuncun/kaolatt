@@ -29,6 +29,7 @@ abstract class BaseFragment :Fragment(){
      * check login
      */
     protected var isLogin: Boolean by Preference(Constant.LOGIN_KEY, false)
+    protected var uid:String by Preference(Constant.UID,"")
 
     /**
      * 视图是否加载完毕

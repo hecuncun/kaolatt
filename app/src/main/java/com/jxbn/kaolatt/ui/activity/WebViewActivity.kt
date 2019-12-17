@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebSettings
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.R.id.webView
 import com.jxbn.kaolatt.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_webview.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -15,7 +14,7 @@ import org.greenrobot.eventbus.EventBus
 /**
  * Created by hecuncun on 2019/12/14
  *
- * type: 0 首页轮播图详情
+ * type: 0 首页轮播图详情  1 消息详情
  */
 class WebViewActivity :BaseActivity() {
     private var type = 0
@@ -41,6 +40,7 @@ class WebViewActivity :BaseActivity() {
         url = intent.extras.getString("url")
         when(type){
             0-> toolbar_title.text="活动详情"
+            1-> toolbar_title.text="消息内容"
         }
         initWeb()
         setUrl(type)
@@ -49,7 +49,7 @@ class WebViewActivity :BaseActivity() {
     private fun setUrl(type:Int) {
         webView.post {
            when(type){
-               0->webView.loadDataWithBaseURL(null,getHtmlData(url), "text/html" , "utf-8", null)
+               0,1->webView.loadDataWithBaseURL(null,getHtmlData(url), "text/html" , "utf-8", null)
            }
         }
 
