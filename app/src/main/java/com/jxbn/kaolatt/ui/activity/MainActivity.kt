@@ -20,7 +20,6 @@ import com.jxbn.kaolatt.ui.fragment.HomeFragment
 import com.jxbn.kaolatt.ui.fragment.MineFragment
 import com.jxbn.kaolatt.ui.fragment.ShoppingCartFragment
 import com.jxbn.kaolatt.ui.fragment.SortFragment
-import com.jxbn.kaolatt.utils.CommonUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -53,12 +52,12 @@ class MainActivity : BaseActivity() {
         unReadMsgCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
             override fun onSucceed(t: BaseNoDataBean?) {
                 if (t?.code==Constant.SUCCESSED_CODE){
-                   val unreadNum = t.data.toString()
-                    if (unreadNum == "0.0"){
+                   val unreadNum = t.data.toString().toDouble().toInt()
+                    if (unreadNum == 0){
                         toolbar_msg_num.visibility=View.GONE
                     }else{
                         toolbar_msg_num.visibility=View.VISIBLE
-                        toolbar_msg_num.text =CommonUtil.formatToIntString(unreadNum)
+                        toolbar_msg_num.text =unreadNum.toString()
                     }
                 }
             }

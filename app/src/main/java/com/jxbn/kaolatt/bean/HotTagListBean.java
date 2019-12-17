@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by heCunCun on 2019/12/17
  */
-public class HotTagList {
+public class HotTagListBean {
 
     /**
      * code : 10001

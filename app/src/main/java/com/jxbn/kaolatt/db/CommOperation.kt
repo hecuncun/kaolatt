@@ -42,6 +42,14 @@ object CommOperation {
     }
 
     /**
+     * 删除单个表
+     */
+    @Synchronized
+    inline fun <reified T : LitePalSupport> deleteAll(): Int {
+        return LitePal.deleteAll(T::class.java)
+    }
+
+    /**
      * 多条件删除
      */
     @Synchronized

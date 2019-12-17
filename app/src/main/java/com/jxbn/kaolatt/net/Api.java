@@ -7,7 +7,7 @@ import com.jxbn.kaolatt.bean.FamousListBean;
 import com.jxbn.kaolatt.bean.GoodListBean;
 import com.jxbn.kaolatt.bean.GoodMoreListBean;
 import com.jxbn.kaolatt.bean.GoodsMoreListBean;
-import com.jxbn.kaolatt.bean.HotTagList;
+import com.jxbn.kaolatt.bean.HotTagListBean;
 import com.jxbn.kaolatt.bean.MsgListBean;
 import com.jxbn.kaolatt.bean.RegisterBean;
 import com.jxbn.kaolatt.bean.UserInfoBean;
@@ -138,7 +138,7 @@ public interface Api {
      * 热门搜索
      */
     @POST("appGoodsHot/searchAll")
-    Observable<HotTagList> hotTagCall();
+    Observable<HotTagListBean> hotTagCall();
 //    /**
 //     * 获取全员信息e
 //     * @return
