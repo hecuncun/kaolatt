@@ -21,7 +21,7 @@ class   MsgAdapter:BaseQuickAdapter<MsgListBean.DataBean.RowsBean,BaseViewHolder
                 .setText(R.id.tv_date,item.createtime)
         val img = helper.getView<ImageView>(R.id.iv_img)
         val ivState = helper.getView<ImageView>(R.id.iv_state)
-        if (item.status.isEmpty()){
+        if (item.status==null || item.status.isEmpty()){
             ivState.visibility = View.VISIBLE
         }else{
             ivState.visibility = View.GONE

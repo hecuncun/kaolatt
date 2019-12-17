@@ -7,9 +7,11 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.FragmentTransaction
 import android.view.KeyEvent
 import android.view.View
+import com.flyco.animation.BounceEnter.BounceTopEnter
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.base.BaseNoDataBean
+import com.jxbn.kaolatt.bean.MsgListBean
 import com.jxbn.kaolatt.constants.Constant
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.ext.startActivityCheckLogin
@@ -20,6 +22,8 @@ import com.jxbn.kaolatt.ui.fragment.HomeFragment
 import com.jxbn.kaolatt.ui.fragment.MineFragment
 import com.jxbn.kaolatt.ui.fragment.ShoppingCartFragment
 import com.jxbn.kaolatt.ui.fragment.SortFragment
+import com.jxbn.kaolatt.widget.TopMsgDialog
+import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -39,25 +43,26 @@ class MainActivity : BaseActivity() {
     private val PERMISS_REQUEST_CODE = 0x100
 
     override fun attachLayoutRes(): Int = R.layout.activity_main
-
+    //private val tempUid ="fb22796b5c1a48c38c42d0a2034ba27e"
     override fun initData() {
         if (checkPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE))) {
 
         } else {
             requestPermission(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE), PERMISS_REQUEST_CODE)
         }
-
+        var unReadNum=0
         //初始化用户未读消息
         val unReadMsgCall = SLMRetrofit.getInstance().api.unReadMsgCall(uid)
         unReadMsgCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
             override fun onSucceed(t: BaseNoDataBean?) {
                 if (t?.code==Constant.SUCCESSED_CODE){
-                   val unreadNum = t.data.toString().toDouble().toInt()
-                    if (unreadNum == 0){
+                    unReadNum = t.data.toString().toDouble().toInt()
+                    if (unReadNum == 0){
                         toolbar_msg_num.visibility=View.GONE
                     }else{
                         toolbar_msg_num.visibility=View.VISIBLE
-                        toolbar_msg_num.text =unreadNum.toString()
+                        toolbar_msg_num.text =unReadNum.toString()
+                        showTopMsgDialog()
                     }
                 }
             }
@@ -66,6 +71,31 @@ class MainActivity : BaseActivity() {
             }
         })
 
+
+        //有未读就弹窗消息
+
+
+    }
+
+    /**
+     * 显示未读第一条消息
+     */
+    private fun showTopMsgDialog() {
+        val msgListCall = SLMRetrofit.getInstance().api.msgListCall(1, uid)
+        msgListCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<MsgListBean>(){
+            override fun onSucceed(t: MsgListBean?) {
+                if (t?.code==Constant.SUCCESSED_CODE){
+                    val rowsBean = t.data.rows[0]
+                    val dialog = TopMsgDialog(this@MainActivity,rowsBean)
+                    dialog.showAnim(BounceTopEnter())
+                    dialog.show()
+                    Logger.e("显示弹窗")
+                }
+            }
+
+            override fun onFailed() {
+            }
+        })
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

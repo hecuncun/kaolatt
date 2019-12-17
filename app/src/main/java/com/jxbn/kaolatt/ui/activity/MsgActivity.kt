@@ -59,7 +59,7 @@ class MsgActivity:BaseActivity(){
     override fun initListener() {
         msgAdapter.setOnItemClickListener { adapter, view, position ->
             //未读状态改为已读
-            if (list[position].status.isEmpty()){
+            if (list[position].status==null || list[position].status.isEmpty()){
                 val updateMsgStateCall = SLMRetrofit.getInstance().api.updateMsgStateCall(uid, list[position].mid)
                 updateMsgStateCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
                     override fun onSucceed(t: BaseNoDataBean?) {

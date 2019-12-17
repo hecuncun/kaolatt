@@ -1,6 +1,7 @@
 package com.jxbn.kaolatt.ui.activity
 
 import android.support.v7.widget.GridLayoutManager
+import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.adapter.GoodsAdapter
 import com.jxbn.kaolatt.base.BaseActivity
@@ -62,6 +63,7 @@ class SearchActivity:BaseActivity() {
      * 标签初始化
      */
     private val  hotTagList= mutableListOf<String>()
+
     private val  oldTagList= mutableListOf<String>()
     private fun initTagLayout() {
         //先获取热门标签
@@ -87,6 +89,7 @@ class SearchActivity:BaseActivity() {
         })
        //数据库获取历史标签
         val oldTagListBean = CommOperation.query<OldTagBean>()
+
         oldTagListBean.forEach {
             oldTagList.add(it.tag)
         }
@@ -96,6 +99,14 @@ class SearchActivity:BaseActivity() {
         oldTagAdapter.clearAndAddAll(oldTagList)
         old_tag.setOnTagClickListener { parent, view, position ->
             showToast(oldTagList[position])
+        }
+
+        if (oldTagList.isEmpty()){
+            old_tag.visibility= View.GONE
+            rl_old_container.visibility=View.GONE
+        }else{
+            old_tag.visibility= View.VISIBLE
+            rl_old_container.visibility=View.VISIBLE
         }
 
     }
@@ -114,7 +125,14 @@ class SearchActivity:BaseActivity() {
                 //入库
                 CommOperation.insert(OldTagBean(goodsName))
                 oldTagList.add(goodsName)
-                oldTagAdapter.notifyDataSetChanged()
+                oldTagAdapter.clearAndAddAll(oldTagList)
+                if (oldTagList.isEmpty()){
+                    old_tag.visibility= View.GONE
+                    rl_old_container.visibility=View.GONE
+                }else{
+                    old_tag.visibility= View.VISIBLE
+                    rl_old_container.visibility=View.VISIBLE
+                }
             }
 
             // }
@@ -123,7 +141,14 @@ class SearchActivity:BaseActivity() {
         iv_delete.setOnClickListener {
             LitePal.deleteAll(OldTagBean::class.java)
             oldTagList.clear()
-            oldTagAdapter.notifyDataSetChanged()
+            oldTagAdapter.clearAndAddAll(oldTagList)
+            if (oldTagList.isEmpty()){
+                old_tag.visibility= View.GONE
+                rl_old_container.visibility=View.GONE
+            }else{
+                old_tag.visibility= View.VISIBLE
+                rl_old_container.visibility=View.VISIBLE
+            }
         }
 
         tv_sort_price.setOnClickListener {
