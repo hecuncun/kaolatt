@@ -61,6 +61,7 @@
         android:layout_height="match_parent">
         <!--搜索历史显示-->
         <LinearLayout
+            android:id="@+id/ll_tag_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -109,6 +110,7 @@
         </LinearLayout>
         <!--有数据需要展示-->
         <LinearLayout
+            android:id="@+id/ll_goods_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -123,6 +125,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_normal_type"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -132,6 +135,7 @@
                     android:textSize="14sp"/>
 
                 <TextView
+                    android:id="@+id/tv_sale_num_type"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -141,6 +145,7 @@
                     android:textSize="14sp"/>
 
                 <RelativeLayout
+                    android:id="@+id/rl_price"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
@@ -156,6 +161,7 @@
                         android:textSize="14sp"/>
 
                     <ImageView
+                        android:id="@+id/iv_arrow"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/dp_5"

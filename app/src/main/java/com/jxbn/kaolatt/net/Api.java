@@ -139,6 +139,17 @@ public interface Api {
      */
     @POST("appGoodsHot/searchAll")
     Observable<HotTagListBean> hotTagCall();
+
+
+    /**
+     * 搜索页多条件搜索
+     * @param page 当前页码，从1开始
+     * @param bigClassId 大牌id
+     * @param type 1:综合排序，2：销量升降序，3：价格降序，4：价格升序，5：价格筛选
+     * @return
+     */
+    @POST("appGoodsInfo/searchForPage")
+    Observable<GoodsMoreListBean> searchListCall(@Query("page") int page, @Query("name") String name, @Query("type") int type,@Query("max") Double max,@Query("min") Double min);
 //    /**
 //     * 获取全员信息e
 //     * @return

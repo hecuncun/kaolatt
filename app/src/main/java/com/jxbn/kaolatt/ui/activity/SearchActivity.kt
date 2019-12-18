@@ -2,10 +2,11 @@ package com.jxbn.kaolatt.ui.activity
 
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.adapter.GoodsAdapter
+import com.jxbn.kaolatt.adapter.GoodsMoreAdapter
 import com.jxbn.kaolatt.base.BaseActivity
-import com.jxbn.kaolatt.bean.GoodsBean
+import com.jxbn.kaolatt.bean.GoodsMoreListBean
 import com.jxbn.kaolatt.bean.HotTagListBean
 import com.jxbn.kaolatt.bean.OldTagBean
 import com.jxbn.kaolatt.constants.Constant
@@ -19,33 +20,29 @@ import com.jxbn.kaolatt.net.ThreadSwitchTransformer
 import com.jxbn.kaolatt.widget.SortEditDialog
 import kotlinx.android.synthetic.main.activity_search.*
 import org.litepal.LitePal
+import kotlin.properties.Delegates
 
 /**
  * Created by hecuncun on 2019/12/8
  */
-class SearchActivity:BaseActivity() {
-    private val goodAdapter: GoodsAdapter by lazy {
-        GoodsAdapter()
+class SearchActivity : BaseActivity() {
+    private val goodAdapter: GoodsMoreAdapter by lazy {
+        GoodsMoreAdapter()
     }
-    private val oldTagAdapter:TagAdapter<String> by lazy {
+    private val oldTagAdapter: TagAdapter<String> by lazy {
         TagAdapter<String>(this)
     }
-    private val hotTagAdapter:TagAdapter<String> by lazy {
+    private val hotTagAdapter: TagAdapter<String> by lazy {
         TagAdapter<String>(this)
     }
 
     override fun attachLayoutRes(): Int = R.layout.activity_search
 
-    private val list = mutableListOf<GoodsBean>()
     override fun initData() {
-        for (i in 0..3) {
-            list.add(GoodsBean("SK2小黑瓶安瓶精华", 500f, "￥800", "200", "https://www.dior.cn/beauty/version-5.1563986503609/resize-image/ep/3000/2000/90/0/%252FY0112000%252FY0112000_C011200066_E01_ZHC.jpg"))
-        }
-        goodAdapter.addData(list)
     }
 
     override fun initView() {
-        initTagLayout()
+        showTagView()
         initTagLayout()
         initRecyclerView()
 
@@ -62,32 +59,37 @@ class SearchActivity:BaseActivity() {
     /**
      * 标签初始化
      */
-    private val  hotTagList= mutableListOf<String>()
+    private val hotTagList = mutableListOf<String>()
 
-    private val  oldTagList= mutableListOf<String>()
+    private val oldTagList = mutableListOf<String>()
     private fun initTagLayout() {
         //先获取热门标签
         val hotTagCall = SLMRetrofit.getInstance().api.hotTagCall()
-        hotTagCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<HotTagListBean>(){
+        hotTagCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<HotTagListBean>() {
             override fun onSucceed(t: HotTagListBean?) {
-              if (t?.code==Constant.SUCCESSED_CODE){
-                 t.data.forEach {
-                     hotTagList.add(it.name)
-                     }
-                  hot_tag.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_NONE)//单选
-                  hot_tag.adapter = hotTagAdapter
-                  hotTagAdapter.clearAndAddAll(hotTagList)
-                  hot_tag.setOnTagClickListener { parent, view, position ->
-                      showToast(hotTagList[position])
-                 }
-              }
+                if (t?.code == Constant.SUCCESSED_CODE) {
+                    t.data.forEach {
+                        hotTagList.add(it.name)
+                    }
+                    hot_tag.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_NONE)//单选
+                    hot_tag.adapter = hotTagAdapter
+                    hotTagAdapter.clearAndAddAll(hotTagList)
+                    hot_tag.setOnTagClickListener { parent, view, position ->
+                        showToast(hotTagList[position])
+                        et_search.setText(hotTagList[position])
+                        goodsName = hotTagList[position]
+                        searchGoods()
+                        showDataView()
+
+                    }
+                }
             }
 
             override fun onFailed() {
 
             }
         })
-       //数据库获取历史标签
+        //数据库获取历史标签
         val oldTagListBean = CommOperation.query<OldTagBean>()
 
         oldTagListBean.forEach {
@@ -99,64 +101,222 @@ class SearchActivity:BaseActivity() {
         oldTagAdapter.clearAndAddAll(oldTagList)
         old_tag.setOnTagClickListener { parent, view, position ->
             showToast(oldTagList[position])
+            et_search.setText(oldTagList[position])
+            goodsName = oldTagList[position]
+            searchGoods()
+            showDataView()
         }
 
-        if (oldTagList.isEmpty()){
-            old_tag.visibility= View.GONE
-            rl_old_container.visibility=View.GONE
-        }else{
-            old_tag.visibility= View.VISIBLE
-            rl_old_container.visibility=View.VISIBLE
+        if (oldTagList.isEmpty()) {
+            old_tag.visibility = View.GONE
+            rl_old_container.visibility = View.GONE
+        } else {
+            old_tag.visibility = View.VISIBLE
+            rl_old_container.visibility = View.VISIBLE
         }
 
     }
 
-    override fun initListener() {
-        iv_back.setOnClickListener { finish() }
-        iv_del.setOnClickListener {
-            et_search.setText("")
+    /**
+     * 初始化默认搜索条件
+     */
+    private fun initSearchLimit() {
+        currentPage = 1
+        type = 1
+        max = null
+        min = null
+    }
+
+    /**
+     * 搜索
+     */
+    private var goodsName = ""
+    private var currentPage = 1
+    private var type by Delegates.observable(1
+
+    ) { _, _, newValue ->
+        tv_normal_type.setTextColor(resources.getColor(R.color.text_color_999999))
+        tv_sale_num_type.setTextColor(resources.getColor(R.color.text_color_999999))
+        tv_price.setTextColor(resources.getColor(R.color.text_color_999999))
+        tv_sort_price.setTextColor(resources.getColor(R.color.text_color_999999))
+        when(newValue){
+            1->tv_normal_type.setTextColor(resources.getColor(R.color.colorPrimary))
+            2->tv_sale_num_type.setTextColor(resources.getColor(R.color.colorPrimary))
+            3,4->tv_price.setTextColor(resources.getColor(R.color.colorPrimary))
+            5->tv_sort_price.setTextColor(resources.getColor(R.color.colorPrimary))
+            else->{}
         }
-        iv_search.setOnClickListener { //搜索
-         val goodsName = et_search.text.toString().trim()
-            if(goodsName.isEmpty()){
-                showToast( "不能为空" )
-                return@setOnClickListener
-            }else{
-                //入库
-                CommOperation.insert(OldTagBean(goodsName))
-                oldTagList.add(goodsName)
-                oldTagAdapter.clearAndAddAll(oldTagList)
-                if (oldTagList.isEmpty()){
-                    old_tag.visibility= View.GONE
-                    rl_old_container.visibility=View.GONE
-                }else{
-                    old_tag.visibility= View.VISIBLE
-                    rl_old_container.visibility=View.VISIBLE
+    }
+    private var max: Double? = null
+    private var min: Double? = null
+    private var total = 1
+    private val list = mutableListOf<GoodsMoreListBean.DataBean.RowsBean>()
+    private fun searchGoods() {
+        val searchListCall = SLMRetrofit.getInstance().api.searchListCall(currentPage, goodsName, type, max, min)
+        searchListCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<GoodsMoreListBean>() {
+            override fun onSucceed(t: GoodsMoreListBean?) {
+                if (t?.code == Constant.SUCCESSED_CODE) {
+                    list.clear()
+                    list.addAll(t.data.rows)
+                    total=t.data.total
+                    if (list.isEmpty()) {
+                        showEmptyView()
+                    } else {
+                        showDataView()
+                        goodAdapter.setNewData(list)
+                    }
+
                 }
             }
 
-            // }
+            override fun onFailed() {
+
+            }
+        })
+
     }
+
+    /**
+     * 显示空页面
+     */
+    private fun showEmptyView() {
+        ll_goods_container.visibility = View.GONE
+        ll_tag_container.visibility = View.GONE
+        tv_no_data.visibility = View.VISIBLE
+    }
+
+    /**
+     * 显示数据页
+     */
+    private fun showDataView() {
+        ll_goods_container.visibility = View.VISIBLE
+        ll_tag_container.visibility = View.GONE
+        tv_no_data.visibility = View.GONE
+    }
+
+    /**
+     * 显示标签页
+     */
+    private fun showTagView() {
+        ll_goods_container.visibility = View.GONE
+        ll_tag_container.visibility = View.VISIBLE
+        tv_no_data.visibility = View.GONE
+    }
+
+
+    override fun initListener() {
+        //退出
+        iv_back.setOnClickListener { finish() }
+        //删除搜索内容
+        iv_del.setOnClickListener {
+            et_search.setText("")
+        }
+        //点击搜索按钮
+        iv_search.setOnClickListener {
+            //搜索
+            val etName = et_search.text.toString().trim()
+            if (goodsName.isEmpty()) {
+                showToast("不能为空")
+                return@setOnClickListener
+            } else {
+                //入库
+                CommOperation.insert(OldTagBean(etName))
+                oldTagList.add(etName)
+                oldTagAdapter.clearAndAddAll(oldTagList)
+                if (oldTagList.isEmpty()) {
+                    old_tag.visibility = View.GONE
+                    rl_old_container.visibility = View.GONE
+                } else {
+                    old_tag.visibility = View.VISIBLE
+                    rl_old_container.visibility = View.VISIBLE
+                }
+                initSearchLimit()
+                goodsName = etName
+                searchGoods()
+            }
+
+        }
         //删除历史
         iv_delete.setOnClickListener {
             LitePal.deleteAll(OldTagBean::class.java)
             oldTagList.clear()
             oldTagAdapter.clearAndAddAll(oldTagList)
-            if (oldTagList.isEmpty()){
-                old_tag.visibility= View.GONE
-                rl_old_container.visibility=View.GONE
-            }else{
-                old_tag.visibility= View.VISIBLE
-                rl_old_container.visibility=View.VISIBLE
+            if (oldTagList.isEmpty()) {
+                old_tag.visibility = View.GONE
+                rl_old_container.visibility = View.GONE
+            } else {
+                old_tag.visibility = View.VISIBLE
+                rl_old_container.visibility = View.VISIBLE
             }
         }
-
+       //按价格筛选
         tv_sort_price.setOnClickListener {
             SortEditDialog.newInstance().setOnEnsureClickedListener { low, high ->
-               showToast("low=$low,high=$high")
-
-            }.show(supportFragmentManager,"v")
-
+                showToast("low=$low,high=$high")
+                //价格搜索
+                max=high.toDouble()
+                min=low.toDouble()
+                type=5
+                currentPage=1
+                searchGoods()
+            }.show(supportFragmentManager, "v")
         }
+
+        //销量
+        tv_sale_num_type.setOnClickListener {
+            type=2
+            currentPage=1
+            searchGoods()
+        }
+       //价格高低 3降 4升
+
+        rl_price.setOnClickListener {
+            currentPage=1
+           if (type!=3 && type!=4){
+               type=3
+           } else if (type==3){
+               type=4
+               iv_arrow.setImageResource(R.mipmap.icon_down)
+           }else{
+               type=3
+               iv_arrow.setImageResource(R.mipmap.icon_up_pre)
+           }
+            searchGoods()
+        }
+
+
+        /**
+         * 加载更多
+         */
+        goodAdapter.disableLoadMoreIfNotFullPage(recyclerView)
+        goodAdapter.setOnLoadMoreListener(BaseQuickAdapter.RequestLoadMoreListener {
+            currentPage++
+            if (currentPage > total) {
+               return@RequestLoadMoreListener
+            }
+
+            val searchListCall = SLMRetrofit.getInstance().api.searchListCall(currentPage, goodsName, type, max, min)
+            searchListCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<GoodsMoreListBean>() {
+                override fun onSucceed(t: GoodsMoreListBean?) {
+                    if (t?.code==Constant.SUCCESSED_CODE){
+                        goodAdapter.addData(t.data.rows)
+                        if (currentPage==total){
+                            goodAdapter.loadMoreEnd()
+                            goodAdapter.setEnableLoadMore(false)
+                        }else{
+                            goodAdapter.loadMoreComplete()
+                            goodAdapter.setEnableLoadMore(true)
+                        }
+
+                    }
+                }
+
+                override fun onFailed() {
+
+                }
+            })
+
+
+        },recyclerView)
     }
 }
