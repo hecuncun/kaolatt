@@ -3,6 +3,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.view.View
 import com.jxbn.kaolatt.R
+import com.jxbn.kaolatt.constants.Constant
+import com.jxbn.kaolatt.ext.startActivityCheckLogin
 import com.jxbn.kaolatt.glide.GlideUtils
 import com.jxbn.kaolatt.ui.activity.*
 import com.lhzw.bluetooth.base.BaseFragment
@@ -28,16 +30,13 @@ class MineFragment : BaseFragment() {
     }
 
     private fun jumpToScoreActivity() {
-        val intent =Intent(activity,ScoreActivity::class.java)
-        startActivity(intent)
+        activity!!.startActivityCheckLogin(ScoreActivity::class.java)
     }
     private fun jumpToSettingActivity() {
-        val intent =Intent(activity,SettingActivity::class.java)
-        startActivity(intent)
+        activity!!.startActivityCheckLogin(SettingActivity::class.java)
     }
     private fun jumpToCouponActivity() {
-        val intent =Intent(activity,CouponActivity::class.java)
-        startActivity(intent)
+        activity!!.startActivityCheckLogin(CouponActivity::class.java)
     }
     private fun jumpToOrderAllActivity(type:Int) {
         val intent =Intent(activity, OrderAllActivity::class.java)
@@ -56,12 +55,14 @@ class MineFragment : BaseFragment() {
     override fun attachLayoutRes(): Int = R.layout.fragment_mine
 
     override fun initView(view: View) {
+        tv_nick_name.text=if (isLogin) nickname else "未登录"
+        tv_user_no.text =if (isLogin) "ID:$userNo" else  "ID:------"
 
     }
 
 
     override fun lazyLoad() {
-        GlideUtils.showCircleWithBorder(iv_head_photo,"https://upload-images.jianshu.io/upload_images/2791003-3edd10f695633e67?imageMogr2/auto-orient/strip|imageView2/2/w/640/format/webp",R.drawable.icon_head_photo,Color.parseColor("#FFFFFF"))
+        GlideUtils.showCircleWithBorder(iv_head_photo,Constant.BASE_URL+photo,R.mipmap.icon_kong,Color.parseColor("#FFFFFF"))
     }
 
 

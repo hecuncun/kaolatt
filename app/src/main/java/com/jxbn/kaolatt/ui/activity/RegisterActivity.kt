@@ -2,7 +2,6 @@ package com.jxbn.kaolatt.ui.activity
 
 import android.content.Intent
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.RegisterBean
 import com.jxbn.kaolatt.bean.UserInfoBean
@@ -74,14 +73,15 @@ class RegisterActivity:BaseActivity() {
 
             val observable = SLMRetrofit.getInstance().api.registerCall(et_phone.text.toString().trim(),et_code.text.toString().trim(),et_pwd.text.toString().trim())
             observable.compose(ThreadSwitchTransformer()).subscribe(object :CallbackObserver<UserInfoBean>(){
-                override fun onSucceed(t: UserInfoBean?, desc: String?) {
+                override fun onSucceed(t: UserInfoBean, desc: String?) {
                     isLogin=true //登录成功
-                    t?.uid
-                    t?.nickname
-                    t?.phone
-                    t?.pwd
-                    t?.path//头像
-                    t?.integral//积分
+                    uid = t.uid  //保存用户id
+                    score = t.integral
+                    nickname = t.nickname
+                    photo = t.path
+                    phone = t.phone
+                    userNo =t.userNo
+                    isLogin = true //登录状态
                     showToast("注册成功")
                     EventBus.getDefault().post(LoginEvent(true))
                     finish()

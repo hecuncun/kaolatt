@@ -25,6 +25,7 @@
                 android:src="@drawable/icon_head_photo"/>
 
             <TextView
+                android:id="@+id/tv_nick_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
@@ -33,7 +34,7 @@
                 android:textSize="@dimen/text_size_big"/>
 
             <TextView
-                android:id="@+id/tv_id"
+                android:id="@+id/tv_user_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"

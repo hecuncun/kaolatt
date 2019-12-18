@@ -2,11 +2,16 @@ package com.jxbn.kaolatt.ui.activity
 
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.adapter.ScoreAdapter
 import com.jxbn.kaolatt.base.BaseActivity
-import com.jxbn.kaolatt.bean.UserScoreBean
-import com.jxbn.kaolatt.ext.showToast
+import com.jxbn.kaolatt.bean.ScoreListBean
+import com.jxbn.kaolatt.constants.Constant
+import com.jxbn.kaolatt.net.CallbackListObserver
+import com.jxbn.kaolatt.net.SLMRetrofit
+import com.jxbn.kaolatt.net.ThreadSwitchTransformer
 import com.jxbn.kaolatt.widget.SpaceItemDecoration
 import kotlinx.android.synthetic.main.activity_score_detail.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -28,21 +33,35 @@ class ScoreDetailActivity : BaseActivity() {
 
     override fun attachLayoutRes(): Int = R.layout.activity_score_detail
 
+    private var currentPage = 1
+    private var total =1
+    val list = mutableListOf<ScoreListBean.DataBean.RowsBean>()
     override fun initData() {
-        val list = mutableListOf<UserScoreBean>()
-        for (i in 1..20) {
-            list.add(UserScoreBean("2019-11-11 02:01:$i", "商品 $i", i))
-        }
-        scoreAdapter.addData(list)
-        scoreAdapter.setOnItemClickListener { adapter, view, position ->
-            showToast("$position")
 
-        }
+        val scoreListCall = SLMRetrofit.getInstance().api.scoreListCall(currentPage, uid)
+        scoreListCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<ScoreListBean>(){
+            override fun onSucceed(t: ScoreListBean?) {
+              if (t?.code== Constant.SUCCESSED_CODE){
+                   list.addAll(t.data.rows)
+                  total=t.data.total
+                  scoreAdapter.setNewData(list)
+                  if (list.isEmpty()){
+                      tv_no_data.visibility= View.VISIBLE
+                  }else{
+                      tv_no_data.visibility= View.GONE
+                  }
+              }
+            }
+
+            override fun onFailed() {
+            }
+        })
+
+
     }
 
     override fun initView() {
         toolbar_title.text = "积分明细"
-      //  iv_back.visibility = View.VISIBLE
         initRecyclerView()
     }
 
@@ -56,6 +75,37 @@ class ScoreDetailActivity : BaseActivity() {
     }
 
     override fun initListener() {
-      //  iv_back.setOnClickListener { finish() }
+        scoreAdapter.setOnLoadMoreListener(BaseQuickAdapter.RequestLoadMoreListener {
+            if (total==1){
+                scoreAdapter.setEnableLoadMore(false)
+                scoreAdapter.loadMoreEnd()
+            }
+            currentPage++
+            if (currentPage>total){return@RequestLoadMoreListener}
+            val scoreListCall = SLMRetrofit.getInstance().api.scoreListCall(currentPage, tempUid)
+            scoreListCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<ScoreListBean>(){
+                override fun onSucceed(t: ScoreListBean?) {
+                    if (t?.code== Constant.SUCCESSED_CODE){
+                        scoreAdapter.addData(t.data.rows)
+                       if (currentPage==total){
+                           scoreAdapter.setEnableLoadMore(false)
+                           scoreAdapter.loadMoreEnd()
+                       }else{
+                           scoreAdapter.setEnableLoadMore(true)
+                           scoreAdapter.loadMoreComplete()
+                       }
+                    }
+                }
+
+                override fun onFailed() {
+                }
+            })
+
+
+        },recyclerView)
+//        scoreAdapter.setOnItemClickListener { adapter, view, position ->
+//            showToast("$position")
+//
+//        }
     }
 }

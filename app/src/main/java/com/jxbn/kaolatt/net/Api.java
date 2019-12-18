@@ -3,6 +3,7 @@ package com.jxbn.kaolatt.net;
 import com.jxbn.kaolatt.base.BaseBean;
 import com.jxbn.kaolatt.base.BaseNoDataBean;
 import com.jxbn.kaolatt.bean.BannerInfoBean;
+import com.jxbn.kaolatt.bean.CouponListBean;
 import com.jxbn.kaolatt.bean.FamousListBean;
 import com.jxbn.kaolatt.bean.GoodListBean;
 import com.jxbn.kaolatt.bean.GoodMoreListBean;
@@ -10,6 +11,7 @@ import com.jxbn.kaolatt.bean.GoodsMoreListBean;
 import com.jxbn.kaolatt.bean.HotTagListBean;
 import com.jxbn.kaolatt.bean.MsgListBean;
 import com.jxbn.kaolatt.bean.RegisterBean;
+import com.jxbn.kaolatt.bean.ScoreListBean;
 import com.jxbn.kaolatt.bean.UserInfoBean;
 
 import io.reactivex.Observable;
@@ -22,7 +24,8 @@ import retrofit2.http.Query;
 public interface Api {
 
     /**
-     *获取手机验证码
+     * 获取手机验证码
+     *
      * @param phone
      * @param type  1：注册，2：重置密码
      * @return
@@ -32,6 +35,7 @@ public interface Api {
 
     /**
      * 用户注册
+     *
      * @param phone
      * @param code
      * @param pwd
@@ -51,7 +55,8 @@ public interface Api {
     Observable<BaseBean<UserInfoBean>> loginCall(@Query("phone") String phone, @Query("pwd") String pwd);
 
     /**
-     *重置密码
+     * 重置密码
+     *
      * @param phone
      * @param code
      * @param pwd
@@ -62,6 +67,7 @@ public interface Api {
 
     /**
      * 首页轮播图
+     *
      * @return
      */
     @POST("appTcmnCarouselPicture/searchAll")
@@ -69,6 +75,7 @@ public interface Api {
 
     /**
      * 首页好物
+     *
      * @return
      */
     @POST("appGoodsInfo/selectHomeExquisiteGoods")
@@ -76,6 +83,7 @@ public interface Api {
 
     /**
      * 大牌
+     *
      * @return
      */
     @POST("appGoodsInfo/searchBigClassList")
@@ -83,6 +91,7 @@ public interface Api {
 
     /**
      * 更多推荐
+     *
      * @param page 当前页码，从1开始
      * @param type 1:综合排序，2：销量升降序，3：价格降序，4：价格升序，5：价格筛选
      * @return
@@ -92,6 +101,7 @@ public interface Api {
 
     /**
      * 更好好物
+     *
      * @param page
      * @return
      */
@@ -100,10 +110,9 @@ public interface Api {
     Observable<GoodMoreListBean> goodMoreListCall(@Query("page") int page);
 
     /**
-     *
-     * @param page 当前页码，从1开始
+     * @param page       当前页码，从1开始
      * @param bigClassId 大牌id
-     * @param type 1:综合排序，2：销量升降序，3：价格降序，4：价格升序，5：价格筛选
+     * @param type       1:综合排序，2：销量升降序，3：价格降序，4：价格升序，5：价格筛选
      * @return
      */
     @POST("appGoodsInfo/searchForPage")
@@ -111,6 +120,7 @@ public interface Api {
 
     /**
      * 未读消息数
+     *
      * @param uid
      * @return
      */
@@ -119,21 +129,24 @@ public interface Api {
 
     /**
      * 消息列表
+     *
      * @param page
      * @param uid
      * @return
      */
     @POST("appActiveMessage/searchForPage")
-    Observable<MsgListBean> msgListCall(@Query("page") int page,@Query("uid") String uid);
+    Observable<MsgListBean> msgListCall(@Query("page") int page, @Query("uid") String uid);
 
     /**
      * 更新消息状态
+     *
      * @param uid
      * @param mid
      * @return
      */
     @POST("appActiveMessage/updateById")
-    Observable<BaseNoDataBean> updateMsgStateCall(@Query("uid") String uid,@Query("mid") String mid);
+    Observable<BaseNoDataBean> updateMsgStateCall(@Query("uid") String uid, @Query("mid") String mid);
+
     /**
      * 热门搜索
      */
@@ -143,13 +156,42 @@ public interface Api {
 
     /**
      * 搜索页多条件搜索
-     * @param page 当前页码，从1开始
+     *
+     * @param page       当前页码，从1开始
      * @param bigClassId 大牌id
-     * @param type 1:综合排序，2：销量升降序，3：价格降序，4：价格升序，5：价格筛选
+     * @param type       1:综合排序，2：销量升降序，3：价格降序，4：价格升序，5：价格筛选
      * @return
      */
     @POST("appGoodsInfo/searchForPage")
-    Observable<GoodsMoreListBean> searchListCall(@Query("page") int page, @Query("name") String name, @Query("type") int type,@Query("max") Double max,@Query("min") Double min);
+    Observable<GoodsMoreListBean> searchListCall(@Query("page") int page, @Query("name") String name, @Query("type") int type, @Query("max") Double max, @Query("min") Double min);
+
+    /**
+     * 积分列表
+     *
+     * @param page
+     * @param uid
+     * @return
+     */
+    @POST("appUserIntegral/searchForPage")
+    Observable<ScoreListBean> scoreListCall(@Query("page") int page, @Query("uid") String uid);
+
+    /**
+     * 反馈
+     * @param uid
+     * @param content
+     * @return
+     */
+    @POST("appTcmnFeedback/insertSelective")
+    Observable<BaseNoDataBean> feedBackCall(@Query("uid") String uid, @Query("content") String content);
+
+    /**
+     * 优惠券
+     * @param uid
+     * @param type 类型：1：所有，2：未使用
+     * @return
+     */
+    @POST("appUserCardUse/searchAll")
+    Observable<CouponListBean> couponListCall(@Query("uid")String uid,@Query("type") int type);
 //    /**
 //     * 获取全员信息e
 //     * @return

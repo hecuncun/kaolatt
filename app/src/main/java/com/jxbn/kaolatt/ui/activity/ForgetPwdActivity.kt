@@ -58,6 +58,8 @@ class ForgetPwdActivity : BaseActivity() {
                     if(t?.code==Constant.SUCCESSED_CODE){
                         showToast("重置密码成功")
                         finish()
+                    }else{
+                        showToast("重置密码失败")
                     }
                 }
 

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
+import kotlinx.android.synthetic.main.activity_score.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 /**
@@ -17,13 +18,12 @@ class ScoreActivity : BaseActivity() {
 
     override fun initView() {
         toolbar_title.text = "我的积分"
-       // iv_back.visibility = View.VISIBLE
         toolbar_right_tv.text = "明细"
         toolbar_right_tv.visibility = View.VISIBLE
+        tv_score.text=score.toString()
     }
 
     override fun initListener() {
-      //  iv_back.setOnClickListener { finish() }
         toolbar_right_tv.setOnClickListener {
             jumpToScoreDetailActivity()
         }

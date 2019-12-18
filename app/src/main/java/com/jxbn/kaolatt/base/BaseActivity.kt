@@ -40,6 +40,12 @@ abstract class BaseActivity :AppCompatActivity(){
      * 用户id
      */
     protected var uid:String by Preference(Constant.UID,"")
+    protected var tempUid:String by Preference(Constant.TEMP_UID,"fb22796b5c1a48c38c42d0a2034ba27e")//测试id
+    protected var nickname:String by Preference(Constant.NICK_NAME,"")
+    protected var photo:String by Preference(Constant.PHOTO,"")
+    protected var phone:String by Preference(Constant.PHONE,"")
+    protected var score:Int by Preference(Constant.SCORE,0)
+    protected var userNo:Int by Preference(Constant.USER_NO,0)
 
     /**
      * 布局文件id

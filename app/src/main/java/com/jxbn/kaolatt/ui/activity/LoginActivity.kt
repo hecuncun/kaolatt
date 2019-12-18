@@ -4,7 +4,6 @@ import android.content.Intent
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.UserInfoBean
 import com.jxbn.kaolatt.event.LoginEvent
@@ -22,7 +21,7 @@ import org.greenrobot.eventbus.ThreadMode
  */
 class LoginActivity : BaseActivity() {
 
-    override fun useEventBus(): Boolean=true
+    override fun useEventBus(): Boolean = true
 
     override fun attachLayoutRes(): Int = R.layout.activity_login
 
@@ -41,7 +40,7 @@ class LoginActivity : BaseActivity() {
         tv_forget_pwd.setOnClickListener { jumpToForgetPwdActivity() }
         tv_login.setOnClickListener { doLogin() }
         iv_eye.setOnClickListener { showOrHidden() }
-        iv_clear.setOnClickListener {et_name.setText("")}
+        iv_clear.setOnClickListener { et_name.setText("") }
 
     }
 
@@ -60,10 +59,15 @@ class LoginActivity : BaseActivity() {
             observable.compose(ThreadSwitchTransformer()).subscribe(object : CallbackObserver<UserInfoBean>() {
                 override fun onSucceed(t: UserInfoBean, desc: String?) {
                     showToast("登录成功")
-                        uid =  t.uid  //保存用户id
-                        isLogin =true //登录状态
+                    uid = t.uid  //保存用户id
+                    score = t.integral
+                    nickname = t.nickname
+                    photo = t.path
+                    phone = t.phone
+                    userNo =t.userNo
+                    isLogin = true //登录状态
                     loadingView.dismiss()
-                   // jumpToMainActivity()
+                    // jumpToMainActivity()
                 }
 
                 override fun onFailed() {

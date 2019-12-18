@@ -5,6 +5,8 @@ import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.ext.showToast
+import com.jxbn.kaolatt.ext.startActivityCheckLogin
+import com.jxbn.kaolatt.utils.Preference
 import com.jxbn.kaolatt.widget.LogoutDialog
 import kotlinx.android.synthetic.main.activity_setting.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -21,7 +23,6 @@ class SettingActivity:BaseActivity() {
 
     override fun initView() {
         toolbar_title.text="设置"
-       // iv_back.visibility= View.VISIBLE
          dialog = LogoutDialog(this)
 
 
@@ -29,7 +30,6 @@ class SettingActivity:BaseActivity() {
     }
 
     override fun initListener() {
-       // iv_back.setOnClickListener { finish() }
         rl_about_us.setOnClickListener { jumpToAboutUsActivity() }
         rl_feedback.setOnClickListener { jumpToFeedbackActivity() }
         rl_change_pwd.setOnClickListener{ jumpToChangePwdActivity()}
@@ -38,6 +38,7 @@ class SettingActivity:BaseActivity() {
             dialog!!.setConfirmListener(View.OnClickListener {
                 dialog!!.dismiss()
                 showToast("确定")
+                Preference.clearPreference()
             })
 
         }
@@ -48,11 +49,9 @@ class SettingActivity:BaseActivity() {
         startActivity(intent)
     }
     private fun jumpToFeedbackActivity() {
-        val intent = Intent(this@SettingActivity,FeedBackActivity::class.java)
-        startActivity(intent)
+        startActivityCheckLogin(FeedBackActivity::class.java)
     }
     private fun jumpToChangePwdActivity() {
-        val intent = Intent(this@SettingActivity,ChangePwdActivity::class.java)
-        startActivity(intent)
+        startActivityCheckLogin(ChangePwdActivity::class.java)
     }
 }

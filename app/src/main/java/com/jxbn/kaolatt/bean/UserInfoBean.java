@@ -33,7 +33,7 @@ public class UserInfoBean {
     private String pwd;
     private String nickname;
     private String path;
-    private String integral;
+    private int integral;
     private String isdelete;
     private String createtime;
     private String updatetime;
@@ -95,11 +95,11 @@ public class UserInfoBean {
         this.path = path;
     }
 
-    public String getIntegral() {
+    public int getIntegral() {
         return integral;
     }
 
-    public void setIntegral(String integral) {
+    public void setIntegral(int integral) {
         this.integral = integral;
     }
 

@@ -2,10 +2,15 @@ package com.jxbn.kaolatt.ui.activity
 
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.adapter.CouponAdapter
 import com.jxbn.kaolatt.base.BaseActivity
-import com.jxbn.kaolatt.bean.CouponBean
+import com.jxbn.kaolatt.bean.CouponListBean
+import com.jxbn.kaolatt.constants.Constant
+import com.jxbn.kaolatt.net.CallbackListObserver
+import com.jxbn.kaolatt.net.SLMRetrofit
+import com.jxbn.kaolatt.net.ThreadSwitchTransformer
 import kotlinx.android.synthetic.main.activity_coupon.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -17,18 +22,30 @@ class CouponActivity:BaseActivity() {
         CouponAdapter()
     }
     override fun attachLayoutRes(): Int = R.layout.activity_coupon
-
+    val list = mutableListOf<CouponListBean.DataBean>()
     override fun initData() {
-        val list = mutableListOf<CouponBean>()
-        for (i in 1..20){
-            list.add(CouponBean(10f.plus(i.times(5)),"满200可用","2019.12.02","2020.3.21",i%3))
-        }
-        couponAdapter.addData(list)
+        val couponListCall = SLMRetrofit.getInstance().api.couponListCall(uid, 1)
+        couponListCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<CouponListBean>(){
+            override fun onSucceed(t: CouponListBean?) {
+               if (t?.code== Constant.SUCCESSED_CODE){
+                   list.addAll(t.data)
+                   couponAdapter.setNewData(list)
+                   if (list.isEmpty()){
+                       tv_no_data.visibility=View.VISIBLE
+                   }else{
+                       tv_no_data.visibility=View.GONE
+                   }
+               }
+            }
+
+            override fun onFailed() {
+            }
+        })
+
     }
 
     override fun initView() {
         toolbar_title.text="我的优惠券"
-      //  iv_back.visibility=View.VISIBLE
         initRecyclerView()
     }
 
@@ -41,6 +58,5 @@ class CouponActivity:BaseActivity() {
     }
 
     override fun initListener() {
-       // iv_back.setOnClickListener { finish() }
     }
 }

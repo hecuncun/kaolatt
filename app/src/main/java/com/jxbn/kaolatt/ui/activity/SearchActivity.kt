@@ -39,6 +39,7 @@ class SearchActivity : BaseActivity() {
     override fun attachLayoutRes(): Int = R.layout.activity_search
 
     override fun initData() {
+        type=1
     }
 
     override fun initView() {
@@ -132,7 +133,7 @@ class SearchActivity : BaseActivity() {
      */
     private var goodsName = ""
     private var currentPage = 1
-    private var type by Delegates.observable(1
+    private var type by Delegates.observable(0
 
     ) { _, _, newValue ->
         tv_normal_type.setTextColor(resources.getColor(R.color.text_color_999999))
@@ -215,7 +216,7 @@ class SearchActivity : BaseActivity() {
         iv_search.setOnClickListener {
             //搜索
             val etName = et_search.text.toString().trim()
-            if (goodsName.isEmpty()) {
+            if (etName.isEmpty()) {
                 showToast("不能为空")
                 return@setOnClickListener
             } else {
@@ -261,7 +262,11 @@ class SearchActivity : BaseActivity() {
                 searchGoods()
             }.show(supportFragmentManager, "v")
         }
-
+        tv_normal_type.setOnClickListener {
+            type =1
+            currentPage=1
+            searchGoods()
+        }
         //销量
         tv_sale_num_type.setOnClickListener {
             type=2
@@ -274,12 +279,13 @@ class SearchActivity : BaseActivity() {
             currentPage=1
            if (type!=3 && type!=4){
                type=3
+               iv_arrow.setImageResource(R.mipmap.icon_down)
            } else if (type==3){
                type=4
-               iv_arrow.setImageResource(R.mipmap.icon_down)
+               iv_arrow.setImageResource(R.mipmap.icon_up_pre)
            }else{
                type=3
-               iv_arrow.setImageResource(R.mipmap.icon_up_pre)
+               iv_arrow.setImageResource(R.mipmap.icon_down)
            }
             searchGoods()
         }
@@ -288,8 +294,13 @@ class SearchActivity : BaseActivity() {
         /**
          * 加载更多
          */
-        goodAdapter.disableLoadMoreIfNotFullPage(recyclerView)
+
+      //  goodAdapter.disableLoadMoreIfNotFullPage(recyclerView)
         goodAdapter.setOnLoadMoreListener(BaseQuickAdapter.RequestLoadMoreListener {
+            if(total==1){
+            goodAdapter.setEnableLoadMore(false)
+                goodAdapter.loadMoreEnd()
+            }
             currentPage++
             if (currentPage > total) {
                return@RequestLoadMoreListener
