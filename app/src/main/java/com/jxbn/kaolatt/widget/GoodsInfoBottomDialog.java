@@ -2,6 +2,7 @@ package com.jxbn.kaolatt.widget;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,7 +25,7 @@ import java.util.List;
  * @org shimi.com
  */
 
-public class MyBottomListDialog extends BottomBaseDialog<MyBottomListDialog> {
+public class GoodsInfoBottomDialog extends BottomBaseDialog<GoodsInfoBottomDialog> {
 
     ListView listView;
     TextView tvCancel;
@@ -33,17 +34,17 @@ public class MyBottomListDialog extends BottomBaseDialog<MyBottomListDialog> {
     private boolean isShowFour = true;
     private List<String> data;
 
-    public MyBottomListDialog(Context context, View animateView, List<String> data) {
+    public GoodsInfoBottomDialog(Context context, View animateView, List<String> data) {
         super(context, animateView);
         this.data = data;
     }
 
     @Override
     public View onCreateView() {
-        widthScale(0.9f);
+        widthScale(1f);
 //        showAnim(new Swing());
         // dismissAnim(this, new ZoomOutExit());
-        View inflate = View.inflate(mContext, R.layout.dialog_custom_base_bottom, null);
+        View inflate = View.inflate(mContext, R.layout.dialog_goods_info, null);
         listView =  inflate.findViewById(R.id.listView);
         tvCancel =  inflate.findViewById(R.id.tv_cancel);
         inflate.setBackgroundDrawable(
@@ -55,6 +56,7 @@ public class MyBottomListDialog extends BottomBaseDialog<MyBottomListDialog> {
             protected void convert(ViewHolder viewHolder, String item, int position) {
                 String str = item;
                 viewHolder.setText(R.id.tv_content, str);
+                ((TextView)(viewHolder.getView(R.id.tv_content))).setGravity(Gravity.LEFT);
             }
         });
         listView.setSelection(data.size() / 2);

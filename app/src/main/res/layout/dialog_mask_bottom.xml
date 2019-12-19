@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/dp_5"
-                android:text="无货"
+                android:text="需预定"
                 android:textColor="@color/text_color_666666"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -66,6 +66,7 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/tv_mask1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
@@ -80,6 +81,7 @@
         android:layout_marginLeft="@dimen/dp_10"/>
 
     <TextView
+        android:id="@+id/tv_mask2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"

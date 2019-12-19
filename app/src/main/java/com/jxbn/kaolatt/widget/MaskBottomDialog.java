@@ -27,6 +27,8 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
     private final TextView mTvPrice;
     private final TextView mTvSaleNum;
     private final TextView mTvConfirm;
+    private final TextView mTvMask1;
+    private final TextView mTvMask2;
     private final FlowTagLayout mFlowTab1;
     private final FlowTagLayout mFlowTab2;
 
@@ -47,6 +49,8 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
         mTvSaleNum = view.findViewById(R.id.tv_sale_num);
         mTvConfirm = view.findViewById(R.id.tv_confirm);
         mFlowTab1 = view.findViewById(R.id.flow_tab_1);
+        mTvMask1 = view.findViewById(R.id.tv_mask1);
+        mTvMask2 = view.findViewById(R.id.tv_mask2);
         mFlowTab2 = view.findViewById(R.id.flow_tab_2);
         mCounterView = view.findViewById(R.id.counter_view);
         mFlowTab1.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
@@ -57,20 +61,26 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
     }
 
     private void initData() {
-
+        mTvMask1.setText(mBean.getMaskName1());
         TagAdapter<String> adapter1 = new TagAdapter<String>(mContext);
         mFlowTab1.setAdapter(adapter1);
         adapter1.clearAndAddAll(mBean.getMask1());
         Logger.e("mBean.getMask1()=="+mBean.getMask1().size());
 
+        mTvMask2.setText(mBean.getMaskName2());
         TagAdapter<String> adapter2 = new TagAdapter<String>(mContext);
         mFlowTab2.setAdapter(adapter2);
+        if (mBean.getMask2().size()==0){
+            mFlowTab2.setVisibility(View.GONE);
+        }else {
+            mFlowTab2.setVisibility(View.VISIBLE);
+        }
         adapter2.clearAndAddAll(mBean.getMask2());
 
 
         GlideUtils.showRound(mImageView,mBean.getImgUrl(),R.mipmap.ic_launcher,8);
-        mTvPrice.setText(mBean.getPrice());
-        mTvSaleNum.setText(mBean.getSaleNum());
+        mTvPrice.setText("￥"+mBean.getPrice());
+        mTvSaleNum.setText("累计销售"+mBean.getSaleNum()+"件");
 
 
     }
