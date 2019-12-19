@@ -5,6 +5,7 @@
               android:layout_height="match_parent">
     <include layout="@layout/toolbar"/>
     <EditText
+        android:id="@+id/et_name"
         android:padding="@dimen/dp_14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,6 +14,7 @@
         android:background="@null"/>
 <View style="@style/horizontalGrayLine"/>
     <TextView
+        android:id="@+id/tv_confirm"
         android:layout_marginTop="50dp"
         android:gravity="center"
         android:background="@drawable/bg_blue_btn"

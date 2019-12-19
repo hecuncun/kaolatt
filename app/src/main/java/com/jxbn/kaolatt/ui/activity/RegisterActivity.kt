@@ -78,7 +78,7 @@ class RegisterActivity:BaseActivity() {
                     uid = t.uid  //保存用户id
                     score = t.integral
                     nickname = t.nickname
-                    photo = t.path
+                    photo = t.path?:""
                     phone = t.phone
                     userNo =t.userNo
                     isLogin = true //登录状态

@@ -4,17 +4,21 @@ import android.graphics.Color
 import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.constants.Constant
+import com.jxbn.kaolatt.event.UpdateInfoEvent
 import com.jxbn.kaolatt.ext.startActivityCheckLogin
 import com.jxbn.kaolatt.glide.GlideUtils
 import com.jxbn.kaolatt.ui.activity.*
 import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_mine.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 /**
  * Created by hecuncun on 2019/11/13
  */
 class MineFragment : BaseFragment() {
+    override fun useEventBus()=true
     override fun initListener() {
         rl_my_score.setOnClickListener { jumpToScoreActivity() }
         rl_setting.setOnClickListener { jumpToSettingActivity() }
@@ -44,8 +48,7 @@ class MineFragment : BaseFragment() {
         startActivity(intent)
     }
     private fun jumpToCollectionActivity() {
-        val intent =Intent(activity, CollectionActivity::class.java)
-        startActivity(intent)
+        activity!!.startActivityCheckLogin(CollectionActivity::class.java)
     }
 
     companion object {
@@ -64,6 +67,13 @@ class MineFragment : BaseFragment() {
     override fun lazyLoad() {
         GlideUtils.showCircleWithBorder(iv_head_photo,Constant.BASE_URL+photo,R.mipmap.icon_kong,Color.parseColor("#FFFFFF"))
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun updateInfoEvent(event: UpdateInfoEvent) {
+        tv_nick_name.text=nickname
+        GlideUtils.showCircleWithBorder(iv_head_photo,Constant.BASE_URL+photo,R.mipmap.icon_kong,Color.parseColor("#FFFFFF"))
+    }
+
 
 
 }

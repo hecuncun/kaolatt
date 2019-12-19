@@ -1,6 +1,7 @@
 package com.jxbn.kaolatt.ui.activity
 
 import com.jxbn.kaolatt.R
+import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.base.BaseNoDataBean
 import com.jxbn.kaolatt.bean.RegisterBean

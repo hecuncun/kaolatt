@@ -6,19 +6,36 @@ import android.content.Intent
 import android.widget.Toast
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
+import com.jxbn.kaolatt.base.BaseNoDataBean
+import com.jxbn.kaolatt.bean.ImgBean
+import com.jxbn.kaolatt.constants.Constant
+import com.jxbn.kaolatt.event.UpdateInfoEvent
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.glide.GlideUtils
+import com.jxbn.kaolatt.net.CallbackListObserver
+import com.jxbn.kaolatt.net.CallbackObserver
+import com.jxbn.kaolatt.net.SLMRetrofit
+import com.jxbn.kaolatt.net.ThreadSwitchTransformer
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
+import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_personal_info.*
-
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import java.io.File
 
 
 /**
  * Created by hecuncun on 2019/12/3
  */
 class PersonalInfoActivity:BaseActivity() {
+    override fun useEventBus()=true
+
     override fun attachLayoutRes(): Int = R.layout.activity_personal_info
 
     override fun initData() {
@@ -26,8 +43,9 @@ class PersonalInfoActivity:BaseActivity() {
     }
 
     override fun initView() {
-      // iv_back.visibility= View.VISIBLE
-
+        tv_nick_name.text=nickname
+        tv_user_no.text=userNo.toString()
+        GlideUtils.showCircle(iv_head_photo,Constant.BASE_URL+photo,R.drawable.ic_launcher_background)
     }
 
     override fun initListener() {
@@ -54,6 +72,12 @@ class PersonalInfoActivity:BaseActivity() {
                 })
         builder.create().show()
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun updateInfoEvent(event: UpdateInfoEvent) {
+        tv_nick_name.text=nickname
+    }
+
 
     private fun selectImage(i: Int) {
         if (i == 0) {
@@ -103,6 +127,40 @@ class PersonalInfoActivity:BaseActivity() {
                     val selectList = PictureSelector.obtainMultipleResult(data)
                     if (selectList.size > 0) {
                             GlideUtils.showCircle(iv_head_photo,selectList[0].compressPath,R.drawable.ic_launcher_background)
+                        //上传文件
+                        val file = File(selectList[0].compressPath)
+                        Logger.e("图片地址==${selectList[0].compressPath}")
+                        val requestFile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                        //retrofit 上传文件api加上 @Multipart注解,然后下面这是个重点 参数1：上传文件的key，参数2：上传的文件名，参数3 请求头
+                        val body: MultipartBody.Part = MultipartBody.Part.createFormData("upload", file.name, requestFile)
+                        val uploadCall = SLMRetrofit.getInstance().api.uploadCall(body)
+                        uploadCall.compose(ThreadSwitchTransformer()).subscribe(object:CallbackObserver<ImgBean>(){
+                            override fun onSucceed(t: ImgBean?, desc: String?) {
+                                Logger.e("成功")
+                                Logger.e("网络图片地址==${t?.fileUrl}")
+                                photo=t?.fileUrl?:photo
+                                //调用修改头像接口
+                                val updateInfoCall = SLMRetrofit.getInstance().api.updateInfoCall(uid, null, photo)
+                                updateInfoCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
+                                    override fun onSucceed(t: BaseNoDataBean?) {
+                                      if (t?.code== Constant.SUCCESSED_CODE){
+                                            showToast("头像修改成功")
+                                          EventBus.getDefault().post(UpdateInfoEvent())
+                                        }else{
+                                          showToast("头像修改失败")
+                                      }
+                                    }
+
+                                    override fun onFailed() {
+                                    }
+                                })
+
+                            }
+
+                            override fun onFailed() {
+                                Logger.e("失败")
+                            }
+                        } )
                     } else {
                         showToast("图片出现问题")
                     }

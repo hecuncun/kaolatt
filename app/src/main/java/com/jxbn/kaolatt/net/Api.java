@@ -7,15 +7,21 @@ import com.jxbn.kaolatt.bean.CouponListBean;
 import com.jxbn.kaolatt.bean.FamousListBean;
 import com.jxbn.kaolatt.bean.GoodListBean;
 import com.jxbn.kaolatt.bean.GoodMoreListBean;
+import com.jxbn.kaolatt.bean.GoodsDetailBean;
 import com.jxbn.kaolatt.bean.GoodsMoreListBean;
 import com.jxbn.kaolatt.bean.HotTagListBean;
+import com.jxbn.kaolatt.bean.ImgBean;
 import com.jxbn.kaolatt.bean.MsgListBean;
+import com.jxbn.kaolatt.bean.MyCollectionListBean;
 import com.jxbn.kaolatt.bean.RegisterBean;
 import com.jxbn.kaolatt.bean.ScoreListBean;
 import com.jxbn.kaolatt.bean.UserInfoBean;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -192,6 +198,50 @@ public interface Api {
      */
     @POST("appUserCardUse/searchAll")
     Observable<CouponListBean> couponListCall(@Query("uid")String uid,@Query("type") int type);
+
+    /**
+     * 上传图片
+     * @param file
+     * @return
+     */
+    @POST("appimg/upload")
+    @Multipart
+    Observable<BaseBean<ImgBean>> uploadCall(@Part MultipartBody.Part file);
+
+    /**
+     * 修改用户信息
+     * @param uid
+     * @param nickName
+     * @param picture
+     * @return
+     */
+    @POST("appUserBase/updateById")
+    Observable<BaseNoDataBean> updateInfoCall(@Query("uid") String uid,@Query("nickName") String nickName,@Query("picture") String picture);
+
+    /**
+     * 我的收藏
+     * @param uid
+     * @return
+     */
+    @POST("appGoodsInfo/selectCollectGoods")
+    Observable<MyCollectionListBean> myCollectionListCall(@Query("uid") String uid);
+
+    /**
+     * 批量取消收藏
+     * @param gids
+     * @param uid
+     * @return
+     */
+    @POST("appGoodsInfo/batchCancellCollectGoods")
+    Observable<BaseNoDataBean> deleteCollection(@Query("gids") String gids,@Query("uid") String uid);
+
+    /**
+     * 商品详情
+     * @param gid
+     * @return
+     */
+    @POST("appGoodsInfo/selectDetail")
+    Observable<GoodsDetailBean> goodsDetailCall(@Query("gid") String gid);
 //    /**
 //     * 获取全员信息e
 //     * @return

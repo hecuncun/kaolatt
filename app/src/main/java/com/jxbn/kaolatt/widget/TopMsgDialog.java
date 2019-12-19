@@ -27,7 +27,6 @@ public class TopMsgDialog extends TopBaseDialog<TopMsgDialog> {
     @Override
     public View onCreateView() {
         widthScale(0.9f);
-        heightScale(0.2f);
         showAnim(new FlipVerticalSwingEnter());
         dismissAnim(null);
         View inflate = View.inflate(mContext, R.layout.dialog_top_msg, null);

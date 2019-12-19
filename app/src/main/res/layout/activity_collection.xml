@@ -6,23 +6,46 @@
 
     <include layout="@layout/toolbar"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_marginTop="@dimen/dp_10"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scrollbars="none"/>
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/tv_delete"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_margin="@dimen/dp_10"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        android:gravity="center"
-        android:text="移除"
-        android:background="@drawable/bg_red_btn"/>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:scrollbars="none"/>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_delete"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_margin="@dimen/dp_10"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="移除"
+                android:background="@drawable/bg_red_btn"/>
+        </LinearLayout>
+        <TextView
+            android:layout_centerInParent="true"
+            android:id="@+id/tv_no_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="@dimen/dp_10"
+            android:drawableTop="@mipmap/icon_kong"
+            android:text="暂无数据"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_size_normal"
+            android:visibility="gone"/>
+    </RelativeLayout>
 
 </LinearLayout>

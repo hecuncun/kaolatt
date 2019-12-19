@@ -43,7 +43,7 @@ class MainActivity : BaseActivity() {
     private val PERMISS_REQUEST_CODE = 0x100
 
     override fun attachLayoutRes(): Int = R.layout.activity_main
-    //private val tempUid ="fb22796b5c1a48c38c42d0a2034ba27e"
+
     override fun initData() {
         if (checkPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE))) {
 
@@ -153,6 +153,7 @@ class MainActivity : BaseActivity() {
                 toolbar_left_img.visibility=View.VISIBLE
                 toolbar_right_img.visibility=View.VISIBLE
                 toolbar_left_img.setImageResource(R.mipmap.icon_logo)
+                toolbar_left_img.isEnabled=false
                 toolbar_right_img.setImageResource(R.mipmap.icon_message)
                 tool_bar_search.setOnClickListener { jumpToSearchActivity() }
                 toolbar_fl_msg.setOnClickListener { jumpToMsgActivity() }
@@ -194,19 +195,20 @@ class MainActivity : BaseActivity() {
                 toolbar_title.visibility = View.GONE
                 toolbar_left_img.visibility = View.VISIBLE
                 toolbar_right_img.visibility = View.VISIBLE
+                toolbar_left_img.isEnabled=true
                 toolbar_left_img.setImageDrawable(resources.getDrawable(R.mipmap.icon_ziliao))
                 toolbar_right_img.setImageDrawable(resources.getDrawable(R.mipmap.icon_message))
-                toolbar_left_img.setOnClickListener {
-                    jumpToPersonalInfoActivity()
-                }
-                toolbar_right_img.setOnClickListener {
-                    jumpToMsgActivity()
-                }
                 if (mMineFragment == null) {
                     mMineFragment = MineFragment.getInstance()
                     transaction.add(R.id.container, mMineFragment!!, "mine")
                 } else {
                     transaction.show(mMineFragment!!)
+                }
+                toolbar_left_img.setOnClickListener {
+                    jumpToPersonalInfoActivity()
+                }
+                toolbar_right_img.setOnClickListener {
+                    jumpToMsgActivity()
                 }
             }
         }

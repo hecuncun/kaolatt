@@ -79,8 +79,10 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
         mFlowTab1.setOnTagSelectListener(new OnTagSelectListener() {
             @Override
             public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
+                if(selectedList.size()>0){
+                    mTab1 = (String) parent.getAdapter().getItem(selectedList.get(0));
+                }
 
-                mTab1 = (String) parent.getAdapter().getItem(selectedList.get(0));
             }
         });
         mFlowTab2.setOnTagSelectListener(new OnTagSelectListener() {

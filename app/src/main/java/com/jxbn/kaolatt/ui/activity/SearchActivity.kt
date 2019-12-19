@@ -4,6 +4,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jxbn.kaolatt.R
+import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.adapter.GoodsMoreAdapter
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.GoodsMoreListBean

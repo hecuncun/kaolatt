@@ -7,13 +7,19 @@ import android.support.v7.widget.LinearLayoutManager
 import android.widget.ImageView
 import android.widget.ScrollView
 import com.jxbn.kaolatt.R
+import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.adapter.EvaluateAdapter
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.BannerBean
 import com.jxbn.kaolatt.bean.EvaluateBean
+import com.jxbn.kaolatt.bean.GoodsDetailBean
 import com.jxbn.kaolatt.bean.GoodsMaskBean
+import com.jxbn.kaolatt.constants.Constant
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.glide.GlideUtils
+import com.jxbn.kaolatt.net.CallbackListObserver
+import com.jxbn.kaolatt.net.SLMRetrofit
+import com.jxbn.kaolatt.net.ThreadSwitchTransformer
 import com.jxbn.kaolatt.widget.GoodsDetailBottomDialog
 import com.jxbn.kaolatt.widget.MaskBottomDialog
 import com.jxbn.kaolatt.widget.ServiceDialog
@@ -42,6 +48,21 @@ class GoodsDetailActivity : BaseActivity() {
 
     override fun initData() {
      // val gid = intent.extras.getString("gid")//商品id
+      val gid = "123"
+        val goodsDetailCall = SLMRetrofit.getInstance().api.goodsDetailCall(gid)
+        goodsDetailCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<GoodsDetailBean>(){
+            override fun onSucceed(t: GoodsDetailBean?) {
+                if (t?.code== Constant.SUCCESSED_CODE){
+                    //配置
+                }
+            }
+
+            override fun onFailed() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
+
+
 
         val list = mutableListOf<EvaluateBean>()
         for (i in 0..2) {
