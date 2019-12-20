@@ -4,7 +4,6 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.adapter.GoodsMoreAdapter
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.GoodsMoreListBean
@@ -38,9 +37,14 @@ class SearchActivity : BaseActivity() {
     }
 
     override fun attachLayoutRes(): Int = R.layout.activity_search
-
+    private var cid:String?=null//从分类传递来的名字
     override fun initData() {
         type=1
+        cid=intent?.extras?.getString("cid")
+        if (cid!=null){
+            showDataView()
+            searchGoods()
+        }
     }
 
     override fun initView() {
@@ -154,7 +158,7 @@ class SearchActivity : BaseActivity() {
     private var total = 1
     private val list = mutableListOf<GoodsMoreListBean.DataBean.RowsBean>()
     private fun searchGoods() {
-        val searchListCall = SLMRetrofit.getInstance().api.searchListCall(currentPage, goodsName, type, max, min)
+        val searchListCall = SLMRetrofit.getInstance().api.searchListCall(currentPage, goodsName,cid,type, max, min)
         searchListCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<GoodsMoreListBean>() {
             override fun onSucceed(t: GoodsMoreListBean?) {
                 if (t?.code == Constant.SUCCESSED_CODE) {
@@ -216,6 +220,7 @@ class SearchActivity : BaseActivity() {
         //点击搜索按钮
         iv_search.setOnClickListener {
             //搜索
+            cid=null
             val etName = et_search.text.toString().trim()
             if (etName.isEmpty()) {
                 showToast("不能为空")
@@ -307,7 +312,7 @@ class SearchActivity : BaseActivity() {
                return@RequestLoadMoreListener
             }
 
-            val searchListCall = SLMRetrofit.getInstance().api.searchListCall(currentPage, goodsName, type, max, min)
+            val searchListCall = SLMRetrofit.getInstance().api.searchListCall(currentPage, goodsName,cid,type, max, min)
             searchListCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<GoodsMoreListBean>() {
                 override fun onSucceed(t: GoodsMoreListBean?) {
                     if (t?.code==Constant.SUCCESSED_CODE){

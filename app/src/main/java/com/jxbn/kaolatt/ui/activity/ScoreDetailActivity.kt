@@ -82,7 +82,7 @@ class ScoreDetailActivity : BaseActivity() {
             }
             currentPage++
             if (currentPage>total){return@RequestLoadMoreListener}
-            val scoreListCall = SLMRetrofit.getInstance().api.scoreListCall(currentPage, tempUid)
+            val scoreListCall = SLMRetrofit.getInstance().api.scoreListCall(currentPage, uid)
             scoreListCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<ScoreListBean>(){
                 override fun onSucceed(t: ScoreListBean?) {
                     if (t?.code== Constant.SUCCESSED_CODE){

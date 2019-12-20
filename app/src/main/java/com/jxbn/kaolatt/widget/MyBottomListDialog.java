@@ -40,7 +40,7 @@ public class MyBottomListDialog extends BottomBaseDialog<MyBottomListDialog> {
 
     @Override
     public View onCreateView() {
-        widthScale(0.9f);
+        widthScale(1f);
 //        showAnim(new Swing());
         // dismissAnim(this, new ZoomOutExit());
         View inflate = View.inflate(mContext, R.layout.dialog_custom_base_bottom, null);

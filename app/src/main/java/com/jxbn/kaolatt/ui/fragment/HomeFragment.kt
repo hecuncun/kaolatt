@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.adapter.FamousListAdapter
 import com.jxbn.kaolatt.adapter.GoodListAdapter
 import com.jxbn.kaolatt.adapter.GoodsMoreAdapter
@@ -94,7 +93,9 @@ class HomeFragment : BaseFragment() {
         }
 
         moreRecommendAdapter.setOnItemClickListener { adapter, view, position ->
+
             val intent = Intent(activity, GoodsDetailActivity::class.java)
+            intent.putExtra("gid", listMore[position].gid)
             startActivity(intent)
         }
 
@@ -173,7 +174,7 @@ class HomeFragment : BaseFragment() {
         xbanner.loadImage(XBanner.XBannerAdapter { banner, model, view, position ->
             //1、此处使用的Glide加载图片，可自行替换自己项目中的图片加载框架
             //2、返回的图片路径为Object类型，你只需要强转成你传输的类型就行，切记不要胡乱强转！
-            GlideUtils.showRound(view as ImageView, Constant.BASE_URL + (model as BannerInfoBean.DataBean).cpPicture, R.drawable.home_ban_member01, 6)
+            GlideUtils.showRound(view as ImageView, Constant.BASE_URL + (model as BannerInfoBean.DataBean).cpPicture, R.mipmap.pic_banner, 6)
         })
         xbanner.setOnItemClickListener { banner, model, view, position ->
             showToast("点击$position")

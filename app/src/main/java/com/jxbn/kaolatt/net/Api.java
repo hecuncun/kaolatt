@@ -16,6 +16,7 @@ import com.jxbn.kaolatt.bean.MsgListBean;
 import com.jxbn.kaolatt.bean.MyCollectionListBean;
 import com.jxbn.kaolatt.bean.RegisterBean;
 import com.jxbn.kaolatt.bean.ScoreListBean;
+import com.jxbn.kaolatt.bean.SortListBean;
 import com.jxbn.kaolatt.bean.UserInfoBean;
 
 import io.reactivex.Observable;
@@ -165,12 +166,12 @@ public interface Api {
      * 搜索页多条件搜索
      *
      * @param page       当前页码，从1开始
-     * @param bigClassId 大牌id
+     * @param cid        二级商品id
      * @param type       1:综合排序，2：销量升降序，3：价格降序，4：价格升序，5：价格筛选
      * @return
      */
     @POST("appGoodsInfo/searchForPage")
-    Observable<GoodsMoreListBean> searchListCall(@Query("page") int page, @Query("name") String name, @Query("type") int type, @Query("max") Double max, @Query("min") Double min);
+    Observable<GoodsMoreListBean> searchListCall(@Query("page") int page, @Query("name") String name, @Query("cid") String cid,@Query("type") int type, @Query("max") Double max, @Query("min") Double min);
 
     /**
      * 积分列表
@@ -245,10 +246,27 @@ public interface Api {
     Observable<GoodsDetailBean> goodsDetailCall(@Query("gid") String gid);
 
     /**
-     *
+     *评价列表
      */
     @POST("appGoodsEvaluate/searchForPage")
     Observable<EvaluateListBean> evaluateListCall(@Query("page") int page,@Query("gid") String gid);
+
+    /**
+     * 收藏/取消收藏
+     * @param gid
+     * @param uid
+     * @param type 类型：1收藏，2取消收藏
+     * @return
+     */
+    @POST("appGoodsInfo/insertCollectGoods")
+    Observable<BaseNoDataBean> collectionEnsureCall(@Query("gid") String gid,@Query("uid") String uid,@Query("type") int type);
+
+    /**
+     * 分类列表
+     * 父分类 id（0：查一级分类，查子分类时传一级分类id）
+     */
+    @POST("appGoodsClassification/searchAll")
+    Observable<SortListBean> sortListCall(@Query("pid") String pid);
 //    /**
 //     * 获取全员信息e
 //     * @return

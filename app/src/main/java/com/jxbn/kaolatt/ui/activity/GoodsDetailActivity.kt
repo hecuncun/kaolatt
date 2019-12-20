@@ -15,6 +15,7 @@ import android.widget.ScrollView
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.adapter.EvaluateAdapter
 import com.jxbn.kaolatt.base.BaseActivity
+import com.jxbn.kaolatt.base.BaseNoDataBean
 import com.jxbn.kaolatt.bean.BannerBean
 import com.jxbn.kaolatt.bean.EvaluateListBean
 import com.jxbn.kaolatt.bean.GoodsDetailBean
@@ -51,10 +52,9 @@ class GoodsDetailActivity : BaseActivity() {
     }
 
     override fun attachLayoutRes(): Int = R.layout.activity_goods_detail
-
+    private var gid = ""
     override fun initData() {
-        // val gid = intent.extras.getString("gid")//商品id
-        val gid = "123"
+        gid = intent.extras.getString("gid")//商品id
         val goodsDetailCall = SLMRetrofit.getInstance().api.goodsDetailCall(gid)
         goodsDetailCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<GoodsDetailBean>() {
             override fun onSucceed(t: GoodsDetailBean?) {
@@ -112,6 +112,15 @@ class GoodsDetailActivity : BaseActivity() {
 
                     //WebView详情
                     webView.loadDataWithBaseURL(null,getHtmlData(t.data.content), "text/html" , "utf-8", null)
+
+                    //是否收藏
+                    if (t.data.collectId==null || t.data.collectId.isEmpty()){
+                        collectType=2
+                        iv_collect.setImageResource(R.mipmap.icon_star)
+                    }else{
+                        iv_collect.setImageResource(R.mipmap.icon_star_pre)
+                        collectType=1
+                    }
                 }
             }
 
@@ -127,6 +136,7 @@ class GoodsDetailActivity : BaseActivity() {
             override fun onSucceed(t: EvaluateListBean?) {
                 if (t?.code==Constant.SUCCESSED_CODE){
                     listEvaluate.addAll(t.data.rows)
+                    tv_evaluate_num.text="评价（${t.data.records}）"
                     evaluateAdapter.setNewData(listEvaluate)
                 }
             }
@@ -219,10 +229,13 @@ class GoodsDetailActivity : BaseActivity() {
 
     }
 
+    private var collectType =2 //1收藏  2取消
+
     override fun initListener() {
         iv_back.setOnClickListener { finish() }
         tv_all_evaluate.setOnClickListener {
             val intent = Intent(this@GoodsDetailActivity, EvaluateListActivity::class.java)
+            intent.putExtra("gid",gid)
             startActivity(intent)
         }
         tv_mask.setOnClickListener {
@@ -244,6 +257,31 @@ class GoodsDetailActivity : BaseActivity() {
             jumpToConfirmOrderActivity()
 
         }
+        iv_collect.setOnClickListener {
+            if (collectType==1){//已收藏
+                collectType=2
+            }else{
+                collectType=1
+            }
+            val collectionEnsureCall = SLMRetrofit.getInstance().api.collectionEnsureCall(gid, uid, collectType)
+            collectionEnsureCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
+                override fun onSucceed(t: BaseNoDataBean?) {
+                    if(t?.code==Constant.SUCCESSED_CODE){
+                        if (collectType==1){
+                            showToast("收藏成功")
+                            iv_collect.setImageResource(R.mipmap.icon_star_pre)
+                        }else{
+                            showToast("取消收藏")
+                            iv_collect.setImageResource(R.mipmap.icon_star)
+                        }
+                    }
+                }
+
+                override fun onFailed() {
+
+                }
+            })
+        }
     }
 
     private fun jumpToConfirmOrderActivity() {
@@ -254,16 +292,6 @@ class GoodsDetailActivity : BaseActivity() {
 
     private fun initWeb() {
         val webSettings = webView.settings
-//        DisplayMetrics dm = getResources().getDisplayMetrics();
-//        int scale = dm.densityDpi;
-//        if (scale == 240) { //设置自动适配
-//            webView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
-//        } else if (scale == 160) {
-//            webView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
-//        } else {
-//            webView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.CLOSE);
-//        }
-
         webSettings.setAllowFileAccess(true)
         webSettings.setDatabaseEnabled(true)
         val dir = applicationContext

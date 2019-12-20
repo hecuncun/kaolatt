@@ -16,6 +16,6 @@ class FamousListAdapter:BaseQuickAdapter<FamousListBean.DataBean,BaseViewHolder>
     override fun convert(helper: BaseViewHolder, item: FamousListBean.DataBean?) {
        item?:return
        val famousImg = helper.getView<ImageView>(R.id.iv_famous)
-        GlideUtils.showRound(famousImg,Constant.BASE_URL+item.picture,R.mipmap.logo,8)
+        GlideUtils.showRound(famousImg,Constant.BASE_URL+item.picture,R.mipmap.pic_dapaituijian,8)
     }
 }

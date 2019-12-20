@@ -30,8 +30,9 @@ class EvaluateListActivity:BaseActivity() {
    private val listEvaluate = mutableListOf<EvaluateListBean.DataBean.RowsBean>()
     private var currentPage =1
     private var total =1
-    var gid ="123"
+    var gid =""
     override fun initData() {
+        gid = intent.extras.getString("gid")//商品id
         val evaluateListCall = SLMRetrofit.getInstance().api.evaluateListCall(currentPage, gid)
         evaluateListCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<EvaluateListBean>(){
             override fun onSucceed(t: EvaluateListBean?) {
@@ -39,6 +40,7 @@ class EvaluateListActivity:BaseActivity() {
                     listEvaluate.addAll(t.data.rows)
                     evaluateAdapter.setNewData(listEvaluate)
                     total=t.data.total
+                    tv_evaluate_num.text="评价（${t.data.records}）"
                 }
             }
 

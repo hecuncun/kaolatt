@@ -29,7 +29,7 @@ class CollectionActivity : BaseActivity() {
 
   private  val list = mutableListOf<MyCollectionListBean.DataBean>()
     override fun initData() {
-        val myCollectionListCall = SLMRetrofit.getInstance().api.myCollectionListCall(tempUid)
+        val myCollectionListCall = SLMRetrofit.getInstance().api.myCollectionListCall(uid)
         myCollectionListCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<MyCollectionListBean>() {
             override fun onSucceed(t: MyCollectionListBean?) {
                 if (t?.code == Constant.SUCCESSED_CODE) {
@@ -114,7 +114,7 @@ class CollectionActivity : BaseActivity() {
                 Logger.e("gids==$gids")
                 dialog.dismiss()
                 //批量删除
-                val deleteCollection = SLMRetrofit.getInstance().api.deleteCollection(gids, tempUid)
+                val deleteCollection = SLMRetrofit.getInstance().api.deleteCollection(gids, uid)
                 deleteCollection.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
                     override fun onSucceed(t: BaseNoDataBean?) {
                        if (t?.code==Constant.SUCCESSED_CODE){

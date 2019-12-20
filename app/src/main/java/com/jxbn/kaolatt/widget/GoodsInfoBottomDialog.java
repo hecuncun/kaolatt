@@ -41,12 +41,13 @@ public class GoodsInfoBottomDialog extends BottomBaseDialog<GoodsInfoBottomDialo
 
     @Override
     public View onCreateView() {
-        widthScale(1f);
+        widthScale(0.95f);
 //        showAnim(new Swing());
         // dismissAnim(this, new ZoomOutExit());
         View inflate = View.inflate(mContext, R.layout.dialog_goods_info, null);
         listView =  inflate.findViewById(R.id.listView);
         tvCancel =  inflate.findViewById(R.id.tv_cancel);
+
         inflate.setBackgroundDrawable(
                 CornerUtils.cornerDrawable(Color.parseColor("#FFFFFF"), dp2px(5)));
 
@@ -56,15 +57,15 @@ public class GoodsInfoBottomDialog extends BottomBaseDialog<GoodsInfoBottomDialo
             protected void convert(ViewHolder viewHolder, String item, int position) {
                 String str = item;
                 viewHolder.setText(R.id.tv_content, str);
-                ((TextView)(viewHolder.getView(R.id.tv_content))).setGravity(Gravity.LEFT);
+                ((TextView)(viewHolder.getView(R.id.tv_content))).setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
             }
         });
         listView.setSelection(data.size() / 2);
         if (isShowFour) {
             //大于四项只显示四项，多余滚动
             ViewGroup.LayoutParams params = listView.getLayoutParams();
-            if (data.size() > 4) {
-                params.height = SizeUtils.dp2px(200);
+            if (data.size() > 8) {
+                params.height = SizeUtils.dp2px(400);
             }
             listView.setLayoutParams(params);
         }

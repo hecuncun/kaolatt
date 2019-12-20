@@ -65,13 +65,13 @@ class MineFragment : BaseFragment() {
 
 
     override fun lazyLoad() {
-        GlideUtils.showCircleWithBorder(iv_head_photo,Constant.BASE_URL+photo,R.mipmap.icon_kong,Color.parseColor("#FFFFFF"))
+        GlideUtils.showCircleWithBorder(iv_head_photo,Constant.BASE_URL+photo,R.mipmap.pic_head,Color.parseColor("#FFFFFF"))
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun updateInfoEvent(event: UpdateInfoEvent) {
         tv_nick_name.text=nickname
-        GlideUtils.showCircleWithBorder(iv_head_photo,Constant.BASE_URL+photo,R.mipmap.icon_kong,Color.parseColor("#FFFFFF"))
+        GlideUtils.showCircleWithBorder(iv_head_photo,Constant.BASE_URL+photo,R.mipmap.pic_head,Color.parseColor("#FFFFFF"))
     }
 
 

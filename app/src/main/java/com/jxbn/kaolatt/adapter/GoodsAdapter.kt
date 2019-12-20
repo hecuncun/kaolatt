@@ -18,7 +18,7 @@ class GoodsAdapter:BaseQuickAdapter<GoodsBean,BaseViewHolder>(R.layout.item_good
                 .setText(R.id.tv_old_price,item.oldPrice)
                 .setText(R.id.tv_sale_num,"销量${item.saleNum}")
         val  imgGoods = helper.getView<ImageView>(R.id.iv_goods)
-        GlideUtils.showAnimation(imgGoods,item.imgUrl,R.mipmap.logo)
+        GlideUtils.showAnimation(imgGoods,item.imgUrl,R.mipmap.pic_good)
 
     }
 }

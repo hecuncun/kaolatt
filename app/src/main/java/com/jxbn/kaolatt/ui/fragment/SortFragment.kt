@@ -7,12 +7,17 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
+import com.blankj.utilcode.util.LogUtils
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.bean.ElemeGroupedItem
+import com.jxbn.kaolatt.bean.SortListBean
+import com.jxbn.kaolatt.constants.Constant
 import com.jxbn.kaolatt.ext.showToast
+import com.jxbn.kaolatt.glide.GlideUtils
+import com.jxbn.kaolatt.net.CallbackListObserver
+import com.jxbn.kaolatt.net.SLMRetrofit
+import com.jxbn.kaolatt.net.ThreadSwitchTransformer
 import com.jxbn.kaolatt.ui.activity.SearchActivity
 import com.kunminx.linkage.LinkageRecyclerView
 import com.kunminx.linkage.adapter.viewholder.LinkagePrimaryViewHolder
@@ -59,16 +64,67 @@ class SortFragment : BaseFragment() {
     override fun lazyLoad() {
 
     }
-
+   private var list = mutableListOf<ElemeGroupedItem>()
+   private val isLoaded =false
+    private var total = 0
+    private var current = 0
+    private var isLoading =false
     private fun initLinkageDatas(rv: LinkageRecyclerView<ElemeGroupedItem.ItemInfo>) {
-        val gson = Gson()
-        val items = gson.fromJson<List<ElemeGroupedItem>>(getString(R.string.eleme_json),
-                object : TypeToken<List<ElemeGroupedItem>>() {
+        val sortListFirstCall = SLMRetrofit.getInstance().api.sortListCall("0")
+        sortListFirstCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<SortListBean>(){
+            override fun onSucceed(t: SortListBean?) {
+                if (t?.code==Constant.SUCCESSED_CODE){
+                    val listFirst = t.data//一级分类集合
+                    total=listFirst.size
+                    listFirst.forEach {
+                        val group = it.name
 
-                }.type)
-        Logger.e("items==${items.size}")
-        rv.init(items, ElemeLinkagePrimaryAdapterConfig(), ElemeLinkageSecondaryAdapterConfig())
-        rv.isGridMode = true
+                        //进行循环请求二级列表
+                        //isLoading =true
+                        val sortListSecondCall = SLMRetrofit.getInstance().api.sortListCall(it.pid)
+                        sortListSecondCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<SortListBean>(){
+                            override fun onSucceed(t: SortListBean?) {
+                               if (t?.code==Constant.SUCCESSED_CODE){
+                                   list.add(ElemeGroupedItem(true, group))
+                                   //***大坑！！！ 添加一级分类，必须接着马上添加二级分类，如果顺序错乱就会出现头连着头，数据错乱问题，
+                                   val listSecond = t.data
+                                   listSecond.forEach {
+                                       val itemInfo= ElemeGroupedItem.ItemInfo(it.name?:"",group,it.cid,it.remark1?:"")
+                                       list.add( ElemeGroupedItem(itemInfo))
+                                   }
+                                   current++
+                                   LogUtils.e("current==$current,total==$total")
+                                   if (current==total){//所有接口请求完毕就显示
+                                       rv.init(list as MutableList<BaseGroupedItem<ElemeGroupedItem.ItemInfo>>, ElemeLinkagePrimaryAdapterConfig(), ElemeLinkageSecondaryAdapterConfig())
+                                       rv.isGridMode = true
+                                       Logger.e("json==>"+Gson().toJson(list))
+                                   }
+                               }
+                            }
+
+                            override fun onFailed() {
+
+                            }
+                        })
+                    }
+                }
+            }
+
+            override fun onFailed() {
+
+            }
+        })
+
+//        val gson = Gson()
+//        val items = gson.fromJson<List<ElemeGroupedItem>>(getString(R.string.eleme_json1),
+//                object : TypeToken<List<ElemeGroupedItem>>() {
+//
+//                }.type)
+//        Logger.e("items==${items.size}")
+//        //rv.init(items as MutableList<BaseGroupedItem<ElemeGroupedItem.ItemInfo>>, ElemeLinkagePrimaryAdapterConfig(), ElemeLinkageSecondaryAdapterConfig())
+//        rv.init(items, ElemeLinkagePrimaryAdapterConfig(), ElemeLinkageSecondaryAdapterConfig())
+//        rv.isGridMode = true
+        //Logger.e("json==>"+Gson().toJson(list))
     }
 
 //左边标签的adapter
@@ -148,12 +204,13 @@ class SortFragment : BaseFragment() {
                                       item: BaseGroupedItem<ElemeGroupedItem.ItemInfo>) {
 
             (holder.getView(R.id.iv_goods_name) as TextView).text=item.info.title
-            Glide.with(mContext!!).load(item.info.imgUrl).into(holder.getView(R.id.iv_goods_img) as ImageView)
-
+            //Glide.with(mContext!!).load(item.info.imgUrl).into(holder.getView(R.id.iv_goods_img) as ImageView)
+            GlideUtils.showRound(holder.getView(R.id.iv_goods_img) as ImageView,Constant.BASE_URL+item.info.imgUrl,R.mipmap.pic_good,6)
             holder.itemView.setOnClickListener {
                 //点击商品,详情页
                 showToast(item.info.title)
                 val intent = Intent(activity, SearchActivity::class.java)
+                intent.putExtra("cid",item.info.content)//cid  商品二级分类id传过去
                 startActivity(intent)
             }
 

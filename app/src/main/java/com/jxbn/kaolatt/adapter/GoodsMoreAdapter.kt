@@ -24,7 +24,7 @@ class GoodsMoreAdapter:BaseQuickAdapter<GoodsMoreListBean.DataBean.RowsBean,Base
         helper.getView<TextView>(R.id.tv_old_price).paint.flags = Paint.STRIKE_THRU_TEXT_FLAG
         val  imgGoods = helper.getView<ImageView>(R.id.iv_goods)
         val imgList = item.picture.split(",")
-        GlideUtils.showAnimation(imgGoods,Constant.BASE_URL+imgList[0],R.mipmap.logo)
+        GlideUtils.showAnimation(imgGoods,Constant.BASE_URL+imgList[0],R.mipmap.pic_good)
 
     }
 }
