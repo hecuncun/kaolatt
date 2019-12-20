@@ -4,6 +4,7 @@ import com.jxbn.kaolatt.base.BaseBean;
 import com.jxbn.kaolatt.base.BaseNoDataBean;
 import com.jxbn.kaolatt.bean.BannerInfoBean;
 import com.jxbn.kaolatt.bean.CouponListBean;
+import com.jxbn.kaolatt.bean.EvaluateListBean;
 import com.jxbn.kaolatt.bean.FamousListBean;
 import com.jxbn.kaolatt.bean.GoodListBean;
 import com.jxbn.kaolatt.bean.GoodMoreListBean;
@@ -242,6 +243,12 @@ public interface Api {
      */
     @POST("appGoodsInfo/selectDetail")
     Observable<GoodsDetailBean> goodsDetailCall(@Query("gid") String gid);
+
+    /**
+     *
+     */
+    @POST("appGoodsEvaluate/searchForPage")
+    Observable<EvaluateListBean> evaluateListCall(@Query("page") int page,@Query("gid") String gid);
 //    /**
 //     * 获取全员信息e
 //     * @return

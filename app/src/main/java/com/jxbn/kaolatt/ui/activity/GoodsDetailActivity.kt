@@ -16,7 +16,7 @@ import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.adapter.EvaluateAdapter
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.BannerBean
-import com.jxbn.kaolatt.bean.EvaluateBean
+import com.jxbn.kaolatt.bean.EvaluateListBean
 import com.jxbn.kaolatt.bean.GoodsDetailBean
 import com.jxbn.kaolatt.bean.GoodsMaskBean
 import com.jxbn.kaolatt.constants.Constant
@@ -119,13 +119,29 @@ class GoodsDetailActivity : BaseActivity() {
             }
         })
 
-    //评价
-        val list = mutableListOf<EvaluateBean>()
-        for (i in 0..2) {
-            list.add(EvaluateBean("https://upload.jianshu.io/users/upload_avatars/9988193/fc26c109-1ae6-4327-a298-2def343e9cd8.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp",
-                    "老子说", "谢谢博主的分享！"))
-        }
-        evaluateAdapter.addData(list)
+        //评价
+
+        val listEvaluate = mutableListOf<EvaluateListBean.DataBean.RowsBean>()
+        val evaluateListCall = SLMRetrofit.getInstance().api.evaluateListCall(1, gid)
+        evaluateListCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<EvaluateListBean>(){
+            override fun onSucceed(t: EvaluateListBean?) {
+                if (t?.code==Constant.SUCCESSED_CODE){
+                    listEvaluate.addAll(t.data.rows)
+                    evaluateAdapter.setNewData(listEvaluate)
+                }
+            }
+
+            override fun onFailed() {
+            }
+        })
+
+
+
+//        for (i in 0..2) {
+//            list.add(EvaluateBean("https://upload.jianshu.io/users/upload_avatars/9988193/fc26c109-1ae6-4327-a298-2def343e9cd8.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp",
+//                    "老子说", "谢谢博主的分享！"))
+//        }
+//        evaluateAdapter.addData(list)
 
 
     }
