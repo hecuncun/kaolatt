@@ -14,6 +14,8 @@ import com.jxbn.kaolatt.bean.HotTagListBean;
 import com.jxbn.kaolatt.bean.ImgBean;
 import com.jxbn.kaolatt.bean.MsgListBean;
 import com.jxbn.kaolatt.bean.MyCollectionListBean;
+import com.jxbn.kaolatt.bean.OrderDetailBean;
+import com.jxbn.kaolatt.bean.OrderListBean;
 import com.jxbn.kaolatt.bean.RegisterBean;
 import com.jxbn.kaolatt.bean.ScoreListBean;
 import com.jxbn.kaolatt.bean.SortListBean;
@@ -267,6 +269,20 @@ public interface Api {
      */
     @POST("appGoodsClassification/searchAll")
     Observable<SortListBean> sortListCall(@Query("pid") String pid);
+
+    /**
+     * 全部订单列表
+     * @param page
+     * @param uid
+     * @return
+     */
+    @POST("appOrderInfo/searchForPage")
+    Observable<OrderListBean> orderListCall(@Query("page") int page ,@Query("uid") String uid);
+
+    @POST("appOrderInfo/selectDetail")
+    Observable<OrderDetailBean> orderDetailCall(@Query("oid") String oid);
+
+
 //    /**
 //     * 获取全员信息e
 //     * @return

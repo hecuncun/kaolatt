@@ -18,8 +18,8 @@ class GoodMoreListAdapter:BaseQuickAdapter<GoodMoreListBean.DataBean.RowsBean,Ba
     override fun convert(helper: BaseViewHolder, item:GoodMoreListBean.DataBean.RowsBean?) {
         item?:return
         helper.setText(R.id.tv_name,item.name)
-                .setText(R.id.tv_price,"￥${item.priceReal}")
-                .setText(R.id.tv_old_price,"￥${item.priceSecond}" )
+                .setText(R.id.tv_price,"¥${item.priceReal}")
+                .setText(R.id.tv_old_price,"¥${item.priceSecond}" )
                 .setText(R.id.tv_sale_num,"销量${item.salesVolume }")
         helper.getView<TextView>(R.id.tv_old_price).paint.flags= Paint.STRIKE_THRU_TEXT_FLAG
         val  imgGoods = helper.getView<ImageView>(R.id.iv_goods)

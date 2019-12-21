@@ -29,6 +29,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -36,6 +37,7 @@
                     android:textSize="15sp"/>
 
                 <TextView
+                    android:id="@+id/tv_desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -69,6 +71,7 @@
                     android:textSize="15sp"/>
 
                 <TextView
+                    android:id="@+id/tv_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -90,24 +93,30 @@
                     android:text="收货地址 : 北京昌平区回龙观"
                     android:textSize="14sp"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:src="@mipmap/right_arrow"/>
+                <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginRight="@dimen/dp_10"-->
+                <!--android:src="@mipmap/right_arrow"/>-->
 
             </RelativeLayout>
 
             <View
                 style="@style/horizontalGrayLine"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"/>
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"/>
+            </RelativeLayout>
+
 
             <View
                 style="@style/horizontalGrayLine"/>
@@ -124,6 +133,7 @@
                     android:textSize="@dimen/text_size_small"/>
 
                 <TextView
+                    android:id="@+id/tv_price_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -144,6 +154,7 @@
                     android:textSize="@dimen/text_size_small"/>
 
                 <TextView
+                    android:id="@+id/tv_price_you_hui"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -164,6 +175,7 @@
                     android:textSize="@dimen/text_size_small"/>
 
                 <TextView
+                    android:id="@+id/tv_price_di_kou"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -185,6 +197,7 @@
                     android:textSize="@dimen/text_size_small"/>
 
                 <TextView
+                    android:id="@+id/tv_order_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -210,6 +223,7 @@
                     android:textSize="14sp"/>
 
                 <TextView
+                    android:id="@+id/tv_pay_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -223,6 +237,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_order_no"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginTop="@dimen/dp_10"
@@ -234,6 +249,7 @@
             android:textSize="14sp"/>
 
         <TextView
+            android:id="@+id/tv_create_time"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:background="@color/white"

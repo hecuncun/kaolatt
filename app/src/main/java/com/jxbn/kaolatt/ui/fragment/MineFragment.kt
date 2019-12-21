@@ -24,11 +24,11 @@ class MineFragment : BaseFragment() {
         rl_setting.setOnClickListener { jumpToSettingActivity() }
         rl_coupon.setOnClickListener {  jumpToCouponActivity()}
         tv_order_all.setOnClickListener { jumpToOrderAllActivity(10) }
-        tv_wait_pay.setOnClickListener { jumpToOrderAllActivity(0) }
-        tv_wait_receive.setOnClickListener { jumpToOrderAllActivity(1) }
-        tv_wait_evaluate.setOnClickListener { jumpToOrderAllActivity(2) }
-        tv_complete.setOnClickListener { jumpToOrderAllActivity(3) }
-        tv_reject.setOnClickListener {  jumpToOrderAllActivity(4) }
+        tv_wait_pay.setOnClickListener { jumpToOrderAllActivity(1) }
+        tv_wait_receive.setOnClickListener { jumpToOrderAllActivity(2) }
+        tv_wait_evaluate.setOnClickListener { jumpToOrderAllActivity(4) }
+        tv_complete.setOnClickListener { jumpToOrderAllActivity(5) }
+        tv_reject.setOnClickListener {  jumpToOrderAllActivity(6) }
         rl_collection.setOnClickListener {  jumpToCollectionActivity()}
 
     }
@@ -43,9 +43,17 @@ class MineFragment : BaseFragment() {
         activity!!.startActivityCheckLogin(CouponActivity::class.java)
     }
     private fun jumpToOrderAllActivity(type:Int) {
-        val intent =Intent(activity, OrderAllActivity::class.java)
-        intent.putExtra("type",type)
-        startActivity(intent)
+  //type  1：待支付（取消订单），2：待收货 state=2 待发货（已支付）,state=3（已发货），4：已收货（待评价），
+  // 5：已完成（已评价），6：退换货中，7：退换货完成，8：取消申请中，9：已取消
+        if (isLogin){
+            val intent =Intent(activity, OrderAllActivity::class.java)
+            intent.putExtra("type",type)
+            startActivity(intent)
+        }else{
+            val intent =Intent(activity, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
     }
     private fun jumpToCollectionActivity() {
         activity!!.startActivityCheckLogin(CollectionActivity::class.java)

@@ -14,7 +14,7 @@ class GoodsAdapter:BaseQuickAdapter<GoodsBean,BaseViewHolder>(R.layout.item_good
     override fun convert(helper: BaseViewHolder, item: GoodsBean?) {
         item?:return
         helper.setText(R.id.tv_name,item.name)
-                .setText(R.id.tv_price,"￥${item.price.toString()}")
+                .setText(R.id.tv_price,"¥${item.price.toString()}")
                 .setText(R.id.tv_old_price,item.oldPrice)
                 .setText(R.id.tv_sale_num,"销量${item.saleNum}")
         val  imgGoods = helper.getView<ImageView>(R.id.iv_goods)

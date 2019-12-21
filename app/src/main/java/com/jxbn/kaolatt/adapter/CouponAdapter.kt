@@ -14,7 +14,7 @@ import com.jxbn.kaolatt.utils.DateUtils
 class CouponAdapter:BaseQuickAdapter<CouponListBean.DataBean,BaseViewHolder>(R.layout.item_coupon_list) {
     override fun convert(helper: BaseViewHolder, item: CouponListBean.DataBean?) {
         item?:return
-        helper.setText(R.id.tv_money,"￥${item.valueSubtraction}")
+        helper.setText(R.id.tv_money,"¥${item.valueSubtraction}")
                 .setText(R.id.tv_limit,"满${item.valueMax}可用")
                 .setText(R.id.tv_start_time,item.startTime)
                 .setText(R.id.tv_end_time,item.endTime)
