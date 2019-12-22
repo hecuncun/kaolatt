@@ -154,8 +154,9 @@ class ShoppingCartFragment : BaseFragment() {
     val list = mutableListOf<CartBean>()
     override fun lazyLoad() {
         for (i in 0..10){
-            list.add(CartBean(i,"https://www.dior.cn/beauty/version-5.1563986503609/resize-image/ep/3000/2000/90/0/%252FY0112000%252FY0112000_C011200066_E01_ZHC.jpg","阿玛尼口红","201色号，大红","320",i+1,false))
+            list.add(CartBean(i.toString(),"https://www.dior.cn/beauty/version-5.1563986503609/resize-image/ep/3000/2000/90/0/%252FY0112000%252FY0112000_C011200066_E01_ZHC.jpg","阿玛尼口红","201色号，大红","320",i+1,false))
         }
+       // val list = CommOperation.query<CartBean>()
         cartListAdapter.addData(list)
 
     }

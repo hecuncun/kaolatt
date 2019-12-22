@@ -1,6 +1,8 @@
 package com.jxbn.kaolatt.ui.activity
 
 import android.content.Intent
+import android.text.Editable
+import android.text.TextWatcher
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.AddressListBean
@@ -36,7 +38,7 @@ class ConfirmOrderActivity : BaseActivity() {
     override fun initData() {
         //查默认地址
         updateAddressInfo()
-
+        tv_score.text="当前可用${score}积分"
     }
 
     private fun updateAddressInfo() {
@@ -76,6 +78,8 @@ class ConfirmOrderActivity : BaseActivity() {
         myBottomListDialog = MyBottomListDialog(this, null, list)
     }
 
+    private var integralNum=0//使用积分数量
+
     override fun initListener() {
         //   iv_back.setOnClickListener { finish() }
         tv_coupon.setOnClickListener {
@@ -95,6 +99,29 @@ class ConfirmOrderActivity : BaseActivity() {
             //新增地址
             jumpToAddressListActivity()
         }
+
+        et_score.addTextChangedListener(object :TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+                if(et_score.text.toString().trim().isNotEmpty()){
+                    var integralNum = et_score.text.toString().trim().toInt()
+                    if (integralNum>score){
+                        showToast("超出可用积分")
+                        integralNum=score
+                        et_score.setText(score.toString())
+                    }
+                    tv_money_score.text="已减${integralNum.div(100.00)}元"
+                }else{
+                    tv_money_score.text="已减0元"
+                }
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
     }
 
     private fun jumpToPayActivity() {

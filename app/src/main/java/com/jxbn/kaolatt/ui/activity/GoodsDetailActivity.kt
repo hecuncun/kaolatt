@@ -100,7 +100,19 @@ class GoodsDetailActivity : BaseActivity() {
                     }
                     val goodsMaskBean = GoodsMaskBean(Constant.BASE_URL + imgList[0], t.data.priceReal.toString(), t.data.salesVolume, maskName1, mask1, maskName2, mask2)
                     maskDialog = MaskBottomDialog(this@GoodsDetailActivity, goodsMaskBean)
+                    maskDialog!!.setOnChoseListener(MaskBottomDialog.OnChoseListener { isAddCar, mask1, tab1, mask2, tab2, num ->
+                        showToast("addCar=$isAddCar,mask1=$mask1-tab1=$tab1,mask2=$mask2-tab2=$tab2,num=$num")
+                        //todo 根据addCar 添加数据库  创建订单
+                        if (isAddCar){//数据库添加
+//                           val bean = CartBean(gid,imgList[0],t.data.name,"$mask1-$tab1,$mask2-$tab2",t.data.priceReal.toString(),num.toInt(),false)
+//                            CommOperation.insert(bean)
+//                            val list = CommOperation.query<CartBean>()
+//                            tv_car_num.text=list.size.toString()
+                        }else{//跳确认订单页
+                            jumpToConfirmOrderActivity()
+                        }
 
+                    })
                     //产品参数
                      val listParam= t.data.goodsParamList
                     listParam.forEach {
@@ -238,11 +250,17 @@ class GoodsDetailActivity : BaseActivity() {
             intent.putExtra("gid",gid)
             startActivity(intent)
         }
+
+        tv_add_car.setOnClickListener {
+            maskDialog!!.show()
+            maskDialog!!.setShowOneBtn(true,true)
+        }
+
+
         tv_mask.setOnClickListener {
             maskDialog!!.show()
-            maskDialog!!.setOnChoseListener(MaskBottomDialog.OnChoseListener { tab1: String?, tab2: String?, num: String? ->
-                showToast("选择了 $tab1,$tab2,数量$num")
-            })
+            maskDialog!!.setShowOneBtn(false,false)
+
         }
 
         tv_desc.setOnClickListener {
@@ -254,7 +272,9 @@ class GoodsDetailActivity : BaseActivity() {
         }
         tv_buy.setOnClickListener {
             //确认订单
-            jumpToConfirmOrderActivity()
+            //jumpToConfirmOrderActivity()
+            maskDialog!!.show()
+            maskDialog!!.setShowOneBtn(true,false)
 
         }
         iv_collect.setOnClickListener {

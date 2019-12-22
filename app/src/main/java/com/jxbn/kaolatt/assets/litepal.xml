@@ -21,8 +21,7 @@
         PersonalInfoBean 属于package com.lhzw.bluetooth.bean.PersonalInfoBean
         -->
      <list>
-         <!--<mapping  class="com.lhzw.bluetooth.bean.PersonalInfoBean"/>-->
-         <!--<mapping  class="com.lhzw.bluetooth.bean.SportInfoBean"/>-->
+         <mapping  class="com.jxbn.kaolatt.bean.CartBean"/>
 
      </list>
     <!--

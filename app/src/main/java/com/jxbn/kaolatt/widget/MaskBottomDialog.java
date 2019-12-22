@@ -5,6 +5,7 @@ import android.support.design.widget.BottomSheetDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jxbn.kaolatt.R;
@@ -26,7 +27,9 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
     private final ImageView mIvClose;
     private final TextView mTvPrice;
     private final TextView mTvSaleNum;
+    private final TextView mTvAddCart;
     private final TextView mTvConfirm;
+    private final TextView mTvPay;
     private final TextView mTvMask1;
     private final TextView mTvMask2;
     private final FlowTagLayout mFlowTab1;
@@ -37,6 +40,20 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
     private final Context mContext;
     private String mTab1;
     private String mTab2;
+    private final LinearLayout mTwoBtnContainer;
+
+    private boolean mIsAddCar;//是否加入购物车
+
+    public void setShowOneBtn(boolean oneBtn,boolean isAddCar){
+        mIsAddCar=isAddCar;
+        if (oneBtn){
+            mTwoBtnContainer.setVisibility(View.GONE);
+            mTvPay.setVisibility(View.VISIBLE);
+        }else {
+            mTwoBtnContainer.setVisibility(View.VISIBLE);
+            mTvPay.setVisibility(View.GONE);
+        }
+    }
 
     public MaskBottomDialog(Context context, GoodsMaskBean bean) {
         super(context);
@@ -45,9 +62,21 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_mask_bottom, null);
         mImageView = view.findViewById(R.id.iv_img);
         mIvClose=view.findViewById(R.id.iv_close);
+        mTwoBtnContainer = (LinearLayout) view.findViewById(R.id.ll_two_btn_container);
         mTvPrice = view.findViewById(R.id.tv_price);
         mTvSaleNum = view.findViewById(R.id.tv_sale_num);
+        mTvAddCart = view.findViewById(R.id.tv_add_car);
         mTvConfirm = view.findViewById(R.id.tv_confirm);
+        mTvPay = view.findViewById(R.id.tv_pay);
+
+//        if (oneButton){
+//            mTwoBtnContainer.setVisibility(View.GONE);
+//            mTvPay.setVisibility(View.VISIBLE);
+//        }else {
+//            mTwoBtnContainer.setVisibility(View.VISIBLE);
+//            mTvPay.setVisibility(View.GONE);
+//        }
+
         mFlowTab1 = view.findViewById(R.id.flow_tab_1);
         mTvMask1 = view.findViewById(R.id.tv_mask1);
         mTvMask2 = view.findViewById(R.id.tv_mask2);
@@ -111,24 +140,36 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
             }
         });
         mTvConfirm.setOnClickListener(this);
-
+        mTvPay.setOnClickListener(this);
+        mTvAddCart.setOnClickListener(this);
     }
 
     private OnChoseListener mOnChoseListener;
 
     @Override
     public void onClick(View view) {
-        if (view.getId()==R.id.tv_confirm)
-        if (mOnChoseListener != null) {
-            mOnChoseListener.select(mTab1,mTab2,mCounterView.getInitNum()+"");
+        if (view.getId()==R.id.tv_confirm){
+            if (mOnChoseListener != null) {
+                mOnChoseListener.select(false,mBean.getMaskName1(),mTab1,mBean.getMaskName2(),mTab2,mCounterView.getInitNum()+"");
+            }
+        }else if(view.getId()==R.id.tv_add_car){
+            if (mOnChoseListener != null){
+                mOnChoseListener.select(true,mBean.getMaskName1(),mTab1,mBean.getMaskName2(),mTab2,mCounterView.getInitNum()+"");
+            }
+        }else if(view.getId()==R.id.tv_pay){
+            if (mOnChoseListener != null) {
+                mOnChoseListener.select(mIsAddCar,mBean.getMaskName1(),mTab1,mBean.getMaskName2(),mTab2,mCounterView.getInitNum()+"");
+            }
+
         }
+
 
         dismiss();
 
     }
 
     public interface OnChoseListener {
-        void select(String tab1,String tab2,String num);
+        void select(boolean isAddCar,String mask1,String tab1,String mask2,String tab2,String num);
     }
 
     public void setOnChoseListener(OnChoseListener onChoseListener) {
