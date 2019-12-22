@@ -2,6 +2,7 @@ package com.jxbn.kaolatt.net;
 
 import com.jxbn.kaolatt.base.BaseBean;
 import com.jxbn.kaolatt.base.BaseNoDataBean;
+import com.jxbn.kaolatt.bean.AddressListBean;
 import com.jxbn.kaolatt.bean.BannerInfoBean;
 import com.jxbn.kaolatt.bean.CouponListBean;
 import com.jxbn.kaolatt.bean.EvaluateListBean;
@@ -245,7 +246,7 @@ public interface Api {
      * @return
      */
     @POST("appGoodsInfo/selectDetail")
-    Observable<GoodsDetailBean> goodsDetailCall(@Query("gid") String gid);
+    Observable<GoodsDetailBean> goodsDetailCall(@Query("gid") String gid,@Query("uid") String uid);
 
     /**
      *评价列表
@@ -279,10 +280,57 @@ public interface Api {
     @POST("appOrderInfo/searchForPage")
     Observable<OrderListBean> orderListCall(@Query("page") int page ,@Query("uid") String uid);
 
+    /**
+     * 订单详情
+     * @param oid
+     * @return
+     */
     @POST("appOrderInfo/selectDetail")
     Observable<OrderDetailBean> orderDetailCall(@Query("oid") String oid);
 
+    /**
+     * 新增地址
+     * @param uid
+     * @param name
+     * @param phone
+     * @param card
+     * @param area 所在地区（省-市-区用‘-’分割）
+     * @param areaDetail
+     * @return
+     */
+    @POST("appUserAddress/insertSelective")
+    Observable<BaseNoDataBean> addAddressCall(@Query("uid") String uid,@Query("name") String name ,@Query("phone") String phone,@Query("card") String card,@Query("area") String area,@Query("areaDetail") String areaDetail);
 
+    /**
+     * 地址列表
+     * @param uid
+     * @return
+     */
+    @POST("appUserAddress/searchAll")
+    Observable<AddressListBean> addressListCall(@Query("uid") String uid);
+
+    /**
+     * 设为默认地址
+     * @param aid
+     * @param uid
+     * @return
+     */
+    @POST("appUserAddress/updateDefault")
+    Observable<BaseNoDataBean>  addressDefaultCall(@Query("aid") String aid,@Query("uid") String uid);
+
+    /**
+     * 删除地址
+     * @param aid
+     * @return
+     */
+    @POST("appUserAddress/deleteById")
+    Observable<BaseNoDataBean>  addressDeleteCall(@Query("aid") String aid);
+
+    /**
+     * 修改地址
+     */
+    @POST("appUserAddress/updateById")
+    Observable<BaseNoDataBean> addressUpdateCall(@Query("aid") String aid,@Query("name") String name,@Query("phone") String phone,@Query("card") String card,@Query("area") String area,@Query("areaDetail") String areaDetail);
 //    /**
 //     * 获取全员信息e
 //     * @return

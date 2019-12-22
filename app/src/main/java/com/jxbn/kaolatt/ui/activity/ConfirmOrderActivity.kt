@@ -3,10 +3,18 @@ package com.jxbn.kaolatt.ui.activity
 import android.content.Intent
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
+import com.jxbn.kaolatt.bean.AddressListBean
+import com.jxbn.kaolatt.constants.Constant
+import com.jxbn.kaolatt.event.SetDefaultAddressEvent
 import com.jxbn.kaolatt.ext.showToast
+import com.jxbn.kaolatt.net.CallbackListObserver
+import com.jxbn.kaolatt.net.SLMRetrofit
+import com.jxbn.kaolatt.net.ThreadSwitchTransformer
 import com.jxbn.kaolatt.widget.MyBottomListDialog
 import kotlinx.android.synthetic.main.activity_confirm_order.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 /**
@@ -23,14 +31,39 @@ class ConfirmOrderActivity : BaseActivity() {
     private var myBottomListDialog: MyBottomListDialog? = null
     override fun attachLayoutRes(): Int = R.layout.activity_confirm_order
 
+    private var addressId: String? = null
+
     override fun initData() {
+        //查默认地址
+        updateAddressInfo()
 
+    }
 
+    private fun updateAddressInfo() {
+        val addressListCall = SLMRetrofit.getInstance().api.addressListCall(uid)
+        addressListCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<AddressListBean>() {
+            override fun onSucceed(t: AddressListBean?) {
+                if (t?.code == Constant.SUCCESSED_CODE) {
+                    val bean = t.data.find {
+                        it.remark4 == "1"
+                    }
+                    addressId = bean?.magorid
+                    tv_name.text = "收货人:${bean?.name}"
+                    tv_phone.text = "${bean?.phone}"
+                    tv_address.text = "收货地址 :${bean?.area + bean?.areaDetail}"
+
+                }
+            }
+
+            override fun onFailed() {
+
+            }
+        })
     }
 
     override fun initView() {
         toolbar_title.text = "确认订单"
-      //  iv_back.visibility = View.VISIBLE
+        //  iv_back.visibility = View.VISIBLE
         initBottomDialog()
     }
 
@@ -44,7 +77,7 @@ class ConfirmOrderActivity : BaseActivity() {
     }
 
     override fun initListener() {
-     //   iv_back.setOnClickListener { finish() }
+        //   iv_back.setOnClickListener { finish() }
         tv_coupon.setOnClickListener {
             myBottomListDialog!!.show()
             myBottomListDialog!!.setListener { p0, p1, position, p3 ->
@@ -73,6 +106,13 @@ class ConfirmOrderActivity : BaseActivity() {
     private fun jumpToAddressListActivity() {
         val intent = Intent(this@ConfirmOrderActivity, AddressListActivity::class.java)
         startActivity(intent)
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun updateAddress(event:SetDefaultAddressEvent) {
+
+        updateAddressInfo()
 
     }
 }

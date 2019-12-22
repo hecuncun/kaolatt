@@ -55,7 +55,7 @@ class GoodsDetailActivity : BaseActivity() {
     private var gid = ""
     override fun initData() {
         gid = intent.extras.getString("gid")//商品id
-        val goodsDetailCall = SLMRetrofit.getInstance().api.goodsDetailCall(gid)
+        val goodsDetailCall = SLMRetrofit.getInstance().api.goodsDetailCall(gid,uid)
         goodsDetailCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<GoodsDetailBean>() {
             override fun onSucceed(t: GoodsDetailBean?) {
                 if (t?.code == Constant.SUCCESSED_CODE) {

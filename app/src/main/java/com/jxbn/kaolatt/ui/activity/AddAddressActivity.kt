@@ -5,8 +5,15 @@ import android.content.Intent
 import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
+import com.jxbn.kaolatt.base.BaseNoDataBean
+import com.jxbn.kaolatt.bean.AddressListBean
+import com.jxbn.kaolatt.constants.Constant
+import com.jxbn.kaolatt.event.RefreshAddressEvent
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.glide.GlideUtils
+import com.jxbn.kaolatt.net.CallbackListObserver
+import com.jxbn.kaolatt.net.SLMRetrofit
+import com.jxbn.kaolatt.net.ThreadSwitchTransformer
 import com.jxbn.kaolatt.widget.SelectDialog
 import com.lljjcoder.Interface.OnCityItemClickListener
 import com.lljjcoder.bean.CityBean
@@ -19,44 +26,58 @@ import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
 import kotlinx.android.synthetic.main.activity_add_address.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by heCunCun on 2019/12/10
  */
-class AddAddressActivity:BaseActivity() {
-    private var dialog : SelectDialog?=null
+class AddAddressActivity : BaseActivity() {
+    private var dialog: SelectDialog? = null
     private val REQUEST_FRONT = 0X333
     private val REQUEST_BACK = 0X334
-    private var tag =REQUEST_FRONT
+    private var tag = REQUEST_FRONT
 
     private val cityPickerView by lazy {
-         CityPickerView()
+        CityPickerView()
     }
 
-    override fun attachLayoutRes(): Int= R.layout.activity_add_address
+    override fun attachLayoutRes(): Int = R.layout.activity_add_address
 
     override fun initData() {
     }
-
+    private var from = 0
+    private var dataBean:AddressListBean.DataBean?=null
     override fun initView() {
         cityPickerView.init(this)
+        from = intent.extras.getInt("from")
+        if (from == 0) {
+            toolbar_title.text = "新增收货地址"
+        } else {
+            toolbar_title.text = "编辑收货地址"
+            dataBean = intent.getParcelableExtra<AddressListBean.DataBean?>("bean")
 
-        if(intent.extras.getInt("from")==0){
-            toolbar_title.text="新增收货地址"
-        }else{
-            toolbar_title.text="编辑收货地址"
+            et_name.setText(dataBean?.name)
+            et_phone.setText(dataBean?.phone)
+            et_card.setText(dataBean?.card)
+            tv_address.text=dataBean?.area
+            et_address_detail.setText(dataBean?.areaDetail)
+
+
         }
-        toolbar_right_tv.text="购物须知"
-        toolbar_right_tv.visibility= View.VISIBLE
-      //  iv_back.visibility=View.VISIBLE
+        toolbar_right_tv.text = "购物须知"
+        toolbar_right_tv.visibility = View.VISIBLE
+
+
+
+
 
 
         dialog = SelectDialog(this)
-        dialog!!.setOnChoseListener{ resId->
-            when(resId){
-                R.id.tv_camera->selectImage(0)
-                R.id.tv_photos->selectImage(1)
-                else ->{
+        dialog!!.setOnChoseListener { resId ->
+            when (resId) {
+                R.id.tv_camera -> selectImage(0)
+                R.id.tv_photos -> selectImage(1)
+                else -> {
 
                 }
             }
@@ -64,16 +85,15 @@ class AddAddressActivity:BaseActivity() {
     }
 
     override fun initListener() {
-      //  iv_back.setOnClickListener { finish() }
-        toolbar_right_tv.setOnClickListener {  }
+        toolbar_right_tv.setOnClickListener { }
 
-        iv_id_card_front.setOnClickListener{
-            tag=REQUEST_FRONT
+        iv_id_card_front.setOnClickListener {
+            tag = REQUEST_FRONT
             dialog?.show()
         }
 
         iv_id_card_back.setOnClickListener {
-            tag=REQUEST_BACK
+            tag = REQUEST_BACK
             dialog?.show()
         }
 
@@ -83,12 +103,75 @@ class AddAddressActivity:BaseActivity() {
         }
 
 
+        tv_confirm.setOnClickListener {
+            if (et_name.text.toString().trim().isNotEmpty() && et_card.text.toString().trim().isNotEmpty()
+                    && et_phone.text.toString().trim().isNotEmpty() && tv_address.text.isNotEmpty() && et_address_detail.text.toString().trim().isNotEmpty()) {
+                if (from==0){//新增
+                    val addAddressCall = SLMRetrofit.getInstance().api.addAddressCall(uid, et_name.text.toString().trim(), et_phone.text.toString().trim(), et_card.text.toString().trim(),
+                            tv_address.text.toString(), et_address_detail.text.toString().trim())
+                    addAddressCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<BaseNoDataBean>() {
+                        override fun onSucceed(t: BaseNoDataBean?) {
+                            if (t?.code == Constant.SUCCESSED_CODE) {
+                                showToast("添加地址成功")
+                                //刷新上一个页面
+                                EventBus.getDefault().post(RefreshAddressEvent())
+                                finish()
+                            } else {
+                                showToast("添加地址失败:${t?.message}")
+                            }
+                        }
+
+                        override fun onFailed() {
+
+                        }
+                    })
+                }else{//修改
+                    val addressUpdateCall = SLMRetrofit.getInstance().api.addressUpdateCall(dataBean?.magorid, et_name.text.toString().trim(), et_phone.text.toString().trim(), et_card.text.toString().trim(),
+                            tv_address.text.toString(), et_address_detail.text.toString().trim())
+
+                    addressUpdateCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
+                        override fun onSucceed(t: BaseNoDataBean?) {
+                            if (t?.code == Constant.SUCCESSED_CODE) {
+                                showToast("修改地址成功")
+                                //刷新上一个页面
+                                EventBus.getDefault().post(RefreshAddressEvent())
+                                finish()
+                            } else {
+                                showToast("修改地址失败:${t?.message}")
+                            }
+                        }
+
+                        override fun onFailed() {
+                        }
+                    })
+
+                }
+
+
+
+
+
+
+
+
+            } else {
+                showToast("请先将信息填写完整")
+            }
+
+
+
+
+
+
+        }
+
+
     }
 
     /**
      * 弹出选择器
      */
-  // private val  cityPickerView =  CityPickerView()
+    // private val  cityPickerView =  CityPickerView()
     private fun wheel() {
         val cityConfig = CityConfig.Builder()
                 .title("选择城市")
@@ -102,8 +185,8 @@ class AddAddressActivity:BaseActivity() {
                 .setCityWheelType(CityConfig.WheelType.PRO_CITY_DIS)
                 // * 显示省市区三级联动的显示状态
                 //* PRO:只显示省份的一级选择器
-               // * PRO_CITY:显示省份和城市二级联动的选择器
-               // * PRO_CITY_DIS:显示省份和城市和县区三级联动的选择器
+                // * PRO_CITY:显示省份和城市二级联动的选择器
+                // * PRO_CITY_DIS:显示省份和城市和县区三级联动的选择器
                 .setCustomItemLayout(R.layout.item_city)//自定义item的布局
                 .setCustomItemTextViewId(R.id.item_city_name_tv)
                 .setShowGAT(true)//显示港澳台数据
@@ -113,25 +196,25 @@ class AddAddressActivity:BaseActivity() {
         cityPickerView.setOnCityItemClickListener(object : OnCityItemClickListener() {
             override fun onSelected(province: ProvinceBean?, city: CityBean?, district: DistrictBean?) {
                 val sb = StringBuilder()
-               // sb.append("选择的结果：\n")
+                // sb.append("选择的结果：\n")
                 if (province != null) {
-                    sb.append(province.name+"\t")
+                    sb.append(province.name + "-")
                 }
 
                 if (city != null) {
-                    sb.append(city.name+ "\t")
+                    sb.append(city.name + "-")
                 }
 
                 if (district != null) {
-                    sb.append(district.name + "\t ")
+                    sb.append(district.name)
                 }
 
-                tv_address.text=(sb.toString())
+                tv_address.text = (sb.toString())
 
             }
 
             override fun onCancel() {
-               // ToastUtils.showLongToast(this@CitypickerWheelActivity, "已取消")
+                // ToastUtils.showLongToast(this@CitypickerWheelActivity, "已取消")
             }
         })
         cityPickerView.showCityPicker()
@@ -179,6 +262,7 @@ class AddAddressActivity:BaseActivity() {
                             forResult(tag)
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
@@ -186,10 +270,10 @@ class AddAddressActivity:BaseActivity() {
                 tag -> {
                     val selectList = PictureSelector.obtainMultipleResult(data)
                     if (selectList.size > 0) {
-                        if(tag==REQUEST_FRONT){
-                            GlideUtils.showRound(iv_id_card_front,selectList[0].compressPath,R.drawable.ic_launcher_background,6)
-                        }else{
-                            GlideUtils.showRound(iv_id_card_back,selectList[0].compressPath,R.drawable.ic_launcher_background,6)
+                        if (tag == REQUEST_FRONT) {
+                            GlideUtils.showRound(iv_id_card_front, selectList[0].compressPath, R.drawable.ic_launcher_background, 6)
+                        } else {
+                            GlideUtils.showRound(iv_id_card_back, selectList[0].compressPath, R.drawable.ic_launcher_background, 6)
                         }
 
                     } else {

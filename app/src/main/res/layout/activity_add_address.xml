@@ -27,6 +27,7 @@
                     android:textSize="15sp"/>
 
                 <EditText
+                    android:id="@+id/et_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_10"
@@ -50,6 +51,7 @@
                     android:textSize="15sp"/>
 
                 <EditText
+                    android:id="@+id/et_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_10"
@@ -73,6 +75,7 @@
                     android:textSize="15sp"/>
 
                 <EditText
+                    android:id="@+id/et_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_10"
@@ -103,7 +106,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_10"
-                    android:text="请选择所在地区"
+                    android:hint="请选择所在地区"
                     android:textSize="15sp"
                     android:padding="@dimen/dp_10"/>
                 <ImageView

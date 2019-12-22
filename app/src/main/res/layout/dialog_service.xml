@@ -33,7 +33,7 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:layout_toLeftOf="@id/tv_phone"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@mipmap/icon_dianhua"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_marginTop="15dp"
@@ -56,7 +56,7 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:layout_toLeftOf="@id/tv_qq"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@mipmap/icon_qq"/>
         </RelativeLayout>
         <LinearLayout
             android:layout_marginLeft="50dp"
@@ -68,8 +68,6 @@
             android:background="@drawable/bg_blue_btn"
             android:orientation="vertical">
             <RelativeLayout
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
                 android:layout_width="match_parent"
                 android:background="@drawable/bg_blue_btn"
                 android:layout_height="44dp">
@@ -87,7 +85,7 @@
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:layout_toLeftOf="@id/tv_wx"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:src="@mipmap/icon_weixin"/>
             </RelativeLayout>
             <ImageView
                 android:id="@+id/iv_wx"
@@ -96,7 +94,7 @@
                 android:layout_gravity="center"
                 android:layout_width="132dp"
                 android:layout_height="132dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@mipmap/pic_good"/>
         </LinearLayout>
 
     </LinearLayout>
