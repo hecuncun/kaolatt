@@ -176,6 +176,7 @@ class ConfirmOrderActivity : BaseActivity() {
                             showToast("创建成功")
                             val intent = Intent(this@ConfirmOrderActivity, PayActivity::class.java)
                             intent.putExtra("oid",t.data.oid)
+                            intent.putExtra("money",t.data.priceTotalOrder.toString())
                             startActivity(intent)
                         //   jumpToPayActivity()
                         }

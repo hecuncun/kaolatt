@@ -18,6 +18,7 @@ import com.jxbn.kaolatt.bean.MsgListBean;
 import com.jxbn.kaolatt.bean.MyCollectionListBean;
 import com.jxbn.kaolatt.bean.OrderDetailBean;
 import com.jxbn.kaolatt.bean.OrderListBean;
+import com.jxbn.kaolatt.bean.PaySignBean;
 import com.jxbn.kaolatt.bean.RegisterBean;
 import com.jxbn.kaolatt.bean.ScoreListBean;
 import com.jxbn.kaolatt.bean.SortListBean;
@@ -25,6 +26,8 @@ import com.jxbn.kaolatt.bean.UserInfoBean;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -342,8 +345,21 @@ public interface Api {
      * @param goodsInfoJsonStr
      * @return
      */
+    @FormUrlEncoded//str有中文必须加上此注解  防止乱码
     @POST("appOrderInfo/insertSelective")
-    Observable<AddOrderBean> addOrderCall(@Query("uid") String uid,@Query("addressId") String addressId,@Query("cardId") String cardId,@Query("integralNum") int integralNum,@Query("goodsInfoJsonStr") String goodsInfoJsonStr);
+    Observable<AddOrderBean> addOrderCall(@Query("uid") String uid,@Query("addressId") String addressId,@Query("cardId") String cardId,@Query("integralNum") int integralNum,@Field ("goodsInfoJsonStr") String goodsInfoJsonStr);
+
+    /**
+     * App支付签名(统一下单),已完成二次签名,直接调用支付即可
+     * @param uid
+     * @param oid
+     * @param way
+     * @return
+     */
+
+    @POST("apppay/appsign")
+    Observable<PaySignBean> paySignCall(@Query("uid") String uid,@Query("oid") String oid ,@Query("way") int way);
+
 //    /**
 //     * 获取全员信息e
 //     * @return

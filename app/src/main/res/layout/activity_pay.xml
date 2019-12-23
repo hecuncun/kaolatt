@@ -89,6 +89,7 @@
         </LinearLayout>
         
         <TextView
+            android:id="@+id/tv_pay_money"
             android:layout_marginTop="@dimen/dp_30"
             android:padding="@dimen/dp_10"
             android:gravity="center"

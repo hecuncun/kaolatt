@@ -33,7 +33,7 @@ class OrderAllActivity:BaseActivity() {
 
     override fun initData() {
 
-        val orderListCall = SLMRetrofit.getInstance().api.orderListCall(currentPage, tempUid)
+        val orderListCall = SLMRetrofit.getInstance().api.orderListCall(currentPage,uid )
         orderListCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<OrderListBean>(){
             override fun onSucceed(t: OrderListBean?) {
                 if (t?.code==Constant.SUCCESSED_CODE){
@@ -64,19 +64,6 @@ class OrderAllActivity:BaseActivity() {
             }
         })
 
-
-
-
-//
-//        for (i in 1..20){
-//            if (type==10){
-//                list.add(OrderBean(i%5,"订单号：1231312$i","http","黄金搭档$i",i,"规格：金色，大",5.times(i).toFloat()))
-//            }else{
-//                list.add(OrderBean(type,"订单号：1231312$i","http","黄金搭档$i",i,"规格：金色，大",5.times(i).toFloat()))
-//            }
-//
-//        }
-//        orderAdapter.addData(list)
     }
 
     override fun initView() {
@@ -105,7 +92,36 @@ class OrderAllActivity:BaseActivity() {
         orderAdapter.setOnItemChildClickListener { adapter, view, position ->
          when(view.id){
              R.id.tv_confirm_order ->{//立即付款，确认收货，去评价，删除订单，查看详情
-                 jumpToEvaluateActivity()
+                 val rowsBean = adapter.data[position] as OrderListBean.DataBean.RowsBean
+                 //1：待支付（取消订单），2：待发货（已支付），3：待收货（已发货），4：已收货（待评价），5：已完成（已评价），6：退换货中，7：退换货完成，8：取消申请中，9：已取消 ,
+                 when(rowsBean.status){
+                     1->{//立即付款
+                         val intent = Intent(this@OrderAllActivity, PayActivity::class.java)
+                         intent.putExtra("oid",rowsBean.oid)
+                         intent.putExtra("money",rowsBean.priceTotalOrder.toString())
+                         startActivity(intent)
+                     }
+
+                     2,3->{//确认收货
+
+                     }
+
+                     4->{//去评价
+                         jumpToEvaluateActivity()
+                     }
+
+                     5,9->{//删除订单
+
+                     }
+                     6,7,8->{//查看详情
+
+                     }
+
+                 }
+
+
+
+
                }
                  R.id.tv_cancel_order->{
                      //取消订单，查看物流
@@ -125,7 +141,7 @@ class OrderAllActivity:BaseActivity() {
                 return@RequestLoadMoreListener
             }
 
-            val orderListCall = SLMRetrofit.getInstance().api.orderListCall(currentPage, tempUid)
+            val orderListCall = SLMRetrofit.getInstance().api.orderListCall(currentPage, uid)
             orderListCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<OrderListBean>(){
                 override fun onSucceed(t: OrderListBean?) {
                     if (t?.code==Constant.SUCCESSED_CODE){

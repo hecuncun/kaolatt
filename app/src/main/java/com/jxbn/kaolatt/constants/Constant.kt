@@ -14,4 +14,16 @@ object Constant{
     const val NICK_NAME = "nickname"
     const val PHOTO = "photo"
     const val PHONE = "phone"
+
+
+
+
+
+
+    //微信支付材料
+    const val WeiXinAppID="wx46dd9cf5d339b5be"
+    const val WeiXinAppSecret=""
+    //商户号
+    const val WeiXinSHH=""
+
 }
