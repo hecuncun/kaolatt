@@ -5,6 +5,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.bean.CartBean
+import com.jxbn.kaolatt.constants.Constant
 import com.jxbn.kaolatt.glide.GlideUtils
 
 /**
@@ -22,7 +23,7 @@ class CartListAdapter:BaseQuickAdapter<CartBean,BaseViewHolder>(R.layout.item_ca
         ivCheck.setImageResource(if (item.isCheck) R.mipmap.icon_check_pre else R.mipmap.icon_check)
 
         val ivGoods = helper.getView<ImageView>(R.id.iv_goods)
-        GlideUtils.showRound(ivGoods, item.imgUrl, R.mipmap.ic_launcher, 5)
+        GlideUtils.showRound(ivGoods, Constant.BASE_URL+item.imgUrl, R.mipmap.pic_good, 6)
 
         helper.addOnClickListener(R.id.iv_check)
         helper.addOnClickListener(R.id.tv_add)

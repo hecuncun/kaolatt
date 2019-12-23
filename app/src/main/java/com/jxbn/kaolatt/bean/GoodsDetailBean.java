@@ -81,7 +81,7 @@ public class GoodsDetailBean {
         private String cid;
         private String picture;
         private String name;
-        private float priceReal;
+        private double priceReal;
         private String priceSecond;
         private String salesVolume;
         private String content;
@@ -142,11 +142,11 @@ public class GoodsDetailBean {
             this.name = name;
         }
 
-        public float getPriceReal() {
+        public double getPriceReal() {
             return priceReal;
         }
 
-        public void setPriceReal(float priceReal) {
+        public void setPriceReal(double priceReal) {
             this.priceReal = priceReal;
         }
 

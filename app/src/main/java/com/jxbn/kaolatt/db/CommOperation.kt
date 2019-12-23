@@ -103,7 +103,7 @@ object CommOperation {
      * 查询全部
      */
     inline fun <reified T : LitePalSupport> query(): List<T> {
-        return LitePal.findAll()
+        return LitePal.findAll<T>()
     }
 
     /**

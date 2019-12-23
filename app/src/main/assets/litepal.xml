@@ -22,6 +22,7 @@
         -->
      <list>
          <mapping  class="com.jxbn.kaolatt.bean.OldTagBean"/>
+         <mapping  class="com.jxbn.kaolatt.bean.CartBean"/>
      </list>
     <!--
            keep ：按类和字段名大小写作为表名和列名

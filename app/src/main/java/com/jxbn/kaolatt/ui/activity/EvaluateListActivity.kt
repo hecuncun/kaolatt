@@ -30,7 +30,7 @@ class EvaluateListActivity:BaseActivity() {
    private val listEvaluate = mutableListOf<EvaluateListBean.DataBean.RowsBean>()
     private var currentPage =1
     private var total =1
-    var gid =""
+    private var gid:String?=null
     override fun initData() {
         gid = intent.extras.getString("gid")//商品id
         val evaluateListCall = SLMRetrofit.getInstance().api.evaluateListCall(currentPage, gid)

@@ -5,6 +5,12 @@ package com.jxbn.kaolatt.bean;
  */
 public class OrderGoodsBean {
 
+    public OrderGoodsBean(String remark3, String numTotal, String specs) {
+        this.remark3 = remark3;
+        this.numTotal = numTotal;
+        this.specs = specs;
+    }
+
     /**
      * remark3 : 商品id
      * numTotal : 商品数量

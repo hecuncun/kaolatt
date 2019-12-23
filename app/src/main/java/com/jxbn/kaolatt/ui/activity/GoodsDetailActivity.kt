@@ -13,14 +13,13 @@ import android.webkit.WebSettings
 import android.widget.ImageView
 import android.widget.ScrollView
 import com.jxbn.kaolatt.R
+import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.adapter.EvaluateAdapter
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.base.BaseNoDataBean
-import com.jxbn.kaolatt.bean.BannerBean
-import com.jxbn.kaolatt.bean.EvaluateListBean
-import com.jxbn.kaolatt.bean.GoodsDetailBean
-import com.jxbn.kaolatt.bean.GoodsMaskBean
+import com.jxbn.kaolatt.bean.*
 import com.jxbn.kaolatt.constants.Constant
+import com.jxbn.kaolatt.event.RefreshCarEvent
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.glide.GlideUtils
 import com.jxbn.kaolatt.net.CallbackListObserver
@@ -32,6 +31,10 @@ import com.jxbn.kaolatt.widget.ServiceDialog
 import com.jxbn.kaolatt.widget.SpaceItemDecoration
 import com.stx.xhb.xbanner.XBanner
 import kotlinx.android.synthetic.main.activity_goods_detail.*
+import org.greenrobot.eventbus.EventBus
+import org.litepal.LitePal
+import org.litepal.extension.findAll
+import java.io.Serializable
 
 /**
  * Created by heCunCun on 2019/12/9
@@ -52,10 +55,12 @@ class GoodsDetailActivity : BaseActivity() {
     }
 
     override fun attachLayoutRes(): Int = R.layout.activity_goods_detail
-    private var gid = ""
+    private var orderList = mutableListOf<CartBean>()
+    private var totalMoney=0.0
+    private var gid :String= ""
     override fun initData() {
         gid = intent.extras.getString("gid")//商品id
-        val goodsDetailCall = SLMRetrofit.getInstance().api.goodsDetailCall(gid,uid)
+        val goodsDetailCall = SLMRetrofit.getInstance().api.goodsDetailCall(gid, uid)
         goodsDetailCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<GoodsDetailBean>() {
             override fun onSucceed(t: GoodsDetailBean?) {
                 if (t?.code == Constant.SUCCESSED_CODE) {
@@ -63,7 +68,7 @@ class GoodsDetailActivity : BaseActivity() {
                     //轮播图
                     val imgList = t.data.picture.split(",")
                     for (url in imgList) {
-                        bannerList.add(BannerBean(Constant.BASE_URL+url, ""))
+                        bannerList.add(BannerBean(Constant.BASE_URL + url, ""))
                     }
                     initBanner()
 
@@ -103,35 +108,48 @@ class GoodsDetailActivity : BaseActivity() {
                     maskDialog!!.setOnChoseListener(MaskBottomDialog.OnChoseListener { isAddCar, mask1, tab1, mask2, tab2, num ->
                         showToast("addCar=$isAddCar,mask1=$mask1-tab1=$tab1,mask2=$mask2-tab2=$tab2,num=$num")
                         //todo 根据addCar 添加数据库  创建订单
-                        if (isAddCar){//数据库添加
-//                           val bean = CartBean(gid,imgList[0],t.data.name,"$mask1-$tab1,$mask2-$tab2",t.data.priceReal.toString(),num.toInt(),false)
-//                            CommOperation.insert(bean)
-//                            val list = CommOperation.query<CartBean>()
-//                            tv_car_num.text=list.size.toString()
-                        }else{//跳确认订单页
-                            jumpToConfirmOrderActivity()
+                        val bean = CartBean(gid, imgList[0], t.data.name, "$mask1-$tab1,$mask2-$tab2", t.data.priceReal.toString(), num.toInt(), false)
+                        totalMoney=t.data.priceReal.times(num.toInt())
+                        if (isAddCar) {//数据库添加
+                            bean.save()
+                            initCarNum()
+                            //刷购物车
+                            EventBus.getDefault().post(RefreshCarEvent())
+                        } else {//跳确认订单页
+                            if (isLogin){
+                                val intent = Intent(this@GoodsDetailActivity, ConfirmOrderActivity::class.java)
+                                orderList.add(bean)
+                                intent.putExtra("list",orderList as Serializable)
+                                intent.putExtra("total",totalMoney)
+                                intent.putExtra("num",num)
+                                startActivity(intent)
+                            }else{
+                                val intent = Intent(this@GoodsDetailActivity, LoginActivity::class.java)
+                                startActivity(intent)
+                            }
+
                         }
 
                     })
                     //产品参数
-                     val listParam= t.data.goodsParamList
+                    val listParam = t.data.goodsParamList
                     listParam.forEach {
-                        paramList.add(it.name+"                               "+it.info)
+                        paramList.add(it.name + "                               " + it.info)
                     }
-                    goodsInfoBottomDialog= GoodsInfoBottomDialog(this@GoodsDetailActivity,null,paramList)
+                    goodsInfoBottomDialog = GoodsInfoBottomDialog(this@GoodsDetailActivity, null, paramList)
 
                     //goodsDetailBottomDialog = GoodsDetailBottomDialog(this@GoodsDetailActivity)
 
                     //WebView详情
-                    webView.loadDataWithBaseURL(null,getHtmlData(t.data.content), "text/html" , "utf-8", null)
+                    webView.loadDataWithBaseURL(null, getHtmlData(t.data.content), "text/html", "utf-8", null)
 
                     //是否收藏
-                    if (t.data.collectId==null || t.data.collectId.isEmpty()){
-                        collectType=2
+                    if (t.data.collectId == null || t.data.collectId.isEmpty()) {
+                        collectType = 2
                         iv_collect.setImageResource(R.mipmap.icon_star)
-                    }else{
+                    } else {
                         iv_collect.setImageResource(R.mipmap.icon_star_pre)
-                        collectType=1
+                        collectType = 1
                     }
                 }
             }
@@ -144,11 +162,11 @@ class GoodsDetailActivity : BaseActivity() {
 
         val listEvaluate = mutableListOf<EvaluateListBean.DataBean.RowsBean>()
         val evaluateListCall = SLMRetrofit.getInstance().api.evaluateListCall(1, gid)
-        evaluateListCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<EvaluateListBean>(){
+        evaluateListCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<EvaluateListBean>() {
             override fun onSucceed(t: EvaluateListBean?) {
-                if (t?.code==Constant.SUCCESSED_CODE){
+                if (t?.code == Constant.SUCCESSED_CODE) {
                     listEvaluate.addAll(t.data.rows)
-                    tv_evaluate_num.text="评价（${t.data.records}）"
+                    tv_evaluate_num.text = "评价（${t.data.records}）"
                     evaluateAdapter.setNewData(listEvaluate)
                 }
             }
@@ -156,7 +174,6 @@ class GoodsDetailActivity : BaseActivity() {
             override fun onFailed() {
             }
         })
-
 
 
 //        for (i in 0..2) {
@@ -173,6 +190,15 @@ class GoodsDetailActivity : BaseActivity() {
         initWeb()
         initRecyclerView()
         // initBanner()
+
+        initCarNum()
+
+    }
+
+    private fun initCarNum() {
+        val list =LitePal.findAll<CartBean>()
+
+        tv_car_num.text = list.size.toString()
 
     }
 
@@ -241,25 +267,25 @@ class GoodsDetailActivity : BaseActivity() {
 
     }
 
-    private var collectType =2 //1收藏  2取消
+    private var collectType = 2 //1收藏  2取消
 
     override fun initListener() {
         iv_back.setOnClickListener { finish() }
         tv_all_evaluate.setOnClickListener {
             val intent = Intent(this@GoodsDetailActivity, EvaluateListActivity::class.java)
-            intent.putExtra("gid",gid)
+            intent.putExtra("gid", gid)
             startActivity(intent)
         }
 
         tv_add_car.setOnClickListener {
             maskDialog!!.show()
-            maskDialog!!.setShowOneBtn(true,true)
+            maskDialog!!.setShowOneBtn(true, true)
         }
 
 
         tv_mask.setOnClickListener {
             maskDialog!!.show()
-            maskDialog!!.setShowOneBtn(false,false)
+            maskDialog!!.setShowOneBtn(false, false)
 
         }
 
@@ -274,23 +300,23 @@ class GoodsDetailActivity : BaseActivity() {
             //确认订单
             //jumpToConfirmOrderActivity()
             maskDialog!!.show()
-            maskDialog!!.setShowOneBtn(true,false)
+            maskDialog!!.setShowOneBtn(true, false)
 
         }
         iv_collect.setOnClickListener {
-            if (collectType==1){//已收藏
-                collectType=2
-            }else{
-                collectType=1
+            if (collectType == 1) {//已收藏
+                collectType = 2
+            } else {
+                collectType = 1
             }
             val collectionEnsureCall = SLMRetrofit.getInstance().api.collectionEnsureCall(gid, uid, collectType)
-            collectionEnsureCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
+            collectionEnsureCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<BaseNoDataBean>() {
                 override fun onSucceed(t: BaseNoDataBean?) {
-                    if(t?.code==Constant.SUCCESSED_CODE){
-                        if (collectType==1){
+                    if (t?.code == Constant.SUCCESSED_CODE) {
+                        if (collectType == 1) {
                             showToast("收藏成功")
                             iv_collect.setImageResource(R.mipmap.icon_star_pre)
-                        }else{
+                        } else {
                             showToast("取消收藏")
                             iv_collect.setImageResource(R.mipmap.icon_star)
                         }
@@ -304,10 +330,7 @@ class GoodsDetailActivity : BaseActivity() {
         }
     }
 
-    private fun jumpToConfirmOrderActivity() {
-        val intent = Intent(this@GoodsDetailActivity, ConfirmOrderActivity::class.java)
-        startActivity(intent)
-    }
+
 
 
     private fun initWeb() {
@@ -343,6 +366,7 @@ class GoodsDetailActivity : BaseActivity() {
         destroyWebView()
         super.onDestroy()
     }
+
     /**
      * 销毁webview
      */
@@ -355,6 +379,7 @@ class GoodsDetailActivity : BaseActivity() {
             webView.destroy()
         }
     }
+
     /**
      * 富文本的样式做到适配屏幕
      */

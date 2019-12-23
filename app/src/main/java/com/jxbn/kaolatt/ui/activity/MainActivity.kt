@@ -26,6 +26,7 @@ import com.jxbn.kaolatt.widget.TopMsgDialog
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.litepal.LitePal
 
 
 class MainActivity : BaseActivity() {
@@ -46,7 +47,7 @@ class MainActivity : BaseActivity() {
 
     override fun initData() {
         if (checkPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE))) {
-
+            LitePal.getDatabase()
         } else {
             requestPermission(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE), PERMISS_REQUEST_CODE)
         }
@@ -104,6 +105,7 @@ class MainActivity : BaseActivity() {
             //先初始化一个用户对象
           //  val user = PersonalInfoBean("野顽玩家", "60")
            // user.save()
+            LitePal.getDatabase()
         }
     }
 

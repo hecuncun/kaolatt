@@ -2,6 +2,7 @@ package com.jxbn.kaolatt.net;
 
 import com.jxbn.kaolatt.base.BaseBean;
 import com.jxbn.kaolatt.base.BaseNoDataBean;
+import com.jxbn.kaolatt.bean.AddOrderBean;
 import com.jxbn.kaolatt.bean.AddressListBean;
 import com.jxbn.kaolatt.bean.BannerInfoBean;
 import com.jxbn.kaolatt.bean.CouponListBean;
@@ -331,6 +332,18 @@ public interface Api {
      */
     @POST("appUserAddress/updateById")
     Observable<BaseNoDataBean> addressUpdateCall(@Query("aid") String aid,@Query("name") String name,@Query("phone") String phone,@Query("card") String card,@Query("area") String area,@Query("areaDetail") String areaDetail);
+
+    /**
+     * 新增订单
+     * @param uid
+     * @param addressId
+     * @param cardId
+     * @param integralNum
+     * @param goodsInfoJsonStr
+     * @return
+     */
+    @POST("appOrderInfo/insertSelective")
+    Observable<AddOrderBean> addOrderCall(@Query("uid") String uid,@Query("addressId") String addressId,@Query("cardId") String cardId,@Query("integralNum") int integralNum,@Query("goodsInfoJsonStr") String goodsInfoJsonStr);
 //    /**
 //     * 获取全员信息e
 //     * @return

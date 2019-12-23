@@ -9,6 +9,7 @@ import com.jxbn.kaolatt.base.BaseNoDataBean
 import com.jxbn.kaolatt.bean.AddressListBean
 import com.jxbn.kaolatt.constants.Constant
 import com.jxbn.kaolatt.event.RefreshAddressEvent
+import com.jxbn.kaolatt.event.SetDefaultAddressEvent
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.glide.GlideUtils
 import com.jxbn.kaolatt.net.CallbackListObserver
@@ -115,6 +116,7 @@ class AddAddressActivity : BaseActivity() {
                                 showToast("添加地址成功")
                                 //刷新上一个页面
                                 EventBus.getDefault().post(RefreshAddressEvent())
+                                EventBus.getDefault().post(SetDefaultAddressEvent())
                                 finish()
                             } else {
                                 showToast("添加地址失败:${t?.message}")
