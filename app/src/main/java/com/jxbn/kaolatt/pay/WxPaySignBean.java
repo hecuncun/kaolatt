@@ -1,9 +1,9 @@
-package com.jxbn.kaolatt.bean;
+package com.jxbn.kaolatt.pay;
 
 /**
  * Created by hecuncun on 2019/12/24
  */
-public class PaySignBean {
+public class WxPaySignBean {
 
     /**
      * code : 10001

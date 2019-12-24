@@ -22,8 +22,8 @@ object Constant{
 
     //微信支付材料
     const val WeiXinAppID="wx46dd9cf5d339b5be"
-    const val WeiXinAppSecret=""
+    const val WeiXinAppSecret="cf4c699838f69d6dff9e349ab591c7de"
     //商户号
-    const val WeiXinSHH=""
+    const val WeiXinSHH="1552150031"
 
 }

@@ -3,7 +3,6 @@ package com.jxbn.kaolatt.pay;
 import android.content.Context;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.jxbn.kaolatt.bean.PaySignBean;
 import com.jxbn.kaolatt.constants.Constant;
 import com.jxbn.kaolatt.net.CallbackListObserver;
 import com.jxbn.kaolatt.net.SLMRetrofit;
@@ -36,21 +35,21 @@ public class WXPayUtil {
      */
     @SuppressWarnings("unused")
     public void WXpaySignature(String uid,String oid) {
-        Observable<PaySignBean> paySignCall = SLMRetrofit.getInstance().getApi().paySignCall(uid, oid, 1);
-        paySignCall.compose(new ThreadSwitchTransformer<PaySignBean>()).subscribe(new CallbackListObserver<PaySignBean>() {
+        Observable<WxPaySignBean> paySignCall = SLMRetrofit.getInstance().getApi().wxPaySignCall(uid, oid, 1);
+        paySignCall.compose(new ThreadSwitchTransformer<WxPaySignBean>()).subscribe(new CallbackListObserver<WxPaySignBean>() {
             @Override
-            protected void onSucceed(PaySignBean bean) {
+            protected void onSucceed(WxPaySignBean bean) {
                 if (bean.getCode().equals(Constant.SUCCESSED_CODE)){
                     PayReq req = new PayReq();
                     req.appId = Constant.WeiXinAppID;
                     req.nonceStr = bean.getData().getNonceStr();
-                    req.partnerId = Constant.WeiXinSHH;//天津候鸟微信材料商户号
+                    req.partnerId = Constant.WeiXinSHH;//微信材料商户号
                     req.timeStamp = bean.getData().getTimeStamp();
                     req.sign = bean.getData().getPaySign();
                     req.prepayId = bean.getData().getPrepayId();
                     req.packageValue = "Sign=WXPay";
                   //  req.extData = "" + payChannelId; // // 设置VIP支付标记
-//                    api.sendReq(req);
+                    api.sendReq(req);
                 }else {
                     ToastUtils.showShort(bean.getMessage());
                 }

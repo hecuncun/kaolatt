@@ -36,7 +36,7 @@ public class TopMsgDialog extends TopBaseDialog<TopMsgDialog> {
         mIvClose = inflate.findViewById(R.id.iv_close);
         tvTitle.setText(mBean.getTitle());
         tvContent.setText(mBean.getTitle());
-        GlideUtils.showRound(ivPic, Constant.BASE_URL+mBean.getPhoto(),R.drawable.ic_launcher_background,6);
+        GlideUtils.showRound(ivPic, Constant.BASE_URL+mBean.getPhoto(),R.mipmap.pic_good,6);
         return inflate;
     }
 

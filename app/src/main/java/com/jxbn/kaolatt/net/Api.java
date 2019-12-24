@@ -18,7 +18,8 @@ import com.jxbn.kaolatt.bean.MsgListBean;
 import com.jxbn.kaolatt.bean.MyCollectionListBean;
 import com.jxbn.kaolatt.bean.OrderDetailBean;
 import com.jxbn.kaolatt.bean.OrderListBean;
-import com.jxbn.kaolatt.bean.PaySignBean;
+import com.jxbn.kaolatt.pay.AliPaySignBean;
+import com.jxbn.kaolatt.pay.WxPaySignBean;
 import com.jxbn.kaolatt.bean.RegisterBean;
 import com.jxbn.kaolatt.bean.ScoreListBean;
 import com.jxbn.kaolatt.bean.SortListBean;
@@ -350,7 +351,7 @@ public interface Api {
     Observable<AddOrderBean> addOrderCall(@Query("uid") String uid,@Query("addressId") String addressId,@Query("cardId") String cardId,@Query("integralNum") int integralNum,@Field ("goodsInfoJsonStr") String goodsInfoJsonStr);
 
     /**
-     * App支付签名(统一下单),已完成二次签名,直接调用支付即可
+     *wx App支付签名(统一下单),已完成二次签名,直接调用支付即可
      * @param uid
      * @param oid
      * @param way
@@ -358,7 +359,17 @@ public interface Api {
      */
 
     @POST("apppay/appsign")
-    Observable<PaySignBean> paySignCall(@Query("uid") String uid,@Query("oid") String oid ,@Query("way") int way);
+    Observable<WxPaySignBean> wxPaySignCall(@Query("uid") String uid, @Query("oid") String oid , @Query("way") int way);
+    /**
+     *支付宝 App支付签名(统一下单),已完成二次签名,直接调用支付即可
+     * @param uid
+     * @param oid
+     * @param way
+     * @return
+     */
+
+    @POST("apppay/appsign")
+    Observable<AliPaySignBean> aliPaySignCall(@Query("uid") String uid, @Query("oid") String oid , @Query("way") int way);
 
 //    /**
 //     * 获取全员信息e

@@ -9,11 +9,14 @@ import android.view.View;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.jxbn.kaolatt.constants.Constant;
+import com.jxbn.kaolatt.event.PayResultEvent;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * @class name：WXPayEntryActivity
@@ -52,24 +55,18 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         switch (resp.errCode) {
             case 0:
                 ToastUtils.showShort("支付成功");
-//                EventBusBean eventBusBean = new EventBusBean();
-//                eventBusBean.setCode(IntConfig.PAY_SUCCESS);
-//                eventBusBean.setStringTag("支付成功");
-//                EventBus.getDefault().post(eventBusBean);
+
+                EventBus.getDefault().post(new PayResultEvent(1));
                 break;
             case -1:
                 ToastUtils.showShort("支付失败");
-//                EventBusBean eventBusBeanError = new EventBusBean();
-//                eventBusBeanError.setCode(IntConfig.PAY_FAILED);
-//                eventBusBeanError.setStringTag("支付失败");
-//                EventBus.getDefault().post(eventBusBeanError);
+
+                EventBus.getDefault().post(new PayResultEvent(2));
                 break;
             case -2:
                 ToastUtils.showShort("取消支付");
-//                EventBusBean eventBusBeanCancel = new EventBusBean();
-//                eventBusBeanCancel.setCode(IntConfig.PAY_FAILED);
-//                eventBusBeanCancel.setStringTag("取消支付");
-//                EventBus.getDefault().post(eventBusBeanCancel);
+
+                EventBus.getDefault().post(new PayResultEvent(3));
                 break;
             default:
         }
