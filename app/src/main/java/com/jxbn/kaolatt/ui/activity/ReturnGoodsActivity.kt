@@ -6,26 +6,51 @@ import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.adapter.ComImageAdapter
 import com.jxbn.kaolatt.adapter.FullyGridLayoutManager
 import com.jxbn.kaolatt.base.BaseActivity
+import com.jxbn.kaolatt.base.BaseNoDataBean
+import com.jxbn.kaolatt.bean.ImgBean
+import com.jxbn.kaolatt.constants.Constant
+import com.jxbn.kaolatt.event.RefreshOrderListEvent
+import com.jxbn.kaolatt.ext.showToast
+import com.jxbn.kaolatt.glide.GlideUtils
+import com.jxbn.kaolatt.net.CallbackListObserver
+import com.jxbn.kaolatt.net.CallbackObserver
+import com.jxbn.kaolatt.net.SLMRetrofit
+import com.jxbn.kaolatt.net.ThreadSwitchTransformer
+import com.jxbn.kaolatt.widget.LoadingView
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
 import com.luck.picture.lib.entity.LocalMedia
+import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_return_goods.*
 import kotlinx.android.synthetic.main.toolbar.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import org.greenrobot.eventbus.EventBus
+import java.io.File
 
 /**
  * Created by hecuncun on 2019/12/7
  */
 class ReturnGoodsActivity : BaseActivity() {
     override fun attachLayoutRes(): Int = R.layout.activity_return_goods
-
+    private var oid=""
+    private var name=""
+    private var img=""
+    private var mask=""
     override fun initData() {
-
+        oid=intent.extras.getString("oid")
+        name=intent.extras.getString("name")
+        img=intent.extras.getString("img")
+        mask=intent.extras.getString("mask")
+        tv_name.text=name
+        tv_mask.text="型号:$mask"
+        GlideUtils.showRound(iv_goods, Constant.BASE_URL+img,R.mipmap.pic_good,6)
     }
 
     override fun initView() {
         toolbar_title.text = "申请退换货"
-      // iv_back.visibility = View.VISIBLE
         initRvPhoto()
     }
 
@@ -61,8 +86,32 @@ class ReturnGoodsActivity : BaseActivity() {
     }
     }
 
+    private var pic =""
     override fun initListener() {
-       // iv_back.setOnClickListener { finish() }
+        tv_confirm.setOnClickListener {
+        val content = et_content.text.toString().trim()
+        val type =   if (rg_type.checkedRadioButtonId==R.id.rg_btn_1) 1 else 2
+          if (content.isNotEmpty()){
+              val returnOrderCall = SLMRetrofit.getInstance().api.returnOrderCall(uid, oid, type, content, pic)
+              returnOrderCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
+                  override fun onSucceed(t: BaseNoDataBean?) {
+                    if (t?.code==Constant.SUCCESSED_CODE){
+                        showToast("提交成功")
+                        EventBus.getDefault().post(RefreshOrderListEvent())
+                        finish()
+                    }else{
+                        showToast("提交失败:${t?.message}")
+                    }
+                  }
+
+                  override fun onFailed() {
+
+                  }
+              })
+          }else{
+              showToast("请填写原因")
+          }
+        }
 
     }
 
@@ -100,8 +149,44 @@ class ReturnGoodsActivity : BaseActivity() {
                     // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
                     // 如果裁剪并压缩了，已取压缩路径为准，因为是先裁剪后压缩的
-                    for (media in selectPhotoList) {
-                        // Log.i("图片-----》", media.getPath());
+                    if (selectPhotoList.size > 0) {
+                        val loadingView = LoadingView(this@ReturnGoodsActivity)
+                        loadingView.setLoadingTitle("上传中...")
+                        loadingView.show()
+                        val sb  =   StringBuilder()
+                        var successNum = 0
+                        for (i in selectPhotoList.indices){
+                            //上传文件
+                            val file = File(selectPhotoList[0].compressPath)
+                            Logger.e("图片地址==${selectPhotoList[0].compressPath}")
+                            val requestFile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                            //retrofit 上传文件api加上 @Multipart注解,然后下面这是个重点 参数1：上传文件的key，参数2：上传的文件名，参数3 请求头
+                            val body: MultipartBody.Part = MultipartBody.Part.createFormData("upload", file.name, requestFile)
+                            val uploadCall = SLMRetrofit.getInstance().api.uploadCall(body)
+                            uploadCall.compose(ThreadSwitchTransformer()).subscribe(object: CallbackObserver<ImgBean>(){
+                                override fun onSucceed(t: ImgBean?, desc: String?) {
+                                    Logger.e("成功")
+                                    Logger.e("网络图片地址==${t?.fileUrl}")
+                                    sb.append(t?.fileUrl)
+                                    sb.append(",")
+                                    successNum++
+                                    if (successNum==selectPhotoList.size){
+                                        loadingView.dismiss()
+                                        //进行拼接
+                                        showToast("所有图片上传成功")
+                                        pic= sb.toString().substring(0,sb.toString().length-1)
+                                    }
+                                }
+
+                                override fun onFailed() {
+                                    loadingView.dismiss()
+                                    showToast("图片上传失败")
+                                }
+                            } )
+                        }
+
+                    } else {
+                        showToast("图片出现问题")
                     }
                     imageAdapter!!.setList(selectPhotoList)
                     imageAdapter!!.notifyDataSetChanged()

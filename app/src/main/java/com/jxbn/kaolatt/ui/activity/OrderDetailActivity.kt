@@ -7,13 +7,17 @@ import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.adapter.OrderDetailAdapter
 import com.jxbn.kaolatt.base.BaseActivity
+import com.jxbn.kaolatt.base.BaseNoDataBean
 import com.jxbn.kaolatt.bean.OrderDetailBean
 import com.jxbn.kaolatt.constants.Constant
+import com.jxbn.kaolatt.event.RefreshOrderListEvent
+import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.net.CallbackListObserver
 import com.jxbn.kaolatt.net.SLMRetrofit
 import com.jxbn.kaolatt.net.ThreadSwitchTransformer
 import kotlinx.android.synthetic.main.activity_order_detail.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by heCunCun on 2019/12/5
@@ -23,7 +27,8 @@ class OrderDetailActivity : BaseActivity() {
         OrderDetailAdapter()
     }
     override fun attachLayoutRes(): Int = R.layout.activity_order_detail
-
+    private var money =""
+    private var orderGoodslList= mutableListOf<OrderDetailBean.DataBean.OrderGoodslListBean>()
     override fun initData() {
         val orderDetailCall = SLMRetrofit.getInstance().api.orderDetailCall(oid)
         orderDetailCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<OrderDetailBean>(){
@@ -37,9 +42,11 @@ class OrderDetailActivity : BaseActivity() {
                    tv_price_di_kou.text="-¥${t.data.priceInteger }"
                    tv_order_money.text="¥${t.data.priceTotalGood  }"
                    tv_pay_money.text="¥${t.data.priceTotalOrder } "
+                   money=t.data.priceTotalOrder.toString()
                    tv_order_no.text="订单编号:${t.data.orderNo}"
                    tv_create_time.text="创建时间:${t.data.createtime}"
-                   orderAdapter.setNewData(t.data.orderGoodslList)
+                   orderGoodslList = t.data.orderGoodslList
+                   orderAdapter.setNewData(orderGoodslList)
 //1：待支付（取消订单），2：待发货（已支付），3：待收货（已发货），4：已收货（待评价），5：已完成（已评价），6：退换货中，7：退换货完成，8：取消申请中，9：已取消 ,
                    when(t.data.status){
                        1->{ tv_btn_left.visibility = View.GONE
@@ -124,24 +131,132 @@ class OrderDetailActivity : BaseActivity() {
     }
 
     override fun initListener() {
-       // iv_back.setOnClickListener { finish() }
-        tv_btn_middle.setOnClickListener {
-            //退货
-            jumpToReturnGoodsActivity()
-        }
         tv_btn_left.setOnClickListener {
-            jumpToDeliveryActivity()
+            jumpToWebViewActivity("",2)
+        }
+
+        tv_btn_middle.setOnClickListener {
+            when(tv_btn_middle.text){
+                "申请退换货"->{
+                    jumpToReturnGoodsActivity()
+                }
+
+                "取消订单"->{
+                    cancelOrder()
+                }
+            }
+
+        }
+
+        tv_confirm_right.setOnClickListener {
+            when(tv_confirm_right.text){
+                "立即付款"->{
+                    val intent = Intent(this@OrderDetailActivity, PayActivity::class.java)
+                    intent.putExtra("oid", oid)
+                    intent.putExtra("money", money)
+                    startActivity(intent)
+                }
+                "确认收货"->{
+                    confirmReceiver()
+                }
+                "立即评价"->{
+                    val intent = Intent(this@OrderDetailActivity, EvaluateActivity::class.java)
+                    intent.putExtra("oid", oid)
+                    intent.putExtra("name",orderGoodslList[0].name)
+                    intent.putExtra("img", orderGoodslList[0].picture.split(",")[0])
+                    intent.putExtra("mask", orderGoodslList[0].specs)
+                    startActivity(intent)
+                }
+                "删除订单"->{
+                    deleteOrder()
+                }
+            }
         }
     }
 
-    private fun jumpToDeliveryActivity() {
-        val intent = Intent(this@OrderDetailActivity, DeliveryActivity::class.java)
+    /**
+     * 删除
+     */
+    private fun deleteOrder() {
+        val deleteOrderCall = SLMRetrofit.getInstance().api.deleteOrderCall(uid, oid)
+        deleteOrderCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<BaseNoDataBean>() {
+            override fun onSucceed(t: BaseNoDataBean?) {
+                if (t?.code == Constant.SUCCESSED_CODE) {
+                    showToast("删除订单成功")
+                    EventBus.getDefault().post(RefreshOrderListEvent())
+                    finish()
+                } else {
+                    showToast("删除订单失败:${t?.message}")
+                }
+            }
+
+            override fun onFailed() {
+
+            }
+        })
+    }
+
+    /**
+     * 确认收货
+     */
+    private fun confirmReceiver() {
+        val confirmOrderCall = SLMRetrofit.getInstance().api.confirmOrderCall(uid, oid)
+        confirmOrderCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
+            override fun onSucceed(t: BaseNoDataBean?) {
+                if (t?.code==Constant.SUCCESSED_CODE){
+                    showToast("确认收货成功")
+                    EventBus.getDefault().post(RefreshOrderListEvent())
+                    finish()
+                }else{
+                    showToast("确认收货失败:${t?.message}")
+                }
+            }
+
+            override fun onFailed() {
+            }
+        })
+    }
+    /**
+     * 取消订单
+     */
+    private fun cancelOrder() {
+        val cancelOrderCall = SLMRetrofit.getInstance().api.cancelOrderCall(uid, oid)
+        cancelOrderCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<BaseNoDataBean>() {
+            override fun onSucceed(t: BaseNoDataBean?) {
+                if (t?.code == Constant.SUCCESSED_CODE) {
+                    showToast("取消订单成功")
+                    //刷新订单
+                    EventBus.getDefault().post(RefreshOrderListEvent())
+                    finish()
+
+                } else {
+                    showToast("取消订单失败:${t?.message}")
+                }
+            }
+
+            override fun onFailed() {
+            }
+        })
+    }
+
+    /**
+     * 物流信息
+     */
+    private fun jumpToWebViewActivity(url: String, type: Int) {
+        val intent = Intent(this, WebViewActivity::class.java)
+        intent.putExtra("url", url)
+        intent.putExtra("type", type)
         startActivity(intent)
     }
-
+    //退货
     private fun jumpToReturnGoodsActivity() {
         val intent = Intent(this@OrderDetailActivity, ReturnGoodsActivity::class.java)
+        intent.putExtra("oid",oid)
+        intent.putExtra("name",orderGoodslList[0].name)
+        intent.putExtra("img", orderGoodslList[0].picture.split(",")[0])
+        intent.putExtra("mask", orderGoodslList[0].specs)
         startActivity(intent)
+        finish()
     }
 
 

@@ -1,14 +1,17 @@
 package com.jxbn.kaolatt.ui.activity
 
 import android.content.Intent
+import android.graphics.Paint
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import com.jxbn.kaolatt.R
+import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.adapter.OrderGoodsListAdapter
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.*
 import com.jxbn.kaolatt.constants.Constant
+import com.jxbn.kaolatt.event.PayResultEvent
 import com.jxbn.kaolatt.event.SetDefaultAddressEvent
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.net.CallbackListObserver
@@ -59,8 +62,12 @@ class ConfirmOrderActivity : BaseActivity() {
 
         tv_score.text = "当前可用${score}积分"
         tv_total.text = "¥$totalMoney"
+        tv_total.paint.flags= Paint.STRIKE_THRU_TEXT_FLAG
         tv_num_total.text = "共${numTotal}件商品"
         tv_bottom_num.text="共${numTotal}件"
+
+        tv_bottom_pay_money.text="¥$totalMoney"
+        tv_pay_money.text="¥$totalMoney"
 
         //查默认地址
         updateAddressInfo()
@@ -136,6 +143,7 @@ class ConfirmOrderActivity : BaseActivity() {
     private var integralNum = 0//使用积分数量
 
     private var couponId:String?=null//优惠券id
+    private var couponMoney=0.00
     override fun initListener() {
         //   iv_back.setOnClickListener { finish() }
         tv_coupon.setOnClickListener {
@@ -153,6 +161,9 @@ class ConfirmOrderActivity : BaseActivity() {
                 }else{
                     couponId = couponList[position].sid
                     tv_coupon.text = list[position]
+                    couponMoney= couponList[position].valueSubtraction
+                    tv_bottom_pay_money.text="¥${totalMoney-couponMoney}"
+                    tv_pay_money.text="¥${totalMoney-couponMoney}"
                     myBottomListDialog?.dismiss()
                 }
 
@@ -174,9 +185,10 @@ class ConfirmOrderActivity : BaseActivity() {
                         Constant.SUCCESSED_CODE->{
                             Logger.e("oid==${t.data.oid}")
                             showToast("创建成功")
+                            score-=integralNum//扣积分
                             val intent = Intent(this@ConfirmOrderActivity, PayActivity::class.java)
                             intent.putExtra("oid",t.data.oid)
-                            intent.putExtra("money",t.data.priceTotalOrder.toString())
+                            intent.putExtra("money",(totalMoney- couponMoney-integralNum.div(100.00)).toString())
                             startActivity(intent)
                         //   jumpToPayActivity()
                         }
@@ -213,6 +225,8 @@ class ConfirmOrderActivity : BaseActivity() {
                         et_score.setText(score.toString())
                     }
                     tv_money_score.text = "已减${integralNum.div(100.00)}元"
+                    tv_bottom_pay_money.text="¥${totalMoney- couponMoney-integralNum.div(100.00)}"
+                    tv_pay_money.text="¥${totalMoney- couponMoney-integralNum.div(100.00)}"
                 } else {
                     tv_money_score.text = "已减0元"
                 }
@@ -242,5 +256,19 @@ class ConfirmOrderActivity : BaseActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun updateAddress(event: SetDefaultAddressEvent) {
         updateAddressInfo()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun payResult(event: PayResultEvent) {
+        when(event.type){
+            1->{//支付成功
+                finish()
+            }
+            2->{
+
+            }
+            3->{}
+            else->{}
+        }
     }
 }

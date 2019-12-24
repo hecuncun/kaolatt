@@ -224,8 +224,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun jumpToPersonalInfoActivity() {
-        val intent = Intent(this@MainActivity,PersonalInfoActivity::class.java)
-        startActivity(intent)
+        startActivityCheckLogin(PersonalInfoActivity::class.java)
     }
 
     private fun jumpToSearchActivity() {

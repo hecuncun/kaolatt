@@ -68,7 +68,7 @@ public class CouponListBean {
 
         private String sid;
         private int valueMax;
-        private int valueSubtraction;
+        private double valueSubtraction;
         private String type;
         private int isdelete;
         private String startTime;
@@ -104,11 +104,11 @@ public class CouponListBean {
             this.valueMax = valueMax;
         }
 
-        public int getValueSubtraction() {
+        public double getValueSubtraction() {
             return valueSubtraction;
         }
 
-        public void setValueSubtraction(int valueSubtraction) {
+        public void setValueSubtraction(double valueSubtraction) {
             this.valueSubtraction = valueSubtraction;
         }
 

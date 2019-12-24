@@ -16,6 +16,7 @@ import org.greenrobot.eventbus.ThreadMode
  * Created by heCunCun on 2019/12/10
  */
 class PayActivity : BaseActivity() {
+    override fun useEventBus()=true
     private var oid = ""
     private var money = ""
     private var isCheckZfb = true
@@ -54,7 +55,6 @@ class PayActivity : BaseActivity() {
         }
 
         tv_pay.setOnClickListener {
-            //支付成功 跳支付成功页
             jumpToPaySuccessActivity()
         }
     }
@@ -72,7 +72,7 @@ class PayActivity : BaseActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun payResult(event: PayResultEvent) {
         when(event.type){
-            1->{
+            1->{//支付成功
                 val intent = Intent(this@PayActivity, PaySuccessActivity::class.java)
                 intent.putExtra("money",money)
                 startActivity(intent)

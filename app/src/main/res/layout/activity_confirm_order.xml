@@ -212,6 +212,7 @@
                 android:textSize="14sp"/>
 
             <TextView
+                android:id="@+id/tv_bottom_pay_money"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"

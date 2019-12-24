@@ -360,6 +360,7 @@ public interface Api {
 
     @POST("apppay/appsign")
     Observable<WxPaySignBean> wxPaySignCall(@Query("uid") String uid, @Query("oid") String oid , @Query("way") int way);
+
     /**
      *支付宝 App支付签名(统一下单),已完成二次签名,直接调用支付即可
      * @param uid
@@ -367,10 +368,56 @@ public interface Api {
      * @param way
      * @return
      */
-
     @POST("apppay/appsign")
     Observable<AliPaySignBean> aliPaySignCall(@Query("uid") String uid, @Query("oid") String oid , @Query("way") int way);
 
+    /**
+     * 取消订单
+     * @param uid
+     * @param oid
+     * @return
+     */
+    @POST("appOrderInfo/updateCancelOrder")
+    Observable<BaseNoDataBean> cancelOrderCall(@Query("uid") String uid, @Query("oid") String oid);
+    /**
+     * 删除订单
+     * @param uid
+     * @param oid
+     * @return
+     */
+    @POST("appOrderInfo/deleteById")
+    Observable<BaseNoDataBean> deleteOrderCall(@Query("uid") String uid, @Query("oid") String oid);
+
+    /**
+     * 新增评价
+     * @param uid
+     * @param orderId
+     * @param content
+     * @return
+     */
+    @POST("appGoodsEvaluate/insertSelective")
+    Observable<BaseNoDataBean> addEvaluateCall(@Query("uid") String uid,@Query("orderId") String orderId,@Query("content") String content);
+
+    /**
+     * 确认收货
+     * @param uid
+     * @param oid
+     * @return
+     */
+    @POST("appOrderInfo/confirmOrder")
+    Observable<BaseNoDataBean> confirmOrderCall(@Query("uid") String uid, @Query("oid") String oid);
+
+    /**
+     * 退换货
+     * @param uid
+     * @param oid
+     * @param type
+     * @param reason
+     * @param picture
+     * @return
+     */
+    @POST("appOrderInfo/returnOrder")
+    Observable<BaseNoDataBean> returnOrderCall(@Query("uid") String uid, @Query("oid") String oid,@Query("type") int type,@Query("reason") String reason,@Query("picture") String picture);
 //    /**
 //     * 获取全员信息e
 //     * @return

@@ -6,6 +6,7 @@ import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.adapter.CartListAdapter
 import com.jxbn.kaolatt.bean.CartBean
+import com.jxbn.kaolatt.event.PayResultEvent
 import com.jxbn.kaolatt.event.RefreshCarEvent
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.ui.activity.ConfirmOrderActivity
@@ -100,17 +101,17 @@ class ShoppingCartFragment : BaseFragment() {
 
                     //删除完就刷新
                     refreshList(RefreshCarEvent())
-
+                    tv_confirm.text="移除"
 
                 })
             }
         }
     }
-
+    private var orderList = mutableListOf<CartBean>()//待结算列表
     private fun jumpToConfirmOrderActivity() {
         val intent = Intent(activity, ConfirmOrderActivity::class.java)
         //选中的bean列表 传递过去
-        val orderList = list.filter { it.isCheck }//选中的商品传过去
+        orderList = list.filter { it.isCheck } as MutableList<CartBean>//选中的商品传过去
         intent.putExtra("list",orderList as Serializable)
         intent.putExtra("total",totalMoney)
         intent.putExtra("num",totalChecked.toString())
@@ -196,6 +197,11 @@ class ShoppingCartFragment : BaseFragment() {
 //            list.add(CartBean(i.toString(),"https://www.dior.cn/beauty/version-5.1563986503609/resize-image/ep/3000/2000/90/0/%252FY0112000%252FY0112000_C011200066_E01_ZHC.jpg","阿玛尼口红","201色号，大红","320",i+1,false))
 //        }
          list = LitePal.findAll<CartBean>()
+        if (list.isEmpty()){
+            tv_no_data.visibility=View.VISIBLE
+        }else{
+            tv_no_data.visibility=View.GONE
+        }
          cartListAdapter.setNewData(list)
 
     }
@@ -204,7 +210,34 @@ class ShoppingCartFragment : BaseFragment() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun refreshList(event: RefreshCarEvent) {
         list =  LitePal.findAll<CartBean>()
+        if (list.isEmpty()){
+            tv_no_data.visibility=View.VISIBLE
+        }else{
+            tv_no_data.visibility=View.GONE
+        }
         cartListAdapter.setNewData(list)
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun payResult(event: PayResultEvent) {
+        when (event.type) {
+            1 -> {//支付成功,删除结算商品
+                orderList.forEach {
+                    LitePal.delete(CartBean::class.java,it.id)
+                    checkbox.isChecked=false
+                    tv_confirm.text = "结算"
+                    tv_total_money.text = "合计：¥0"
+                    refreshList(RefreshCarEvent())
+                }
+
+            }
+            2 -> {
+
+            }
+            3 -> {
+            }
+            else -> {
+            }
+        }
+    }
 }
