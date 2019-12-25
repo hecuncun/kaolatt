@@ -1,16 +1,13 @@
 package com.jxbn.kaolatt.ui.activity
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.os.Build
-import android.view.View
-import android.view.ViewGroup
+import android.view.KeyEvent
 import android.webkit.WebSettings
+import android.webkit.WebView
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.R.id.webView
 import com.jxbn.kaolatt.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_webview.*
 import kotlinx.android.synthetic.main.toolbar.*
-import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by hecuncun on 2019/12/14
@@ -20,9 +17,18 @@ import org.greenrobot.eventbus.EventBus
 class WebViewActivity :BaseActivity() {
     private var type = 0
     private var url =""
+    private var mWebView: WebView? = null
     override fun attachLayoutRes(): Int= R.layout.activity_webview
     override fun initData() {
-
+//        val bundle = intent.extras
+//        if (bundle.containsKey("url")) {
+//            val data = bundle.getString("url")
+//
+//        }
+//        if (bundle.containsKey("title")) {
+//            val title = bundle.getString("title")
+//            toolbar_title.text=title
+//        }
     }
 
     /**
@@ -37,6 +43,7 @@ class WebViewActivity :BaseActivity() {
     }
 
     override fun initView() {
+        mWebView=findViewById(R.id.webView)
         type = intent.extras.getInt("type")
         url = intent.extras.getString("url")
         when(type){
@@ -49,9 +56,9 @@ class WebViewActivity :BaseActivity() {
     }
 
     private fun setUrl(type:Int) {
-        webView.post {
+        mWebView?.post {
            when(type){
-               0,1->webView.loadDataWithBaseURL(null,getHtmlData(url), "text/html" , "utf-8", null)
+               0,1->mWebView?.loadDataWithBaseURL(null,getHtmlData(url), "text/html" , "utf-8", null)
                2->{}
                else->{}
            }
@@ -60,65 +67,60 @@ class WebViewActivity :BaseActivity() {
 
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private fun initWeb() {
-        val webSettings = webView.settings
-//        DisplayMetrics dm = getResources().getDisplayMetrics();
-//        int scale = dm.densityDpi;
-//        if (scale == 240) { //设置自动适配
-//            webView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
-//        } else if (scale == 160) {
-//            webView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
-//        } else {
-//            webView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.CLOSE);
-//        }
-
-        webSettings.setAllowFileAccess(true)
-        webSettings.setDatabaseEnabled(true)
-        val dir = applicationContext
-                .getDir("database", Context.MODE_PRIVATE).path
-        webSettings.setDatabasePath(dir)
-        webSettings.setDomStorageEnabled(true)
-        webSettings.setGeolocationEnabled(true)
-        webSettings.setJavaScriptEnabled(true)
-        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH)
-        // 设置支持缩放
-        webSettings.setBuiltInZoomControls(false)
-        webSettings.setUseWideViewPort(true)
-        webSettings.setLoadWithOverviewMode(true)
-        webSettings.setSupportZoom(true)
-        //设置webView的背景色
-        webView.setBackgroundColor(0)
-        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE)
-        webSettings.setPluginState(WebSettings.PluginState.ON)
+        val settings = mWebView?.settings
+        settings?.defaultTextEncodingName = "utf-8"
+        settings?.javaScriptEnabled = true
+        settings?.setSupportZoom(true)
+        settings?.builtInZoomControls = true
+        settings?.useWideViewPort = true
+        settings?.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
+        settings?.loadWithOverviewMode = true
+        //隐藏缩放控件
+        settings?.displayZoomControls = false
+        //解决HTTPS协议下出现的mixed content问题
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW)
+            settings?.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
         }
-        //去掉长按复制功能
-        webView.setOnLongClickListener(View.OnLongClickListener { true })
+        settings?.cacheMode = WebSettings.LOAD_DEFAULT
+        settings?.domStorageEnabled = true
+        settings?.databaseEnabled = true
+        settings?.setAppCachePath(cacheDir.path)
+        settings?.setAppCacheEnabled(true)
     }
 
     override fun initListener() {
 
     }
 
-    override fun onDestroy() {
-        webView.removeAllViews()
-        webView.destroy()
-        EventBus.getDefault().unregister(this)
-        destroyWebView()
-        super.onDestroy()
+    override fun onPause() {
+        super.onPause()
+        mWebView?.pauseTimers()
     }
 
-    /**
-     * 销毁webview
-     */
-    private fun destroyWebView() {
-        if (webView != null) {
-            webView.settings.setJavaScriptEnabled(false)
-            webView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null)
-            webView.clearHistory()
-            (webView.parent as ViewGroup).removeView(webView)
-            webView.destroy()
-        }
+    override fun onResume() {
+        super.onResume()
+        mWebView?.resumeTimers()
     }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (mWebView?.canGoBack()!!) {
+            mWebView?.goBack()
+        } else {
+            finish()
+        }
+        return true
+    }
+//
+//    companion object {
+//        fun start(context: Context, url: String, title: String) {
+//            val bundle = Bundle()
+//            val intent = Intent(context, WebViewActivity::class.java)
+//            bundle.putString("url", url)
+//            bundle.putString("title", title)
+//            intent.putExtras(bundle)
+//            context.startActivity(intent)
+//        }
+//    }
 }

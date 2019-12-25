@@ -7,7 +7,7 @@
     <LinearLayout
         android:id="@+id/ll_evaluate_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_10"
@@ -19,16 +19,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/dp_10"
-            android:text="评价(666)"
+            android:text="评价(0)"
             android:textColor="@color/text_color_gray"
             android:textSize="15sp"/>
 
         <View
             style="@style/horizontalGrayLine"/>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_no_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="@dimen/dp_10"
+                android:drawableTop="@mipmap/icon_kong"
+                android:text="暂无评价"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_normal"
+                android:visibility="gone"/>
+
+        </FrameLayout>
+
+
     </LinearLayout>
 </LinearLayout>

@@ -230,6 +230,14 @@ class OrderAllActivity : BaseActivity() {
                         } else {
                             orderAdapter.addData(t.data.rows.filter { it.status == type })
                         }
+
+                        if (currentPage==total){
+                            orderAdapter.loadMoreEnd()
+                            orderAdapter.setEnableLoadMore(false)
+                        }else{
+                            orderAdapter.loadMoreComplete()
+                            orderAdapter.setEnableLoadMore(true)
+                        }
                         //空白页
                         if (orderAdapter.data.size == 0) {
                             tv_no_data.visibility = View.VISIBLE

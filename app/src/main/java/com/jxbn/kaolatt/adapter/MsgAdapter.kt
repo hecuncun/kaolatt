@@ -26,6 +26,6 @@ class   MsgAdapter:BaseQuickAdapter<MsgListBean.DataBean.RowsBean,BaseViewHolder
         }else{
             ivState.visibility = View.GONE
         }
-        GlideUtils.showRound(img,Constant.BASE_URL+item.photo,R.drawable.ic_launcher_background,6)
+        GlideUtils.showRound(img,Constant.BASE_URL+item.photo,R.mipmap.pic_good,6)
     }
 }

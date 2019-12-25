@@ -1,19 +1,17 @@
 package com.jxbn.kaolatt.ui.activity
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Build
 import android.support.design.widget.TabLayout
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
-import android.view.ViewGroup
 import android.webkit.WebSettings
+import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.ScrollView
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.adapter.EvaluateAdapter
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.base.BaseNoDataBean
@@ -40,6 +38,8 @@ import java.io.Serializable
  * Created by heCunCun on 2019/12/9
  */
 class GoodsDetailActivity : BaseActivity() {
+    private var mWebView: WebView? = null
+
     val mask1 = mutableListOf<String>()//标签1
     val mask2 = mutableListOf<String>()//标签2
     val paramList = mutableListOf<String>()//标签2
@@ -174,13 +174,6 @@ class GoodsDetailActivity : BaseActivity() {
             override fun onFailed() {
             }
         })
-
-
-//        for (i in 0..2) {
-//            list.add(EvaluateBean("https://upload.jianshu.io/users/upload_avatars/9988193/fc26c109-1ae6-4327-a298-2def343e9cd8.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp",
-//                    "老子说", "谢谢博主的分享！"))
-//        }
-//        evaluateAdapter.addData(list)
 
 
     }
@@ -333,51 +326,28 @@ class GoodsDetailActivity : BaseActivity() {
 
 
 
+    @SuppressLint("SetJavaScriptEnabled")
     private fun initWeb() {
-        val webSettings = webView.settings
-        webSettings.setAllowFileAccess(true)
-        webSettings.setDatabaseEnabled(true)
-        val dir = applicationContext
-                .getDir("database", Context.MODE_PRIVATE).path
-        webSettings.setDatabasePath(dir)
-        webSettings.setDomStorageEnabled(true)
-        webSettings.setGeolocationEnabled(true)
-        webSettings.setJavaScriptEnabled(true)
-        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH)
-        // 设置支持缩放
-        webSettings.setBuiltInZoomControls(false)
-        webSettings.setUseWideViewPort(true)
-        webSettings.setLoadWithOverviewMode(true)
-        webSettings.setSupportZoom(true)
-        //设置webView的背景色
-        webView.setBackgroundColor(0)
-        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE)
-        webSettings.setPluginState(WebSettings.PluginState.ON)
+        mWebView=findViewById(R.id.webView)
+        val settings = mWebView?.settings
+        settings?.defaultTextEncodingName = "utf-8"
+        settings?.javaScriptEnabled = true
+        settings?.setSupportZoom(true)
+        settings?.builtInZoomControls = true
+        settings?.useWideViewPort = true
+        settings?.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
+        settings?.loadWithOverviewMode = true
+        //隐藏缩放控件
+        settings?.displayZoomControls = false
+        //解决HTTPS协议下出现的mixed content问题
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW)
+            settings?.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
         }
-        //去掉长按复制功能
-        webView.setOnLongClickListener(View.OnLongClickListener { true })
-    }
-
-    override fun onDestroy() {
-        webView.removeAllViews()
-        webView.destroy()
-        destroyWebView()
-        super.onDestroy()
-    }
-
-    /**
-     * 销毁webview
-     */
-    private fun destroyWebView() {
-        if (webView != null) {
-            webView.settings.setJavaScriptEnabled(false)
-            webView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null)
-            webView.clearHistory()
-            (webView.parent as ViewGroup).removeView(webView)
-            webView.destroy()
-        }
+        settings?.cacheMode = WebSettings.LOAD_DEFAULT
+        settings?.domStorageEnabled = true
+        settings?.databaseEnabled = true
+        settings?.setAppCachePath(cacheDir.path)
+        settings?.setAppCacheEnabled(true)
     }
 
     /**

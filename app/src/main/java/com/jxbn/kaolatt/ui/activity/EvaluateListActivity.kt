@@ -2,6 +2,7 @@ package com.jxbn.kaolatt.ui.activity
 
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.adapter.EvaluateAdapter
@@ -41,6 +42,11 @@ class EvaluateListActivity:BaseActivity() {
                     evaluateAdapter.setNewData(listEvaluate)
                     total=t.data.total
                     tv_evaluate_num.text="评价（${t.data.records}）"
+                    if (t.data.records==0){
+                        tv_no_data.visibility= View.VISIBLE
+                    }else{
+                        tv_no_data.visibility= View.GONE
+                    }
                 }
             }
 
