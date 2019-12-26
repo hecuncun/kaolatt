@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 /**
  * Created by hecuncun on 2019/12/14
  *
- * type: 0 首页轮播图详情  1 消息详情  2物流
+ * type: 0 首页轮播图详情  1 消息详情   2物流   3 购物须知  4 会员特权  5企业宣传 6活动指南
  */
 class WebViewActivity :BaseActivity() {
     private var type = 0
@@ -46,10 +46,14 @@ class WebViewActivity :BaseActivity() {
         mWebView=findViewById(R.id.webView)
         type = intent.extras.getInt("type")
         url = intent.extras.getString("url")
-        when(type){
+        when(type){//3 购物须知  4 会员特权  5企业宣传 6活动指南
             0-> toolbar_title.text="活动详情"
             1-> toolbar_title.text="消息内容"
             2-> toolbar_title.text="物流信息"
+            3-> toolbar_title.text="购物须知"
+            4-> toolbar_title.text="会员特权"
+            5-> toolbar_title.text="企业宣传"
+            6-> toolbar_title.text="活动指南"
         }
         initWeb()
         setUrl(type)
@@ -58,7 +62,7 @@ class WebViewActivity :BaseActivity() {
     private fun setUrl(type:Int) {
         mWebView?.post {
            when(type){
-               0,1->mWebView?.loadDataWithBaseURL(null,getHtmlData(url), "text/html" , "utf-8", null)
+               0,1,3,4,5,6->mWebView?.loadDataWithBaseURL(null,getHtmlData(url), "text/html" , "utf-8", null)
                2->{}
                else->{}
            }

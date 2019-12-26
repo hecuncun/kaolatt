@@ -300,11 +300,13 @@ public interface Api {
      * @param phone
      * @param card
      * @param area 所在地区（省-市-区用‘-’分割）
+     * @param cardPhotoZ
+     * @param cardPhotoF
      * @param areaDetail
      * @return
      */
     @POST("appUserAddress/insertSelective")
-    Observable<BaseNoDataBean> addAddressCall(@Query("uid") String uid,@Query("name") String name ,@Query("phone") String phone,@Query("card") String card,@Query("area") String area,@Query("areaDetail") String areaDetail);
+    Observable<BaseNoDataBean> addAddressCall(@Query("uid") String uid,@Query("name") String name ,@Query("phone") String phone,@Query("card") String card,@Query("area") String area,@Query("cardPhotoZ") String cardPhotoZ,@Query("cardPhotoF") String cardPhotoF,@Query("areaDetail") String areaDetail);
 
     /**
      * 地址列表
@@ -335,7 +337,7 @@ public interface Api {
      * 修改地址
      */
     @POST("appUserAddress/updateById")
-    Observable<BaseNoDataBean> addressUpdateCall(@Query("aid") String aid,@Query("name") String name,@Query("phone") String phone,@Query("card") String card,@Query("area") String area,@Query("areaDetail") String areaDetail);
+    Observable<BaseNoDataBean> addressUpdateCall(@Query("aid") String aid,@Query("name") String name,@Query("phone") String phone,@Query("card") String card,@Query("area") String area,@Query("cardPhotoZ") String cardPhotoZ,@Query("cardPhotoF") String cardPhotoF,@Query("areaDetail") String areaDetail);
 
     /**
      * 新增订单
@@ -418,6 +420,14 @@ public interface Api {
      */
     @POST("appOrderInfo/returnOrder")
     Observable<BaseNoDataBean> returnOrderCall(@Query("uid") String uid, @Query("oid") String oid,@Query("type") int type,@Query("reason") String reason,@Query("picture") String picture);
+
+    /**
+     * 首页4个须知链接
+     * @param type
+     * @return
+     */
+    @POST("appTcmnSet/selectIndexText")
+    Observable<BaseNoDataBean> homeLinkCall(@Query("type") int type);
 //    /**
 //     * 获取全员信息e
 //     * @return

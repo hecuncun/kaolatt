@@ -9,6 +9,7 @@ import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.adapter.FamousListAdapter
 import com.jxbn.kaolatt.adapter.GoodListAdapter
 import com.jxbn.kaolatt.adapter.GoodsMoreAdapter
+import com.jxbn.kaolatt.base.BaseNoDataBean
 import com.jxbn.kaolatt.bean.BannerInfoBean
 import com.jxbn.kaolatt.bean.FamousListBean
 import com.jxbn.kaolatt.bean.GoodListBean
@@ -103,18 +104,18 @@ class HomeFragment : BaseFragment() {
             jumpToGoodsListActivity()
         }
 
-       //todo  H5
+
         ll_home_1.setOnClickListener {
-             jumpToWebViewActivity("",1)
+             jumpToWebViewActivity(link2,3)
         }
         ll_home_2.setOnClickListener {
-             jumpToWebViewActivity("",1)
+             jumpToWebViewActivity(link3,4)
         }
         ll_home_3.setOnClickListener {
-             jumpToWebViewActivity("",1)
+             jumpToWebViewActivity(link4,5)
         }
         ll_home_4.setOnClickListener {
-             jumpToWebViewActivity("",1)
+             jumpToWebViewActivity(link5,6)
         }
 
 
@@ -198,6 +199,32 @@ class HomeFragment : BaseFragment() {
     override fun lazyLoad() {
         initBanner()
         initRvData()
+        initLinkData()
+    }
+ private var link2 =""
+ private var link3 =""
+ private var link4 =""
+ private var link5 =""
+    private fun initLinkData() {
+        for (i in 2..5){
+            val homeLinkCall = SLMRetrofit.getInstance().api.homeLinkCall(i)
+            homeLinkCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
+                override fun onSucceed(t: BaseNoDataBean?) {
+                    if(t?.code==Constant.SUCCESSED_CODE){
+                        when(i){
+                            2->{link2=t.data as String}
+                            3->{link3=t.data as String}
+                            4->{link4=t.data as String}
+                            5->{link5=t.data as String}
+                        }
+                    }
+                }
+
+                override fun onFailed() {
+                }
+            })
+        }
+
     }
 
     private var listGood = mutableListOf<GoodListBean.DataBean>()

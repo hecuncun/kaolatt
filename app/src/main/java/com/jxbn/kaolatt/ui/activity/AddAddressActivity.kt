@@ -7,12 +7,14 @@ import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.base.BaseNoDataBean
 import com.jxbn.kaolatt.bean.AddressListBean
+import com.jxbn.kaolatt.bean.ImgBean
 import com.jxbn.kaolatt.constants.Constant
 import com.jxbn.kaolatt.event.RefreshAddressEvent
 import com.jxbn.kaolatt.event.SetDefaultAddressEvent
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.glide.GlideUtils
 import com.jxbn.kaolatt.net.CallbackListObserver
+import com.jxbn.kaolatt.net.CallbackObserver
 import com.jxbn.kaolatt.net.SLMRetrofit
 import com.jxbn.kaolatt.net.ThreadSwitchTransformer
 import com.jxbn.kaolatt.widget.SelectDialog
@@ -25,9 +27,14 @@ import com.lljjcoder.style.citypickerview.CityPickerView
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
+import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_add_address.*
 import kotlinx.android.synthetic.main.toolbar.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.greenrobot.eventbus.EventBus
+import java.io.File
 
 /**
  * Created by heCunCun on 2019/12/10
@@ -109,7 +116,7 @@ class AddAddressActivity : BaseActivity() {
                     && et_phone.text.toString().trim().isNotEmpty() && tv_address.text.isNotEmpty() && et_address_detail.text.toString().trim().isNotEmpty()) {
                 if (from==0){//新增
                     val addAddressCall = SLMRetrofit.getInstance().api.addAddressCall(uid, et_name.text.toString().trim(), et_phone.text.toString().trim(), et_card.text.toString().trim(),
-                            tv_address.text.toString(), et_address_detail.text.toString().trim())
+                            tv_address.text.toString(),cardPhotoZ,cardPhotoF, et_address_detail.text.toString().trim())
                     addAddressCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<BaseNoDataBean>() {
                         override fun onSucceed(t: BaseNoDataBean?) {
                             if (t?.code == Constant.SUCCESSED_CODE) {
@@ -129,7 +136,7 @@ class AddAddressActivity : BaseActivity() {
                     })
                 }else{//修改
                     val addressUpdateCall = SLMRetrofit.getInstance().api.addressUpdateCall(dataBean?.magorid, et_name.text.toString().trim(), et_phone.text.toString().trim(), et_card.text.toString().trim(),
-                            tv_address.text.toString(), et_address_detail.text.toString().trim())
+                            tv_address.text.toString(),cardPhotoZ,cardPhotoF, et_address_detail.text.toString().trim())
 
                     addressUpdateCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
                         override fun onSucceed(t: BaseNoDataBean?) {
@@ -264,6 +271,8 @@ class AddAddressActivity : BaseActivity() {
                             forResult(tag)
         }
     }
+    private var cardPhotoZ:String?=null
+    private var cardPhotoF:String?=null
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -277,6 +286,30 @@ class AddAddressActivity : BaseActivity() {
                         } else {
                             GlideUtils.showRound(iv_id_card_back, selectList[0].compressPath, R.drawable.ic_launcher_background, 6)
                         }
+                        //上传文件
+                        val file = File(selectList[0].compressPath)
+                        Logger.e("图片地址==${selectList[0].compressPath}")
+                        val requestFile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                        //retrofit 上传文件api加上 @Multipart注解,然后下面这是个重点 参数1：上传文件的key，参数2：上传的文件名，参数3 请求头
+                        val body: MultipartBody.Part = MultipartBody.Part.createFormData("upload", file.name, requestFile)
+                        val uploadCall = SLMRetrofit.getInstance().api.uploadCall(body)
+                        uploadCall.compose(ThreadSwitchTransformer()).subscribe(object: CallbackObserver<ImgBean>(){
+                            override fun onSucceed(t: ImgBean?, desc: String?) {
+                                Logger.e("成功")
+                                Logger.e("网络图片地址==${t?.fileUrl}")
+                                photo=t?.fileUrl?:photo
+                                if(tag == REQUEST_FRONT){
+                                    cardPhotoZ=photo
+                                }else{
+                                    cardPhotoF=photo
+                                }
+
+                            }
+
+                            override fun onFailed() {
+                                Logger.e("失败")
+                            }
+                        } )
 
                     } else {
                         showToast("图片出现问题")
