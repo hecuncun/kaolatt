@@ -3,12 +3,14 @@ package com.jxbn.kaolatt.widget;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.jxbn.kaolatt.R;
 
 /**
@@ -37,8 +39,14 @@ public class SortEditDialog extends FullScreenDialogFragment {
             public void onClick(View view) {
                 String low = mEtLow.getText().toString().trim();
                 String high = mEtHigh.getText().toString().trim();
-                ensureClickedListener.onEnsureClick(low,high);
-                dismiss();
+                if (!TextUtils.isEmpty(low) || !TextUtils.isEmpty(high)){
+                    ensureClickedListener.onEnsureClick(low,high);
+                    dismiss();
+                }else {
+                    ToastUtils.showShort("请输入价格区间");
+                }
+
+
             }
         });
         return inflate;

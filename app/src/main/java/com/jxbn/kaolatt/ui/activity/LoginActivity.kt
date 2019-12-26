@@ -13,6 +13,7 @@ import com.jxbn.kaolatt.net.SLMRetrofit
 import com.jxbn.kaolatt.net.ThreadSwitchTransformer
 import com.jxbn.kaolatt.widget.LoadingView
 import kotlinx.android.synthetic.main.activity_login.*
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -48,7 +49,6 @@ class LoginActivity : BaseActivity() {
      * 登录
      */
     private fun doLogin() {
-        jumpToMainActivity()
         val name = et_name.text.toString().trim()
         val pwd = et_pwd.text.toString().trim()
         if (name.isNotEmpty() and pwd.isNotEmpty()) {
@@ -66,8 +66,9 @@ class LoginActivity : BaseActivity() {
                     phone = t.phone
                     userNo =t.userNo
                     isLogin = true //登录状态
+                    EventBus.getDefault().post(LoginEvent(true))
                     loadingView.dismiss()
-                    // jumpToMainActivity()
+                    finish()
                 }
 
                 override fun onFailed() {

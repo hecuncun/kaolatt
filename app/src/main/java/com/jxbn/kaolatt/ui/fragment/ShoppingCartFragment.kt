@@ -91,17 +91,20 @@ class ShoppingCartFragment : BaseFragment() {
                 dialog.setConfirmListener(View.OnClickListener {
                     showToast("删除")
                     dialog.dismiss()
-                    //删除指定id的商品
-                    list.forEach {
-                        if (it.isCheck){
-                          //  CommOperation.delete<CartBean>("goodsId",it.goodsId)
-                            LitePal.delete<CartBean>(it.id)
-                        }
+                    if (totalChecked>0){
+                        list.forEach {
+                            if (it.isCheck){
+                                //删除指定id的商品
+                                LitePal.delete<CartBean>(it.id)
+                                //删除完就刷新
+                                refreshList(RefreshCarEvent())
+                                tv_confirm.text="移除"
+                            }
+                    }
+                    }else{
+                        showToast("请先选中商品")
                     }
 
-                    //删除完就刷新
-                    refreshList(RefreshCarEvent())
-                    tv_confirm.text="移除"
 
                 })
             }

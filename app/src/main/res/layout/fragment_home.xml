@@ -53,45 +53,99 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_home_1"
+            <LinearLayout
+                android:id="@+id/ll_home_1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:drawablePadding="8dp"
-                android:drawableTop="@mipmap/icon01"
-                android:gravity="center"
-                android:text="购物须知"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_home_2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawablePadding="8dp"
-                android:drawableTop="@mipmap/icon02"
-                android:gravity="center"
-                android:text="会员特权"/>
+                <ImageView
+                    android:id="@+id/iv_home_1"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon01"/>
 
-            <TextView
-                android:id="@+id/tv_home_3"
+                <TextView
+                    android:id="@+id/tv_home_1"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="购物须知"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_home_2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:drawablePadding="8dp"
-                android:drawableTop="@mipmap/icon03"
-                android:gravity="center"
-                android:text="企业宣传"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_home_4"
+                <ImageView
+                    android:id="@+id/iv_home_2"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon02"/>
+
+                <TextView
+                    android:id="@+id/tv_home_2"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="购物须知"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_home_3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:drawablePadding="8dp"
-                android:drawableTop="@mipmap/icon04"
-                android:gravity="center"
-                android:text="活动指南"/>
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_home_3"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon03"/>
+
+                <TextView
+                    android:id="@+id/tv_home_3"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="购物须知"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_home_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_home_4"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon04"/>
+
+                <TextView
+                    android:id="@+id/tv_home_4"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="购物须知"/>
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout

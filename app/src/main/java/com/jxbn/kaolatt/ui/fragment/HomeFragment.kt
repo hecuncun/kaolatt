@@ -104,16 +104,16 @@ class HomeFragment : BaseFragment() {
         }
 
        //todo  H5
-        tv_home_1.setOnClickListener {
+        ll_home_1.setOnClickListener {
              jumpToWebViewActivity("",1)
         }
-        tv_home_2.setOnClickListener {
+        ll_home_2.setOnClickListener {
              jumpToWebViewActivity("",1)
         }
-        tv_home_3.setOnClickListener {
+        ll_home_3.setOnClickListener {
              jumpToWebViewActivity("",1)
         }
-        tv_home_4.setOnClickListener {
+        ll_home_4.setOnClickListener {
              jumpToWebViewActivity("",1)
         }
 
