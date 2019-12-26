@@ -75,6 +75,7 @@ class PayActivity : BaseActivity() {
             1->{//支付成功
                 val intent = Intent(this@PayActivity, PaySuccessActivity::class.java)
                 intent.putExtra("money",money)
+                intent.putExtra("oid",oid)
                 startActivity(intent)
                 finish()
             }
