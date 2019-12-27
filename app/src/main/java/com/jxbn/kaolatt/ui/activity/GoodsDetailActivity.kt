@@ -302,24 +302,31 @@ class GoodsDetailActivity : BaseActivity() {
             } else {
                 collectType = 1
             }
-            val collectionEnsureCall = SLMRetrofit.getInstance().api.collectionEnsureCall(gid, uid, collectType)
-            collectionEnsureCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<BaseNoDataBean>() {
-                override fun onSucceed(t: BaseNoDataBean?) {
-                    if (t?.code == Constant.SUCCESSED_CODE) {
-                        if (collectType == 1) {
-                            showToast("收藏成功")
-                            iv_collect.setImageResource(R.mipmap.icon_star_pre)
-                        } else {
-                            showToast("取消收藏")
-                            iv_collect.setImageResource(R.mipmap.icon_star)
+            if (isLogin){
+                val collectionEnsureCall = SLMRetrofit.getInstance().api.collectionEnsureCall(gid, uid, collectType)
+                collectionEnsureCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<BaseNoDataBean>() {
+                    override fun onSucceed(t: BaseNoDataBean?) {
+                        if (t?.code == Constant.SUCCESSED_CODE) {
+                            if (collectType == 1) {
+                                showToast("收藏成功")
+                                iv_collect.setImageResource(R.mipmap.icon_star_pre)
+                            } else {
+                                showToast("取消收藏")
+                                iv_collect.setImageResource(R.mipmap.icon_star)
+                            }
                         }
                     }
-                }
 
-                override fun onFailed() {
+                    override fun onFailed() {
 
+                    }
+                })
+            }else{
+                Intent(this,LoginActivity::class.java).run {
+                    startActivity(this)
                 }
-            })
+            }
+
         }
     }
 

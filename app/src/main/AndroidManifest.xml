@@ -33,13 +33,16 @@
             android:name="design_height_in_dp"
             android:value="667"/>
 
-
-        <activity android:name=".ui.activity.MainActivity" android:launchMode="singleTask">
+        <activity android:name=".ui.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.activity.MainActivity" android:launchMode="singleTask">
+
         </activity>
         <activity android:name=".ui.activity.LoginActivity" android:theme="@style/SplashTheme">
             <!--<intent-filter>-->
@@ -100,6 +103,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
     </application>
 
 </manifest>
