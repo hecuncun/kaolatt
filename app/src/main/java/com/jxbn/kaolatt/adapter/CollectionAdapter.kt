@@ -22,7 +22,7 @@ class CollectionAdapter : BaseQuickAdapter<MyCollectionListBean.DataBean, BaseVi
         val ivCheck = helper.getView<ImageView>(R.id.iv_check)
         val ivGoods = helper.getView<ImageView>(R.id.iv_goods)
         val imgList = item.picture.split(",")
-        GlideUtils.showRound(ivGoods,Constant.BASE_URL+imgList[0],R.mipmap.ic_launcher,8)
+        GlideUtils.showRound(ivGoods,Constant.BASE_URL+imgList[0],R.mipmap.pic_good,8)
         ivCheck.setImageResource(if(item.isChecked) R.mipmap.icon_check_pre else  R.mipmap.icon_check)
         helper.addOnClickListener(R.id.iv_check)
         if (show) {

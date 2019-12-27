@@ -108,7 +108,7 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
         adapter2.clearAndAddAll(mBean.getMask2());
 
 
-        GlideUtils.showRound(mImageView, mBean.getImgUrl(), R.mipmap.ic_launcher, 8);
+        GlideUtils.showRound(mImageView, mBean.getImgUrl(), R.mipmap.pic_good, 8);
         mTvPrice.setText("￥" + mBean.getPrice());
         mTvSaleNum.setText("累计销售" + mBean.getSaleNum() + "件");
 
