@@ -14,7 +14,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="@dimen/dp_15"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@mipmap/pic_good"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -91,6 +91,21 @@
 
     <com.jxbn.kaolatt.flowtag.FlowTagLayout
         android:id="@+id/flow_tab_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"/>
+
+    <TextView
+        android:id="@+id/tv_mask3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="外观"
+        android:textColor="@color/text_color_gray"
+        android:textSize="14sp"/>
+
+    <com.jxbn.kaolatt.flowtag.FlowTagLayout
+        android:id="@+id/flow_tab_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10"/>

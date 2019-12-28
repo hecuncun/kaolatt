@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 /**
  * Created by hecuncun on 2019/12/14
  *
- * type: 0 首页轮播图详情  1 消息详情   2物流   3 购物须知  4 会员特权  5企业宣传 6活动指南
+ * type: 0 首页轮播图详情  1 消息详情   2物流lt   3 购物须知  4 会员特权  5企业宣传 6活动指南
  */
 class WebViewActivity :BaseActivity() {
     private var type = 0
@@ -63,7 +63,7 @@ class WebViewActivity :BaseActivity() {
         mWebView?.post {
            when(type){
                0,1,3,4,5,6->mWebView?.loadDataWithBaseURL(null,getHtmlData(url), "text/html" , "utf-8", null)
-               2->{}
+               2->{mWebView?.loadUrl(url)}
                else->{}
            }
         }

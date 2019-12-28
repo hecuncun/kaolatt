@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!--相机权限-->
     <uses-permission android:name="android.permission.CAMERA" />
+    <!--9.0bug-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
 
     <application
@@ -81,6 +83,7 @@
         <activity android:name=".ui.activity.GoodsFamousActivity"/>
         <activity android:name=".ui.activity.WebViewActivity"/>
         <activity android:name=".ui.activity.GoodsListActivity"/>
+        <activity android:name=".ui.activity.ReturnAgreementActivity"/>
 
         <!--支付开始-->
         <!-- alipay sdk begin -->
@@ -103,6 +106,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
 
     </application>
 

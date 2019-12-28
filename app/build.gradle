@@ -38,6 +38,10 @@ android {
 //        sourceCompatibility JavaVersion.VERSION_1_8
 //        targetCompatibility JavaVersion.VERSION_1_8
 //    }
+    //去除掉PNG合法性检测
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
     packagingOptions {
 
     }

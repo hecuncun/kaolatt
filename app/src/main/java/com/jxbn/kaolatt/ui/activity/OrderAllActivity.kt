@@ -16,6 +16,7 @@ import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.net.CallbackListObserver
 import com.jxbn.kaolatt.net.SLMRetrofit
 import com.jxbn.kaolatt.net.ThreadSwitchTransformer
+import com.jxbn.kaolatt.widget.LoadingView
 import kotlinx.android.synthetic.main.activity_coupon.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.Subscribe
@@ -46,6 +47,8 @@ class OrderAllActivity : BaseActivity() {
     }
 
     private fun refreshData() {
+
+        loadingView?.show()
         list.clear()
         total = 0
         currentPage = 1
@@ -72,18 +75,21 @@ class OrderAllActivity : BaseActivity() {
                     } else {
                         tv_no_data.visibility = View.GONE
                     }
+
                 }
+                loadingView?.dismiss()
             }
 
             override fun onFailed() {
-
+                loadingView?.dismiss()
             }
         })
     }
-
+private var loadingView:LoadingView?=null
     override fun initView() {
         type = intent.getIntExtra("type", 10)
-
+        loadingView = LoadingView(this@OrderAllActivity)
+        loadingView?.setLoadingTitle("")
         toolbar_title.text = when (type) {
             1 -> "待付款订单"
             2 -> "待收货订单"

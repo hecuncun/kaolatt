@@ -178,14 +178,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp_10"
-                android:text="客服QQ：1179190987"
+                android:text="客服QQ：269186756"
                 android:textSize="13sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp_10"
-                android:text="客服电话：400123455"
+                android:text="客服电话：400-6633998"
                 android:textSize="13sp"/>
 
             <LinearLayout
@@ -202,7 +202,7 @@
                 <ImageView
                     android:layout_width="140dp"
                     android:layout_height="140dp"
-                    android:src="@mipmap/pic_good"/>
+                    android:src="@mipmap/wx_code"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -221,6 +221,7 @@
             android:textSize="18sp"/>
 
         <TextView
+            android:id="@+id/tv_return"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dp_20"

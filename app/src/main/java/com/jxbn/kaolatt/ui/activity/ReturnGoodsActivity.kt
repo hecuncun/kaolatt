@@ -88,6 +88,11 @@ class ReturnGoodsActivity : BaseActivity() {
 
     private var pic =""
     override fun initListener() {
+        tv_return.setOnClickListener {
+            Intent(this@ReturnGoodsActivity,ReturnAgreementActivity::class.java).run {
+                startActivity(this)
+            }
+        }
         tv_confirm.setOnClickListener {
         val content = et_content.text.toString().trim()
         val type =   if (rg_type.checkedRadioButtonId==R.id.rg_btn_1) 1 else 2

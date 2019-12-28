@@ -97,7 +97,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="购物须知"/>
+                    android:text="会员特权"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/ll_home_3"
@@ -120,7 +120,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="购物须知"/>
+                    android:text="企业宣传"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/ll_home_4"
@@ -145,7 +145,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="购物须知"/>
+                    android:text="活动指南"/>
             </LinearLayout>
 
         </LinearLayout>

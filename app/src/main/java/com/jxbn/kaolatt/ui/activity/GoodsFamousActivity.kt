@@ -35,7 +35,7 @@ class GoodsFamousActivity : BaseActivity() {
         toolbar_title.text = "大牌推荐"
         bcid = intent.extras.getString("bcid")
         val picture = intent.extras.getString("picture")
-        GlideUtils.showRound(iv_picture, Constant.BASE_URL + picture, R.mipmap.logo, 8)
+        GlideUtils.showRound(iv_picture, Constant.BASE_URL + picture, R.mipmap.pic_banner, 8)
         initRecyclerView()
 
     }
@@ -50,14 +50,17 @@ class GoodsFamousActivity : BaseActivity() {
     }
 
     override fun initListener() {
-        //  iv_back.setOnClickListener { finish() }
         mAdapter.setOnItemClickListener { adapter, view, position ->
             val intent = Intent(this@GoodsFamousActivity, GoodsDetailActivity::class.java)
             intent.putExtra("gid", listFamous[position].gid)
             startActivity(intent)
         }
+
         mAdapter.disableLoadMoreIfNotFullPage(recyclerView)
         mAdapter.setOnLoadMoreListener(BaseQuickAdapter.RequestLoadMoreListener {
+            if (total==1){
+                mAdapter.setEnableLoadMore(false)
+            }
             currentPage++
             if (currentPage > total) {
                 return@RequestLoadMoreListener
@@ -67,8 +70,15 @@ class GoodsFamousActivity : BaseActivity() {
             famousMoreListCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<GoodsMoreListBean>(){
                 override fun onSucceed(t: GoodsMoreListBean?) {
                     if (t?.code==Constant.SUCCESSED_CODE){
-                        listFamous.addAll(t.data.rows)
-                        mAdapter.setNewData(listFamous)
+                        mAdapter.addData(t.data.rows)
+                       if (currentPage==total){
+                           mAdapter.loadMoreEnd()
+                           mAdapter.setEnableLoadMore(false)
+                       }else{
+                           mAdapter.loadMoreComplete()
+                           mAdapter.setEnableLoadMore(true)
+                       }
+
                     }
                 }
 

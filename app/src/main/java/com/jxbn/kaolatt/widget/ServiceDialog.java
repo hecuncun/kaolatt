@@ -42,7 +42,7 @@ public class ServiceDialog  extends FullScreenDialogFragment{
         if (getArguments()!=null){
             mTvPhone.setText(getArguments().getString("phone"));
             mTvQQ.setText(getArguments().getString("qq"));
-            GlideUtils.showAnimation(mIvWx,getArguments().getString("wxCodeUrl"),R.mipmap.pic_good);
+            GlideUtils.showAnimation(mIvWx,getArguments().getString("wxCodeUrl"),R.mipmap.wx_code);
         }
         return inflate;
     }

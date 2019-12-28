@@ -4,5 +4,51 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <include layout="@layout/toolbar"/>
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="考拉淘淘采购的商品均采用澳洲本土国际物流，常用物流公司，如下可以点击官网查询包裹"/>
+    <TextView
+        android:id="@+id/tv_lt"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/lt"
+        android:text="官网http://www.blueskyexpress.com.au/"/>
+    <TextView
+        android:id="@+id/tv_cj"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/cj"
+        android:text="官网http://www.changjiangexpress.com"/>
+    <TextView
+        android:id="@+id/tv_ewe"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/ewe"
+        android:text="官网http://www.changjiangexpress.com"/>
+    <TextView
+        android:id="@+id/tv_fy"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/fy"
+        android:text="官网http://www.rlgaustralia.com/"/>
+    <TextView
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="物流时长：大约14-20天
+包括:"/>
+    <TextView
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="从墨尔本发货到中国海关：3-4天
+中国海关清关：4—15天（因节假日或国内重大活动影响，清关时间有所延长）
+国内转运：3—6天（因国内具体收货地区而定）"/>
 </LinearLayout>

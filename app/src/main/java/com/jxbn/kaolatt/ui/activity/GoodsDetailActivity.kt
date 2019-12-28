@@ -27,6 +27,7 @@ import com.jxbn.kaolatt.widget.GoodsInfoBottomDialog
 import com.jxbn.kaolatt.widget.MaskBottomDialog
 import com.jxbn.kaolatt.widget.ServiceDialog
 import com.jxbn.kaolatt.widget.SpaceItemDecoration
+import com.orhanobut.logger.Logger
 import com.stx.xhb.xbanner.XBanner
 import kotlinx.android.synthetic.main.activity_goods_detail.*
 import org.greenrobot.eventbus.EventBus
@@ -42,6 +43,7 @@ class GoodsDetailActivity : BaseActivity() {
 
     val mask1 = mutableListOf<String>()//标签1
     val mask2 = mutableListOf<String>()//标签2
+    val mask3 = mutableListOf<String>()//标签2
     val paramList = mutableListOf<String>()//标签2
     var maskDialog: MaskBottomDialog? = null
     var goodsInfoBottomDialog: GoodsInfoBottomDialog? = null
@@ -79,16 +81,18 @@ class GoodsDetailActivity : BaseActivity() {
                     tv_old_price.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG
                     tv_sale_num.text = "销量${t.data.salesVolume}"
 
-                    //规格弹窗  最多显示两种规格
+                    //规格弹窗  最多显示三种规格
                     val listMask = t.data.goodsSpecslList
                     var maskName1 = ""
                     var maskName2 = ""
+                    var maskName3= ""
                     if (listMask.size == 1) {
                         maskName1 = listMask[0].name
                         val split = listMask[0].info.split(",")
                         split.forEach {
                             mask1.add(it)
                         }
+                        Logger.e("mask1==>$mask1")
                     } else if (listMask.size == 2) {
                         maskName1 = listMask[0].name
                         val split1 = listMask[0].info.split(",")
@@ -102,13 +106,39 @@ class GoodsDetailActivity : BaseActivity() {
                             mask2.add(it)
                         }
 
+                    }else if (listMask.size>2){
+                        maskName1 = listMask[0].name
+                        val split1 = listMask[0].info.split(",")
+                        split1.forEach {
+                            mask1.add(it)
+                        }
+
+                        maskName2 = listMask[1].name
+                        val split2 = listMask[1].info.split(",")
+                        split2.forEach {
+                            mask2.add(it)
+                        }
+
+                        maskName3 = listMask[2].name
+                        val split3 = listMask[2].info.split(",")
+                        split3.forEach {
+                            mask3.add(it)
+                        }
+
                     }
-                    val goodsMaskBean = GoodsMaskBean(Constant.BASE_URL + imgList[0], t.data.priceReal.toString(), t.data.salesVolume, maskName1, mask1, maskName2, mask2)
+                    val goodsMaskBean = GoodsMaskBean(t.data.goodsSpecslList.size,Constant.BASE_URL + imgList[0], t.data.priceReal.toString(), t.data.salesVolume, maskName1, mask1, maskName2, mask2,maskName3,mask3)
                     maskDialog = MaskBottomDialog(this@GoodsDetailActivity, goodsMaskBean)
-                    maskDialog!!.setOnChoseListener(MaskBottomDialog.OnChoseListener { isAddCar, mask1, tab1, mask2, tab2, num ->
-                        showToast("addCar=$isAddCar,mask1=$mask1-tab1=$tab1,mask2=$mask2-tab2=$tab2,num=$num")
+                    maskDialog!!.setOnChoseListener(MaskBottomDialog.OnChoseListener { isAddCar, mask1, tab1, mask2, tab2,mask3,tab3, num ->
+                        showToast("addCar=$isAddCar,mask1=$mask1-tab1=$tab1,mask2=$mask2-tab2=$tab2,mask23=$mask3-tab3=$tab3,num=$num")
                         //todo 根据addCar 添加数据库  创建订单
-                        val bean = CartBean(gid, imgList[0], t.data.name, "$mask1-$tab1,$mask2-$tab2", t.data.priceReal.toString(), num.toInt(), false)
+                        var masks =when( t.data.goodsSpecslList.size){
+                            0->{""}
+                            1->{"$mask1-$tab1"}
+                            2->{"$mask1-$tab1,$mask2-$tab2"}
+                            3->{"$mask1-$tab1,$mask2-$tab2,$mask3-$tab3"}
+                            else->{"$mask1-$tab1,$mask2-$tab2,$mask3-$tab3"}
+                        }
+                        val bean = CartBean(gid, imgList[0], t.data.name, masks, t.data.priceReal.toString(), num.toInt(), false)
                         totalMoney=t.data.priceReal.times(num.toInt())
                         if (isAddCar) {//数据库添加
                             bean.save()
@@ -123,6 +153,8 @@ class GoodsDetailActivity : BaseActivity() {
                                 intent.putExtra("total",totalMoney)
                                 intent.putExtra("num",num)
                                 startActivity(intent)
+                                orderList.clear()
+                                totalMoney=0.0
                             }else{
                                 val intent = Intent(this@GoodsDetailActivity, LoginActivity::class.java)
                                 startActivity(intent)
@@ -251,7 +283,7 @@ class GoodsDetailActivity : BaseActivity() {
         xbanner.loadImage(XBanner.XBannerAdapter { banner, model, view, position ->
             //1、此处使用的Glide加载图片，可自行替换自己项目中的图片加载框架
             //2、返回的图片路径为Object类型，你只需要强转成你传输的类型就行，切记不要胡乱强转！
-            GlideUtils.showRound(view as ImageView, (model as BannerBean).imgUrl, R.drawable.home_ban_member01, 6)
+            GlideUtils.showRound(view as ImageView, (model as BannerBean).imgUrl, R.mipmap.pic_banner, 6)
         })
 //        xbanner.setOnItemClickListener { banner, model, view, position ->
 //            showToast("点击$position")
@@ -287,7 +319,7 @@ class GoodsDetailActivity : BaseActivity() {
         }
 
         fl_ke_fu.setOnClickListener {
-            ServiceDialog.newInstance("11111111", "22222222", "").show(supportFragmentManager, "a")
+            ServiceDialog.newInstance("269186756", "4006633998", "").show(supportFragmentManager, "a")
         }
         tv_buy.setOnClickListener {
             //确认订单
