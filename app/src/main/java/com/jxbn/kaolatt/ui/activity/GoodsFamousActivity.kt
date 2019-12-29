@@ -60,6 +60,7 @@ class GoodsFamousActivity : BaseActivity() {
         mAdapter.setOnLoadMoreListener(BaseQuickAdapter.RequestLoadMoreListener {
             if (total==1){
                 mAdapter.setEnableLoadMore(false)
+                return@RequestLoadMoreListener
             }
             currentPage++
             if (currentPage > total) {

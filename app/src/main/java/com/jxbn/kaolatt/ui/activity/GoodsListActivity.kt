@@ -1,5 +1,6 @@
 package com.jxbn.kaolatt.ui.activity
 
+import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jxbn.kaolatt.R
@@ -38,6 +39,10 @@ class GoodsListActivity :BaseActivity() {
         //上拉加载更多
         goodAdapter.setOnLoadMoreListener(object :BaseQuickAdapter.RequestLoadMoreListener{
             override fun onLoadMoreRequested() {
+                if (total==1){
+                    goodAdapter.setEnableLoadMore(false)
+                    return
+                }
                 currentPage++
                 if (currentPage > total) {
                     return
@@ -65,6 +70,13 @@ class GoodsListActivity :BaseActivity() {
             }
 
         },recyclerView)
+
+
+        goodAdapter.setOnItemClickListener { adapter, view, position ->
+            val intent = Intent(this@GoodsListActivity, GoodsDetailActivity::class.java)
+            intent.putExtra("gid", listGood[position].gid)
+            startActivity(intent)
+        }
     }
 
     private fun initRecyclerView() {
