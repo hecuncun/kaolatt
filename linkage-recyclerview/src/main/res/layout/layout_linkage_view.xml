@@ -27,6 +27,10 @@
         android:id="@+id/rv_primary"
         android:layout_width="100dp"
         android:layout_height="match_parent" />
+    <View
+        android:layout_width="1px"
+        android:layout_height="match_parent"
+        android:background="@color/colorGray"/>
 
     <FrameLayout
         android:id="@+id/level_2"

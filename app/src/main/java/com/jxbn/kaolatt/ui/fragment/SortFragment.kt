@@ -81,7 +81,7 @@ class SortFragment : BaseFragment() {
 
                         //进行循环请求二级列表
                         //isLoading =true
-                        val sortListSecondCall = SLMRetrofit.getInstance().api.sortListCall(it.pid)
+                        val sortListSecondCall = SLMRetrofit.getInstance().api.sortListCall(it.cid)
                         sortListSecondCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<SortListBean>(){
                             override fun onSucceed(t: SortListBean?) {
                                if (t?.code==Constant.SUCCESSED_CODE){
@@ -153,9 +153,9 @@ class SortFragment : BaseFragment() {
             tvTitle.text = title
             //设置选中的标签颜色
             tvTitle.setBackgroundColor(mContext!!.resources.getColor(
-                    if (selected) com.kunminx.linkage.R.color.colorPurple else com.kunminx.linkage.R.color.colorWhite))
+                    if (selected) R.color.color_F5F5F6 else R.color.colorWhite))
             tvTitle.setTextColor(ContextCompat.getColor(mContext!!,
-                    if (selected) com.kunminx.linkage.R.color.colorWhite else com.kunminx.linkage.R.color.colorGray))
+                    if (selected) R.color.colorPrimary else R.color.text_color_gray))
             tvTitle.ellipsize = if (selected) TextUtils.TruncateAt.MARQUEE else TextUtils.TruncateAt.END
             tvTitle.isFocusable = selected
             tvTitle.isFocusableInTouchMode = selected

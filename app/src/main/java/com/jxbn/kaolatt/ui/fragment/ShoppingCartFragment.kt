@@ -89,7 +89,7 @@ class ShoppingCartFragment : BaseFragment() {
                 dialog.show()
                 dialog.setTitle("确定要移除所选商品？")
                 dialog.setConfirmListener(View.OnClickListener {
-                    showToast("删除")
+                   // showToast("删除")
                     dialog.dismiss()
                     if (totalChecked>0){
                         list.forEach {

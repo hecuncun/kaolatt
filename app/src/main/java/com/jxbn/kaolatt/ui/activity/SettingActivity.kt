@@ -4,7 +4,6 @@ import android.content.Intent
 import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
-import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.ext.startActivityCheckLogin
 import com.jxbn.kaolatt.utils.Preference
 import com.jxbn.kaolatt.widget.LogoutDialog
@@ -37,7 +36,7 @@ class SettingActivity:BaseActivity() {
             dialog!!.show()
             dialog!!.setConfirmListener(View.OnClickListener {
                 dialog!!.dismiss()
-                showToast("确定")
+               // showToast("确定")
                 Preference.clearPreference()
             })
 

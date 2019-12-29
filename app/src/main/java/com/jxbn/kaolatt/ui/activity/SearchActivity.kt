@@ -1,5 +1,6 @@
 package com.jxbn.kaolatt.ui.activity
 
+import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -335,5 +336,17 @@ class SearchActivity : BaseActivity() {
 
 
         },recyclerView)
+
+
+        goodAdapter.setOnItemClickListener { adapter, view, position ->
+            list[position].gid
+            Intent(this@SearchActivity,GoodsDetailActivity::class.java).run {
+                putExtra("gid",list[position].gid)
+                startActivity(this)
+            }
+        }
     }
+
+
+
 }

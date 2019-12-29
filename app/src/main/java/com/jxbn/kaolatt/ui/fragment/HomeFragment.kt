@@ -15,7 +15,6 @@ import com.jxbn.kaolatt.bean.FamousListBean
 import com.jxbn.kaolatt.bean.GoodListBean
 import com.jxbn.kaolatt.bean.GoodsMoreListBean
 import com.jxbn.kaolatt.constants.Constant
-import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.glide.GlideUtils
 import com.jxbn.kaolatt.net.CallbackListObserver
 import com.jxbn.kaolatt.net.SLMRetrofit
@@ -188,7 +187,7 @@ class HomeFragment : BaseFragment() {
             GlideUtils.showRound(view as ImageView, Constant.BASE_URL + (model as BannerInfoBean.DataBean).cpPicture, R.mipmap.pic_banner, 6)
         })
         xbanner.setOnItemClickListener { banner, model, view, position ->
-            showToast("点击$position")
+           // showToast("点击$position")
             jumpToWebViewActivity(bannerList[position].cpContent, 0)
 
         }

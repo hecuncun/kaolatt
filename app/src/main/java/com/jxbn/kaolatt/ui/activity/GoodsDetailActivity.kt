@@ -129,7 +129,7 @@ class GoodsDetailActivity : BaseActivity() {
                     val goodsMaskBean = GoodsMaskBean(t.data.goodsSpecslList.size,Constant.BASE_URL + imgList[0], t.data.priceReal.toString(), t.data.salesVolume, maskName1, mask1, maskName2, mask2,maskName3,mask3)
                     maskDialog = MaskBottomDialog(this@GoodsDetailActivity, goodsMaskBean)
                     maskDialog!!.setOnChoseListener(MaskBottomDialog.OnChoseListener { isAddCar, mask1, tab1, mask2, tab2,mask3,tab3, num ->
-                        showToast("addCar=$isAddCar,mask1=$mask1-tab1=$tab1,mask2=$mask2-tab2=$tab2,mask23=$mask3-tab3=$tab3,num=$num")
+                       // showToast("addCar=$isAddCar,mask1=$mask1-tab1=$tab1,mask2=$mask2-tab2=$tab2,mask23=$mask3-tab3=$tab3,num=$num")
                         //todo 根据addCar 添加数据库  创建订单
                         var masks =when( t.data.goodsSpecslList.size){
                             0->{""}
