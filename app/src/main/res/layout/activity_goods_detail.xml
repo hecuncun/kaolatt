@@ -257,6 +257,7 @@
             android:background="@color/line_gray"/>
 
         <RelativeLayout
+            android:id="@+id/rl_car"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">

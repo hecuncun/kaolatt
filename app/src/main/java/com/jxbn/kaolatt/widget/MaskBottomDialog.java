@@ -31,6 +31,7 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
     private final TextView mTvAddCart;
     private final TextView mTvConfirm;
     private final TextView mTvPay;
+    private final TextView mTvDesc;
     private final TextView mTvMask1;
     private final TextView mTvMask2;
     private final TextView mTvMask3;
@@ -68,6 +69,7 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
         mIvClose = view.findViewById(R.id.iv_close);
         mTwoBtnContainer = (LinearLayout) view.findViewById(R.id.ll_two_btn_container);
         mTvPrice = view.findViewById(R.id.tv_price);
+        mTvDesc = view.findViewById(R.id.tv_desc);
         mTvSaleNum = view.findViewById(R.id.tv_sale_num);
         mTvAddCart = view.findViewById(R.id.tv_add_car);
         mTvConfirm = view.findViewById(R.id.tv_confirm);
@@ -98,6 +100,7 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
     }
 
     private void initData() {
+        mTvDesc.setText(mBean.getDesc());
         mTvMask1.setText(mBean.getMaskName1());
         TagAdapter<String> adapter1 = new TagAdapter<String>(mContext);
         mFlowTab1.setAdapter(adapter1);

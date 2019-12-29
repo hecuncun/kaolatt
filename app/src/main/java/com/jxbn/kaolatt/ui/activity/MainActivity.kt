@@ -45,6 +45,14 @@ class MainActivity : BaseActivity() {
 
     override fun attachLayoutRes(): Int = R.layout.activity_main
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        if (intent?.extras?.getInt("index")!=null){
+            mIndex=intent.extras.getInt("index")
+            showFragment(mIndex)
+        }
+    }
+
     override fun initData() {
         if (checkPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE))) {
             LitePal.getDatabase()
@@ -111,6 +119,7 @@ class MainActivity : BaseActivity() {
 
 
     override fun initView() {
+
         toolbar_title.text = "首页"
 
         bottom_navigation.run {

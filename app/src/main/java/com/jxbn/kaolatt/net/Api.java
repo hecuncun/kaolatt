@@ -254,7 +254,7 @@ public interface Api {
     Observable<GoodsDetailBean> goodsDetailCall(@Query("gid") String gid,@Query("uid") String uid);
 
     /**
-     *评价列表
+     *详情评价列表
      */
     @POST("appGoodsEvaluate/searchForPage")
     Observable<EvaluateListBean> evaluateListCall(@Query("page") int page,@Query("gid") String gid);

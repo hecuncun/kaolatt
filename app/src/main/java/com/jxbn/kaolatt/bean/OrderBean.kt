@@ -10,4 +10,4 @@ data class OrderBean(
         val goodsName: String,
         val goodsNum: Int,
         val mark: String,
-        val money: Float)
+        val money: Double)

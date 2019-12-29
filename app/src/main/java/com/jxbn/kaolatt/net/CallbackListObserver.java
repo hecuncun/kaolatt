@@ -2,6 +2,9 @@ package com.jxbn.kaolatt.net;
 
 
 import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.blankj.utilcode.util.ToastUtils;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -28,7 +31,8 @@ public abstract class CallbackListObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable t) {
-       // ToastUtil.showToast(t.getLocalizedMessage());
+        ToastUtils.showShort(t.getLocalizedMessage());
+        Log.e("error",t.getLocalizedMessage());
         onFailed();
     }
 

@@ -90,8 +90,8 @@ public class MyCollectionListBean {
         private String cid;
         private String picture;
         private String name;
-        private int priceReal;
-        private int priceSecond;
+        private double priceReal;
+        private double priceSecond;
         private String salesVolume;
         private String content;
         private int numTotal;
@@ -151,7 +151,7 @@ public class MyCollectionListBean {
             this.name = name;
         }
 
-        public int getPriceReal() {
+        public double getPriceReal() {
             return priceReal;
         }
 
@@ -159,7 +159,7 @@ public class MyCollectionListBean {
             this.priceReal = priceReal;
         }
 
-        public int getPriceSecond() {
+        public double getPriceSecond() {
             return priceSecond;
         }
 

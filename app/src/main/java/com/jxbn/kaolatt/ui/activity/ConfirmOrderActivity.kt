@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.adapter.OrderGoodsListAdapter
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.*
@@ -181,6 +180,7 @@ class ConfirmOrderActivity : BaseActivity() {
             val addOrderCall = SLMRetrofit.getInstance().api.addOrderCall(uid, addressId, couponId, integralNum, json)
             addOrderCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<AddOrderBean>(){
                 override fun onSucceed(t: AddOrderBean?) {
+                    Logger.e("创建成功")
                     when(t?.code){
                         Constant.SUCCESSED_CODE->{
                             Logger.e("oid==${t.data.oid}")
@@ -205,6 +205,7 @@ class ConfirmOrderActivity : BaseActivity() {
                 }
 
                 override fun onFailed() {
+                    Logger.e("创建失败")
                 }
             })
 

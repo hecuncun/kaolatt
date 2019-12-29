@@ -52,6 +52,10 @@ class OrderAllActivity : BaseActivity() {
         list.clear()
         total = 0
         currentPage = 1
+        getFirstData()
+    }
+
+    private fun getFirstData() {
         val orderListCall = SLMRetrofit.getInstance().api.orderListCall(currentPage, uid)
         orderListCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<OrderListBean>() {
             override fun onSucceed(t: OrderListBean?) {
@@ -69,15 +73,44 @@ class OrderAllActivity : BaseActivity() {
                     } else {
                         orderAdapter.setNewData(list.filter { it.status == type })
                     }
-                    //空白页
-                    if (orderAdapter.data.size == 0) {
+
+                    if (currentPage==total && orderAdapter.data.size == 0){
                         tv_no_data.visibility = View.VISIBLE
-                    } else {
+                        loadingView?.dismiss()
+                    }else{
                         tv_no_data.visibility = View.GONE
+                        if(orderAdapter.data.size==0){
+                            currentPage++
+                            //循环请求
+                            getFirstData()//下页数据
+
+                        } else{
+                            loadingView?.dismiss()
+                        }
                     }
 
+
+
+                    //空白页
+//                    if (total < 2) {
+//                        if (orderAdapter.data.size == 0) {
+//                            tv_no_data.visibility = View.VISIBLE
+//                        } else {
+//                            tv_no_data.visibility = View.GONE
+//                        }
+//
+//                    } else {//多页数据0数据
+//                       if(orderAdapter.data.size==0){
+//                           currentPage++
+//                           //循环请求
+//                           getFirstData()//下页数据
+//
+//                       }
+//
+//                    }
+
                 }
-                loadingView?.dismiss()
+
             }
 
             override fun onFailed() {
@@ -85,7 +118,8 @@ class OrderAllActivity : BaseActivity() {
             }
         })
     }
-private var loadingView:LoadingView?=null
+
+    private var loadingView:LoadingView?=null
     override fun initView() {
         type = intent.getIntExtra("type", 10)
         loadingView = LoadingView(this@OrderAllActivity)
@@ -201,7 +235,11 @@ private var loadingView:LoadingView?=null
 
                         }
                         2, 3 -> {//查看物流
-                            jumpToWebViewActivity("", 2)
+                            //jumpToWebViewActivity("", 2)
+                            Intent(this@OrderAllActivity,DeliveryActivity::class.java).run{
+                                startActivity(this)
+                            }
+
                         }
                     }
 
@@ -213,52 +251,50 @@ private var loadingView:LoadingView?=null
         //分页加载
         orderAdapter.disableLoadMoreIfNotFullPage(recyclerView)
         orderAdapter.setOnLoadMoreListener(BaseQuickAdapter.RequestLoadMoreListener {
-            if (total == 1) {
-                orderAdapter.setEnableLoadMore(false)
-            }
+              if (total==currentPage){
+                  orderAdapter.setEnableLoadMore(false)
+              }
             currentPage++
             if (currentPage > total) {
                 return@RequestLoadMoreListener
             }
 
-            val orderListCall = SLMRetrofit.getInstance().api.orderListCall(currentPage, uid)
-            orderListCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<OrderListBean>() {
-                override fun onSucceed(t: OrderListBean?) {
-                    if (t?.code == Constant.SUCCESSED_CODE) {
-                        if (type == 10) {//全部
-                            orderAdapter.addData(t.data.rows)
-                        } else if (type == 2) {//待收货
-                            orderAdapter.addData(t.data.rows.filter { it.status == 2 || it.status == 3 })
-                        } else if (type == 6) {
-                            orderAdapter.addData(t.data.rows.filter {
-                                it.status == 6 || it.status == 7 || it.status == 8
-                            })
-                        } else {
-                            orderAdapter.addData(t.data.rows.filter { it.status == type })
-                        }
-
-                        if (currentPage==total){
-                            orderAdapter.loadMoreEnd()
-                            orderAdapter.setEnableLoadMore(false)
-                        }else{
-                            orderAdapter.loadMoreComplete()
-                            orderAdapter.setEnableLoadMore(true)
-                        }
-                        //空白页
-                        if (orderAdapter.data.size == 0) {
-                            tv_no_data.visibility = View.VISIBLE
-                        } else {
-                            tv_no_data.visibility = View.GONE
-                        }
-                    }
-                }
-
-                override fun onFailed() {
-
-                }
-            })
+            loadMoreData()
 
         }, recyclerView)
+    }
+
+    private fun loadMoreData() {
+        val orderListCall = SLMRetrofit.getInstance().api.orderListCall(currentPage, uid)
+        orderListCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<OrderListBean>() {
+            override fun onSucceed(t: OrderListBean?) {
+                if (t?.code == Constant.SUCCESSED_CODE) {
+                    if (type == 10) {//全部
+                        orderAdapter.addData(t.data.rows)
+                    } else if (type == 2) {//待收货
+                        orderAdapter.addData(t.data.rows.filter { it.status == 2 || it.status == 3 })
+                    } else if (type == 6) {
+                        orderAdapter.addData(t.data.rows.filter {
+                            it.status == 6 || it.status == 7 || it.status == 8
+                        })
+                    } else {
+                        orderAdapter.addData(t.data.rows.filter { it.status == type })
+                    }
+
+                    if (currentPage == total) {
+                        orderAdapter.loadMoreEnd()
+                        orderAdapter.setEnableLoadMore(false)
+                    } else {
+                        orderAdapter.loadMoreComplete()
+                        orderAdapter.setEnableLoadMore(true)
+                    }
+                }
+            }
+
+            override fun onFailed() {
+
+            }
+        })
     }
 
     private fun jumpToEvaluateActivity() {

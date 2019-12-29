@@ -29,7 +29,6 @@ class PayActivity : BaseActivity() {
 
     override fun initView() {
         toolbar_title.text = "订单支付"
-        //iv_back.visibility= View.VISIBLE
         oid = intent.getStringExtra("oid")//订单id
         money = intent.getStringExtra("money")//订单金额
         Logger.e("oid==$oid")

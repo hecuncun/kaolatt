@@ -126,7 +126,15 @@ class GoodsDetailActivity : BaseActivity() {
                         }
 
                     }
-                    val goodsMaskBean = GoodsMaskBean(t.data.goodsSpecslList.size,Constant.BASE_URL + imgList[0], t.data.priceReal.toString(), t.data.salesVolume, maskName1, mask1, maskName2, mask2,maskName3,mask3)
+                    var desc =""
+                    if (t.data.numTotal==0 ){
+                        desc="需预定"
+                    }else if(t.data.numRemainder==0){
+                        desc="无货"
+                    }else{
+                        desc="有货"
+                    }
+                    val goodsMaskBean = GoodsMaskBean(desc,t.data.goodsSpecslList.size,Constant.BASE_URL + imgList[0], t.data.priceReal.toString(), t.data.salesVolume, maskName1, mask1, maskName2, mask2,maskName3,mask3)
                     maskDialog = MaskBottomDialog(this@GoodsDetailActivity, goodsMaskBean)
                     maskDialog!!.setOnChoseListener(MaskBottomDialog.OnChoseListener { isAddCar, mask1, tab1, mask2, tab2,mask3,tab3, num ->
                        // showToast("addCar=$isAddCar,mask1=$mask1-tab1=$tab1,mask2=$mask2-tab2=$tab2,mask23=$mask3-tab3=$tab3,num=$num")
@@ -295,6 +303,12 @@ class GoodsDetailActivity : BaseActivity() {
     private var collectType = 2 //1收藏  2取消
 
     override fun initListener() {
+        rl_car.setOnClickListener {
+            Intent(this@GoodsDetailActivity,MainActivity::class.java).run {
+                putExtra("index",0X03)
+                startActivity(this)
+            }
+        }
         iv_back.setOnClickListener { finish() }
         tv_all_evaluate.setOnClickListener {
             val intent = Intent(this@GoodsDetailActivity, EvaluateListActivity::class.java)

@@ -72,7 +72,7 @@ public class AddOrderBean {
         private String uid;
         private String orderNo;
         private int num;
-        private int priceTotalGood;
+        private double priceTotalGood;
         private double priceTotalOrder;
         private int priceInteger;
         private int priceCard;
@@ -126,11 +126,11 @@ public class AddOrderBean {
             this.num = num;
         }
 
-        public int getPriceTotalGood() {
+        public double getPriceTotalGood() {
             return priceTotalGood;
         }
 
-        public void setPriceTotalGood(int priceTotalGood) {
+        public void setPriceTotalGood(double priceTotalGood) {
             this.priceTotalGood = priceTotalGood;
         }
 

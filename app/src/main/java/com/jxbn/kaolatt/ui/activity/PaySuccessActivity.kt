@@ -27,6 +27,7 @@ class PaySuccessActivity : BaseActivity() {
     override fun initListener() {
         tv_finish.setOnClickListener {
            Intent(this@PaySuccessActivity,MainActivity::class.java).run {
+               putExtra("index", 0x01)
                startActivity(this)
                finish()
            }
