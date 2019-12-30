@@ -18,6 +18,7 @@ import com.jxbn.kaolatt.bean.MsgListBean;
 import com.jxbn.kaolatt.bean.MyCollectionListBean;
 import com.jxbn.kaolatt.bean.OrderDetailBean;
 import com.jxbn.kaolatt.bean.OrderListBean;
+import com.jxbn.kaolatt.bean.UserDetailBean;
 import com.jxbn.kaolatt.pay.AliPaySignBean;
 import com.jxbn.kaolatt.pay.WxPaySignBean;
 import com.jxbn.kaolatt.bean.RegisterBean;
@@ -428,6 +429,15 @@ public interface Api {
      */
     @POST("appTcmnSet/selectIndexText")
     Observable<BaseNoDataBean> homeLinkCall(@Query("type") int type);
+
+    /**
+     * 订单数
+     * @param uid
+     * @return
+     */
+
+    @POST("appUserBase/selectDetail")
+    Observable<BaseBean<UserDetailBean>>  mineOrderNumCall(@Query("uid") String uid);
 //    /**
 //     * 获取全员信息e
 //     * @return

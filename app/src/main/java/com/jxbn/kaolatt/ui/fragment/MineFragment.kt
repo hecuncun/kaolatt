@@ -5,12 +5,14 @@ import android.graphics.Color
 import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.bean.OrderListBean
+import com.jxbn.kaolatt.bean.UserDetailBean
 import com.jxbn.kaolatt.constants.Constant
 import com.jxbn.kaolatt.event.LoginEvent
 import com.jxbn.kaolatt.event.UpdateInfoEvent
 import com.jxbn.kaolatt.ext.startActivityCheckLogin
 import com.jxbn.kaolatt.glide.GlideUtils
 import com.jxbn.kaolatt.net.CallbackListObserver
+import com.jxbn.kaolatt.net.CallbackObserver
 import com.jxbn.kaolatt.net.SLMRetrofit
 import com.jxbn.kaolatt.net.ThreadSwitchTransformer
 import com.jxbn.kaolatt.ui.activity.*
@@ -89,7 +91,21 @@ class MineFragment : BaseFragment() {
         GlideUtils.showCircleWithBorder(iv_head_photo, Constant.BASE_URL + photo, R.mipmap.pic_head, Color.parseColor("#FFFFFF"))
 
         if (isLogin) {
-            initWaitNum()
+           // initWaitNum()
+            val mineOrderNumCall = SLMRetrofit.getInstance().api.mineOrderNumCall(uid)
+            mineOrderNumCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackObserver<UserDetailBean>(){
+                override fun onSucceed(t: UserDetailBean?, desc: String?) {
+                   t?.unEvaluateNum
+                  tv_num.text=t?.unReceivedNum
+                    t?.unPayNum
+
+                }
+
+                override fun onFailed() {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+            })
+
         }
     }
 

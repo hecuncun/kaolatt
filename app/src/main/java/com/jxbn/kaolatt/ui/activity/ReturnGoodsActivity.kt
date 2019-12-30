@@ -94,8 +94,17 @@ class ReturnGoodsActivity : BaseActivity() {
             }
         }
         tv_confirm.setOnClickListener {
-        val content = et_content.text.toString().trim()
+        var content = ""
+            when(rg_reason.checkedRadioButtonId){
+                R.id.r_1->{content="商品破损（个人原因除外）"}
+                R.id.r_2->{content="商品保质期超时"}
+                R.id.r_3->{content="颜色/大小/尺码不符（未使用）"}
+                R.id.r_4->{content="型号/款式不符（未使用）"}
+            }
+
         val type =   if (rg_type.checkedRadioButtonId==R.id.rg_btn_1) 1 else 2
+
+
           if (content.isNotEmpty()){
               val returnOrderCall = SLMRetrofit.getInstance().api.returnOrderCall(uid, oid, type, content, pic)
               returnOrderCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){

@@ -153,6 +153,7 @@
                     android:drawableTop="@mipmap/icon_send"
                     android:gravity="center"
                     android:text="已完成"
+                    android:textSize="@dimen/text_size_normal"
                     android:textColor="@color/text_color_gray"/>
 
                 <TextView
@@ -163,7 +164,7 @@
                     android:drawablePadding="@dimen/dp_12"
                     android:drawableTop="@mipmap/icon_refund"
                     android:gravity="center"
-                    android:text="退货"
+                    android:text="退换货"
                     android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_normal"/>
 

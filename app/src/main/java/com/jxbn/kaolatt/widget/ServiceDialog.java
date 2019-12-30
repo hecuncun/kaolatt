@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.jxbn.kaolatt.R;
 import com.jxbn.kaolatt.glide.GlideUtils;
+import com.jxbn.kaolatt.utils.CallPhoneUtil;
 
 /**
  * Created by heCunCun on 2019/12/10
@@ -21,12 +22,15 @@ public class ServiceDialog  extends FullScreenDialogFragment{
     private TextView mTvPhone;
     private ImageView mIvWx;
 
+    private static String mPhone;
+
     public static ServiceDialog newInstance(String qq, String phone, String wxCodeUrl){
         ServiceDialog fragment=new ServiceDialog();
         Bundle args = new Bundle();
         args.putString("qq", qq);
         args.putString("phone", phone);
         args.putString("wxCodeUrl", wxCodeUrl);
+        mPhone=phone;
         fragment.setArguments(args);
         return fragment;
     }
@@ -38,7 +42,12 @@ public class ServiceDialog  extends FullScreenDialogFragment{
         mTvPhone = inflate.findViewById(R.id.tv_phone);
         mTvQQ = inflate.findViewById(R.id.tv_qq);
         mIvWx = inflate.findViewById(R.id.iv_wx);
-
+        mTvPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CallPhoneUtil.callPhone(getActivity(),mPhone);
+            }
+        });
         if (getArguments()!=null){
             mTvPhone.setText(getArguments().getString("phone"));
             mTvQQ.setText(getArguments().getString("qq"));

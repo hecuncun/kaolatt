@@ -101,46 +101,67 @@
             android:text="退换货原因"
             android:textColor="@color/text_color_666666"
             android:textSize="15sp"/>
-        <EditText
-            android:id="@+id/et_content"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="@dimen/activity_horizontal_margin"
-            android:background="@drawable/bg_white_round"
-            android:textSize="@dimen/text_size_normal"
-            android:gravity="top"
-            android:hint="请输入退换货原因"
-            android:padding="@dimen/dp_10"/>
-        <!--<RadioGroup-->
-            <!--android:id="@+id/rg_reason"-->
+        <!--<EditText-->
+            <!--android:id="@+id/et_content"-->
             <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="83dp"-->
-            <!--android:layout_marginBottom="@dimen/dp_15"-->
-            <!--android:layout_marginLeft="@dimen/dp_10"-->
-            <!--android:layout_marginRight="@dimen/dp_10"-->
-            <!--android:layout_marginTop="@dimen/dp_15"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:layout_margin="@dimen/activity_horizontal_margin"-->
             <!--android:background="@drawable/bg_white_round"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:orientation="vertical">-->
+            <!--android:textSize="@dimen/text_size_normal"-->
+            <!--android:gravity="top"-->
+            <!--android:hint="请输入退换货原因"-->
+            <!--android:padding="@dimen/dp_10"/>-->
+        <RadioGroup
+            android:id="@+id/rg_reason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_15"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_15"
+            android:background="@drawable/bg_white_round"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-            <!--<RadioButton-->
-                <!--android:checked="true"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="70dp"-->
-                <!--android:gravity="center"-->
-                <!--android:text="商品破损（个人原因除外）"-->
-                <!--android:textColor="@color/text_color_666666"-->
-                <!--android:textSize="@dimen/text_size_normal"/>-->
+            <RadioButton
+                android:id="@+id/r_1"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:gravity="center"
+                android:text="商品破损（个人原因除外）"
+                android:textColor="@color/text_color_666666"
+                android:textSize="@dimen/text_size_normal"/>
 
-            <!--<RadioButton-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="70dp"-->
-                <!--android:text="商品保质期超时"-->
-                <!--android:textColor="@color/text_color_666666"-->
-                <!--android:textSize="@dimen/text_size_normal"/>-->
-        <!--</RadioGroup>-->
+            <RadioButton
+                android:id="@+id/r_2"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:text="商品保质期超时"
+                android:textColor="@color/text_color_666666"
+                android:textSize="@dimen/text_size_normal"/>
+            <RadioButton
+                android:id="@+id/r_3"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:text="颜色/大小/尺码不符（未使用）"
+                android:textColor="@color/text_color_666666"
+                android:textSize="@dimen/text_size_normal"/>
+            <RadioButton
+                android:id="@+id/r_4"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:text="型号/款式不符（未使用）"
+                android:textColor="@color/text_color_666666"
+                android:textSize="@dimen/text_size_normal"/>
+        </RadioGroup>
 
         <TextView
             android:layout_width="wrap_content"

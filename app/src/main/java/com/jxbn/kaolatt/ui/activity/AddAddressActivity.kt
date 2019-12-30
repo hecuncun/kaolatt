@@ -50,11 +50,23 @@ class AddAddressActivity : BaseActivity() {
     }
 
     override fun attachLayoutRes(): Int = R.layout.activity_add_address
-
+    private var link2 = ""
     override fun initData() {
+        val homeLinkCall = SLMRetrofit.getInstance().api.homeLinkCall(2)
+        homeLinkCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<BaseNoDataBean>() {
+            override fun onSucceed(t: BaseNoDataBean?) {
+                if (t?.code == Constant.SUCCESSED_CODE) {
+                    link2 = t.data as String
+                }
+            }
+
+            override fun onFailed() {
+            }
+        })
     }
+
     private var from = 0
-    private var dataBean:AddressListBean.DataBean?=null
+    private var dataBean: AddressListBean.DataBean? = null
     override fun initView() {
         cityPickerView.init(this)
         from = intent.extras.getInt("from")
@@ -67,7 +79,7 @@ class AddAddressActivity : BaseActivity() {
             et_name.setText(dataBean?.name)
             et_phone.setText(dataBean?.phone)
             et_card.setText(dataBean?.card)
-            tv_address.text=dataBean?.area
+            tv_address.text = dataBean?.area
             et_address_detail.setText(dataBean?.areaDetail)
 
 
@@ -93,7 +105,12 @@ class AddAddressActivity : BaseActivity() {
     }
 
     override fun initListener() {
-        toolbar_right_tv.setOnClickListener { }
+        toolbar_right_tv.setOnClickListener {
+            val intent = Intent(this@AddAddressActivity, WebViewActivity::class.java)
+            intent.putExtra("url", link2)
+            intent.putExtra("type", 3)
+            startActivity(intent)
+        }
 
         iv_id_card_front.setOnClickListener {
             tag = REQUEST_FRONT
@@ -114,9 +131,9 @@ class AddAddressActivity : BaseActivity() {
         tv_confirm.setOnClickListener {
             if (et_name.text.toString().trim().isNotEmpty() && et_card.text.toString().trim().isNotEmpty()
                     && et_phone.text.toString().trim().isNotEmpty() && tv_address.text.isNotEmpty() && et_address_detail.text.toString().trim().isNotEmpty()) {
-                if (from==0){//新增
+                if (from == 0) {//新增
                     val addAddressCall = SLMRetrofit.getInstance().api.addAddressCall(uid, et_name.text.toString().trim(), et_phone.text.toString().trim(), et_card.text.toString().trim(),
-                            tv_address.text.toString(),cardPhotoZ,cardPhotoF, et_address_detail.text.toString().trim())
+                            tv_address.text.toString(), cardPhotoZ, cardPhotoF, et_address_detail.text.toString().trim())
                     addAddressCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<BaseNoDataBean>() {
                         override fun onSucceed(t: BaseNoDataBean?) {
                             if (t?.code == Constant.SUCCESSED_CODE) {
@@ -134,11 +151,11 @@ class AddAddressActivity : BaseActivity() {
 
                         }
                     })
-                }else{//修改
+                } else {//修改
                     val addressUpdateCall = SLMRetrofit.getInstance().api.addressUpdateCall(dataBean?.magorid, et_name.text.toString().trim(), et_phone.text.toString().trim(), et_card.text.toString().trim(),
-                            tv_address.text.toString(),cardPhotoZ,cardPhotoF, et_address_detail.text.toString().trim())
+                            tv_address.text.toString(), cardPhotoZ, cardPhotoF, et_address_detail.text.toString().trim())
 
-                    addressUpdateCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
+                    addressUpdateCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<BaseNoDataBean>() {
                         override fun onSucceed(t: BaseNoDataBean?) {
                             if (t?.code == Constant.SUCCESSED_CODE) {
                                 showToast("修改地址成功")
@@ -157,19 +174,9 @@ class AddAddressActivity : BaseActivity() {
                 }
 
 
-
-
-
-
-
-
             } else {
                 showToast("请先将信息填写完整")
             }
-
-
-
-
 
 
         }
@@ -271,8 +278,9 @@ class AddAddressActivity : BaseActivity() {
                             forResult(tag)
         }
     }
-    private var cardPhotoZ:String?=null
-    private var cardPhotoF:String?=null
+
+    private var cardPhotoZ: String? = null
+    private var cardPhotoF: String? = null
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -293,15 +301,14 @@ class AddAddressActivity : BaseActivity() {
                         //retrofit 上传文件api加上 @Multipart注解,然后下面这是个重点 参数1：上传文件的key，参数2：上传的文件名，参数3 请求头
                         val body: MultipartBody.Part = MultipartBody.Part.createFormData("upload", file.name, requestFile)
                         val uploadCall = SLMRetrofit.getInstance().api.uploadCall(body)
-                        uploadCall.compose(ThreadSwitchTransformer()).subscribe(object: CallbackObserver<ImgBean>(){
+                        uploadCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackObserver<ImgBean>() {
                             override fun onSucceed(t: ImgBean?, desc: String?) {
                                 Logger.e("成功")
                                 Logger.e("网络图片地址==${t?.fileUrl}")
-                                photo=t?.fileUrl?:photo
-                                if(tag == REQUEST_FRONT){
-                                    cardPhotoZ=photo
-                                }else{
-                                    cardPhotoF=photo
+                                if (tag == REQUEST_FRONT) {
+                                    cardPhotoZ = t?.fileUrl
+                                } else {
+                                    cardPhotoF = t?.fileUrl
                                 }
 
                             }
@@ -309,7 +316,7 @@ class AddAddressActivity : BaseActivity() {
                             override fun onFailed() {
                                 Logger.e("失败")
                             }
-                        } )
+                        })
 
                     } else {
                         showToast("图片出现问题")

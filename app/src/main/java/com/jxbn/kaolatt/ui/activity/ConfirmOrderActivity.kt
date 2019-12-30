@@ -152,10 +152,10 @@ class ConfirmOrderActivity : BaseActivity() {
             }
             myBottomListDialog?.show()
             myBottomListDialog?.setListener { p0, p1, position, p3 ->
-                showToast(list[position])
+               // showToast(list[position])
                 if (couponList[position].valueMax>totalMoney){
                     showToast("该优惠券未达到使用门槛")
-                }else if(System.currentTimeMillis()- DateUtils.stringToLong(couponList[position].endTime,"yyyy-MM-dd HH:mm:ss")<0){
+                }else if(System.currentTimeMillis()- DateUtils.stringToLong(couponList[position].endTime,"yyyy-MM-dd HH:mm:ss")>0){
                     showToast("该优惠券已过期")
                 }else{
                     couponId = couponList[position].sid
