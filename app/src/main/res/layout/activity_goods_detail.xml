@@ -204,11 +204,13 @@
                     android:text="商品详情"
                     android:textColor="@color/text_color_gray"
                     android:textSize="15sp"/>
-
-                <WebView
-                    android:id="@+id/webView"
+                <LinearLayout
+                    android:id="@+id/ll_web_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

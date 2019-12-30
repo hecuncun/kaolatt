@@ -22,14 +22,14 @@
                 android:id="@+id/iv_head_photo"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/icon_head_photo"/>
+                android:src="@mipmap/pic_head"/>
 
             <TextView
                 android:id="@+id/tv_nick_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
-                android:text="考拉"
+                android:text="未登录"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_big"/>
 
@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
-                android:text="ID:SDSDSDSD"
+                android:text="ID:"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_normal"/>
 
@@ -88,17 +88,38 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_wait_pay"
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawablePadding="@dimen/dp_12"
-                    android:drawableTop="@mipmap/icon_pay"
-                    android:gravity="center"
-                    android:text="待付款"
-                    android:textColor="@color/text_color_gray"
-                    android:textSize="@dimen/text_size_normal"/>
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_wait_pay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableTop="@mipmap/icon_pay"
+                        android:gravity="center"
+                        android:text="待付款"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/text_size_normal"/>
+
+                    <TextView
+                        android:id="@+id/tv_wait_pay_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/dp_15"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:background="@drawable/bg_red_circle"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_smaller"
+                        android:visibility="gone"/>
+                </RelativeLayout>
+
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -106,43 +127,65 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:layout_centerVertical="true"
                         android:id="@+id/tv_wait_receive"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:drawablePadding="@dimen/dp_10"
                         android:drawableTop="@mipmap/icon_deliver"
                         android:gravity="center"
                         android:text="待收货"
                         android:textColor="@color/text_color_gray"
                         android:textSize="@dimen/text_size_normal"/>
+
                     <TextView
                         android:id="@+id/tv_num"
-                        android:visibility="gone"
-                        android:layout_marginTop="@dimen/dp_15"
-                       android:layout_alignParentRight="true"
-                       android:layout_marginRight="@dimen/dp_15"
-                        android:gravity="center"
-                        android:textColor="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_size_smaller"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/dp_15"
+                        android:layout_marginTop="@dimen/dp_15"
                         android:background="@drawable/bg_red_circle"
-                        android:text="0"/>
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_smaller"
+                        android:visibility="gone"/>
                 </RelativeLayout>
 
-
-                <TextView
-                    android:id="@+id/tv_wait_evaluate"
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawablePadding="@dimen/dp_12"
-                    android:drawableTop="@mipmap/icon_evaluate"
-                    android:gravity="center"
-                    android:text="待评价"
-                    android:textColor="@color/text_color_gray"
-                    android:textSize="@dimen/text_size_normal"/>
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_wait_evaluate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_weight="1"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableTop="@mipmap/icon_evaluate"
+                        android:gravity="center"
+                        android:text="待评价"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/text_size_normal"/>
+
+                    <TextView
+                        android:id="@+id/tv_wait_evaluate_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/dp_15"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:background="@drawable/bg_red_circle"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_smaller"
+                        android:visibility="gone"/>
+                </RelativeLayout>
+
 
                 <TextView
                     android:id="@+id/tv_complete"
@@ -153,8 +196,8 @@
                     android:drawableTop="@mipmap/icon_send"
                     android:gravity="center"
                     android:text="已完成"
-                    android:textSize="@dimen/text_size_normal"
-                    android:textColor="@color/text_color_gray"/>
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/text_size_normal"/>
 
                 <TextView
                     android:id="@+id/tv_reject"

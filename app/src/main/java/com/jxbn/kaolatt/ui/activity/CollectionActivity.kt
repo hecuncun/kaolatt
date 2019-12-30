@@ -1,5 +1,6 @@
 package com.jxbn.kaolatt.ui.activity
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.jxbn.kaolatt.R
@@ -94,6 +95,12 @@ class CollectionActivity : BaseActivity() {
             val bean = (adapter.getItem(position) as MyCollectionListBean.DataBean)
             bean.isChecked = !bean.isChecked
             collectionAdapter.notifyItemChanged(position)
+        }
+
+        collectionAdapter.setOnItemClickListener { adapter, view, position ->
+            val intent = Intent(this@CollectionActivity, GoodsDetailActivity::class.java)
+            intent.putExtra("gid",list[position].gid)
+            startActivity(intent)
         }
 
         tv_delete.setOnClickListener {

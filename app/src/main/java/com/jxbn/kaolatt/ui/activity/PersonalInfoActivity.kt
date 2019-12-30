@@ -45,7 +45,7 @@ class PersonalInfoActivity:BaseActivity() {
     override fun initView() {
         tv_nick_name.text=nickname
         tv_user_no.text=userNo.toString()
-        GlideUtils.showCircle(iv_head_photo,Constant.BASE_URL+photo,R.drawable.ic_launcher_background)
+        GlideUtils.showCircle(iv_head_photo,Constant.BASE_URL+photo,R.mipmap.pic_head)
     }
 
     override fun initListener() {

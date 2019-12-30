@@ -4,11 +4,13 @@ import android.content.Intent
 import android.view.View
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
+import com.jxbn.kaolatt.event.LoginEvent
 import com.jxbn.kaolatt.ext.startActivityCheckLogin
 import com.jxbn.kaolatt.utils.Preference
 import com.jxbn.kaolatt.widget.LogoutDialog
 import kotlinx.android.synthetic.main.activity_setting.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by heCunCun on 2019/12/4
@@ -38,6 +40,8 @@ class SettingActivity:BaseActivity() {
                 dialog!!.dismiss()
                // showToast("确定")
                 Preference.clearPreference()
+                EventBus.getDefault().post(LoginEvent(false))
+                finish()
             })
 
         }

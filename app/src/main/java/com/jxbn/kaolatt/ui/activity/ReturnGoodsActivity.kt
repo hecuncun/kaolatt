@@ -105,7 +105,7 @@ class ReturnGoodsActivity : BaseActivity() {
         val type =   if (rg_type.checkedRadioButtonId==R.id.rg_btn_1) 1 else 2
 
 
-          if (content.isNotEmpty()){
+          if (pic.isNotEmpty()){
               val returnOrderCall = SLMRetrofit.getInstance().api.returnOrderCall(uid, oid, type, content, pic)
               returnOrderCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
                   override fun onSucceed(t: BaseNoDataBean?) {
@@ -123,7 +123,7 @@ class ReturnGoodsActivity : BaseActivity() {
                   }
               })
           }else{
-              showToast("请填写原因")
+              showToast("请上传图片")
           }
         }
 

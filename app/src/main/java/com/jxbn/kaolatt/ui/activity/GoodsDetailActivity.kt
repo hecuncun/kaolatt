@@ -181,7 +181,10 @@ class GoodsDetailActivity : BaseActivity() {
                     //goodsDetailBottomDialog = GoodsDetailBottomDialog(this@GoodsDetailActivity)
 
                     //WebView详情
-                    webView.loadDataWithBaseURL(null, getHtmlData(t.data.content), "text/html", "utf-8", null)
+                    mWebView?.loadDataWithBaseURL(null, getHtmlData(t.data.content), "text/html", "utf-8", null)
+                    ll_web_container.addView(mWebView)
+                   Logger.e("地址==》${t.data.content}")
+
 
                     //是否收藏
                     if (t.data.collectId == null || t.data.collectId.isEmpty()) {
@@ -221,6 +224,7 @@ class GoodsDetailActivity : BaseActivity() {
     override fun initView() {
         initTab()
         initWeb()
+       // mWebView=findViewById(R.id.webView)
         initRecyclerView()
         // initBanner()
 
@@ -377,11 +381,12 @@ class GoodsDetailActivity : BaseActivity() {
     }
 
 
-
+    val js2Android = "yxbl_app"
+    private val webViewHeight: Int = 0
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun initWeb() {
-        mWebView=findViewById(R.id.webView)
+        mWebView = WebView(this@GoodsDetailActivity)
         val settings = mWebView?.settings
         settings?.defaultTextEncodingName = "utf-8"
         settings?.javaScriptEnabled = true

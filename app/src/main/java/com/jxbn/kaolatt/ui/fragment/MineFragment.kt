@@ -4,14 +4,12 @@ import android.content.Intent
 import android.graphics.Color
 import android.view.View
 import com.jxbn.kaolatt.R
-import com.jxbn.kaolatt.bean.OrderListBean
 import com.jxbn.kaolatt.bean.UserDetailBean
 import com.jxbn.kaolatt.constants.Constant
 import com.jxbn.kaolatt.event.LoginEvent
 import com.jxbn.kaolatt.event.UpdateInfoEvent
 import com.jxbn.kaolatt.ext.startActivityCheckLogin
 import com.jxbn.kaolatt.glide.GlideUtils
-import com.jxbn.kaolatt.net.CallbackListObserver
 import com.jxbn.kaolatt.net.CallbackObserver
 import com.jxbn.kaolatt.net.SLMRetrofit
 import com.jxbn.kaolatt.net.ThreadSwitchTransformer
@@ -38,7 +36,7 @@ class MineFragment : BaseFragment() {
         tv_complete.setOnClickListener { jumpToOrderAllActivity(5) }
         tv_reject.setOnClickListener { jumpToOrderAllActivity(6) }
         rl_collection.setOnClickListener { jumpToCollectionActivity() }
-
+        iv_head_photo.setOnClickListener {  activity?.startActivityCheckLogin(PersonalInfoActivity::class.java) }
     }
 
     private fun jumpToScoreActivity() {
@@ -78,77 +76,37 @@ class MineFragment : BaseFragment() {
     override fun attachLayoutRes(): Int = R.layout.fragment_mine
 
     override fun initView(view: View) {
-        tv_nick_name.text = if (isLogin) nickname else "未登录"
-        tv_user_no.text = if (isLogin) "ID:$userNo" else "ID:------"
+//        tv_nick_name.text = if (isLogin) nickname else "未登录"
+//        tv_user_no.text = if (isLogin) "ID:$userNo" else "ID:"
 
     }
 
-    val list = mutableListOf<OrderListBean.DataBean.RowsBean>()
-    val waitList = mutableListOf<OrderListBean.DataBean.RowsBean>()
-    private var currentPage = 1
-    private var total = 0
+
     override fun lazyLoad() {
-        GlideUtils.showCircleWithBorder(iv_head_photo, Constant.BASE_URL + photo, R.mipmap.pic_head, Color.parseColor("#FFFFFF"))
 
         if (isLogin) {
-           // initWaitNum()
-            val mineOrderNumCall = SLMRetrofit.getInstance().api.mineOrderNumCall(uid)
-            mineOrderNumCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackObserver<UserDetailBean>(){
-                override fun onSucceed(t: UserDetailBean?, desc: String?) {
-                   t?.unEvaluateNum
-                  tv_num.text=t?.unReceivedNum
-                    t?.unPayNum
-
-                }
-
-                override fun onFailed() {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                }
-            })
-
+           initWaitNum()
         }
     }
 
     private fun initWaitNum() {
-        val orderListCall = SLMRetrofit.getInstance().api.orderListCall(currentPage, uid)
-        orderListCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<OrderListBean>() {
-            override fun onSucceed(t: OrderListBean?) {
-                if (t?.code == Constant.SUCCESSED_CODE) {
-                    total = t.data.total
-                    waitList.addAll(t.data.rows.filter { it.status == 2 || it.status == 3 })
-                    if (waitList.size == 0) {
-                        tv_num.visibility = View.GONE
-                    } else {
-                        tv_num.visibility = View.VISIBLE
-                    }
-                    tv_num.text = waitList.size.toString()
-                    if (total > 1) {
-                        for (i in 2..total) {
-                            SLMRetrofit.getInstance().api.orderListCall(i, uid).compose(ThreadSwitchTransformer()).subscribe(object : CallbackListObserver<OrderListBean>() {
-                                override fun onSucceed(t: OrderListBean?) {
-                                    if (t?.code == Constant.SUCCESSED_CODE) {
-                                        waitList.addAll(t.data.rows.filter { it.status == 2 || it.status == 3 })
-                                        if (waitList.size == 0) {
-                                            tv_num.visibility = View.GONE
-                                        } else {
-                                            tv_num.visibility = View.VISIBLE
-                                        }
-                                        tv_num.text = waitList.size.toString()
-                                    }
-                                }
+        tv_nick_name.text = if (isLogin) nickname else "未登录"
+        tv_user_no.text = if (isLogin) "ID:$userNo" else "ID:"
+        GlideUtils.showCircleWithBorder(iv_head_photo, Constant.BASE_URL + photo, R.mipmap.pic_head, Color.parseColor("#FFFFFF"))
+        val mineOrderNumCall = SLMRetrofit.getInstance().api.mineOrderNumCall(uid)
+        mineOrderNumCall.compose(ThreadSwitchTransformer()).subscribe(object : CallbackObserver<UserDetailBean>() {
+            override fun onSucceed(t: UserDetailBean, desc: String?) {
+                tv_wait_evaluate_num.text = t.unEvaluateNum
+                tv_num.text = t.unReceivedNum
+                tv_wait_pay_num.text = t.unPayNum
 
-                                override fun onFailed() {
+                tv_wait_evaluate_num.visibility=if (t.unEvaluateNum.toInt()==0) View.GONE else View.VISIBLE
+                tv_num.visibility=if (t.unReceivedNum.toInt()==0) View.GONE else View.VISIBLE
+                tv_wait_pay_num.visibility=if (t.unPayNum.toInt()==0) View.GONE else View.VISIBLE
 
-                                }
-                            })
-                        }
-                    }
-
-                }
             }
 
             override fun onFailed() {
-
             }
         })
     }
@@ -161,7 +119,17 @@ class MineFragment : BaseFragment() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun initNum(event: LoginEvent) {
-        initWaitNum()
+        if (event.isLogin){
+            initWaitNum()
+        }else{
+            tv_nick_name.text = if (isLogin) nickname else "未登录"
+            tv_user_no.text = if (isLogin) "ID:$userNo" else "ID:"
+            tv_wait_evaluate_num.visibility=View.GONE
+            tv_num.visibility=View.GONE
+            tv_wait_pay_num.visibility=View.GONE
+            GlideUtils.showCircleWithBorder(iv_head_photo, Constant.BASE_URL + photo, R.mipmap.pic_head, Color.parseColor("#FFFFFF"))
+        }
+
     }
 
 

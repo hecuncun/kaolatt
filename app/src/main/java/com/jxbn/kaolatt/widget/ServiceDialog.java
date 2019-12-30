@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jxbn.kaolatt.R;
@@ -21,6 +22,7 @@ public class ServiceDialog  extends FullScreenDialogFragment{
     private TextView mTvQQ;
     private TextView mTvPhone;
     private ImageView mIvWx;
+    private RelativeLayout rlPhone;
 
     private static String mPhone;
 
@@ -42,7 +44,8 @@ public class ServiceDialog  extends FullScreenDialogFragment{
         mTvPhone = inflate.findViewById(R.id.tv_phone);
         mTvQQ = inflate.findViewById(R.id.tv_qq);
         mIvWx = inflate.findViewById(R.id.iv_wx);
-        mTvPhone.setOnClickListener(new View.OnClickListener() {
+        rlPhone = inflate.findViewById(R.id.rl_phone);
+        rlPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 CallPhoneUtil.callPhone(getActivity(),mPhone);
