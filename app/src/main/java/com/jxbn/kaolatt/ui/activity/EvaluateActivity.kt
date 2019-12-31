@@ -1,9 +1,11 @@
 package com.jxbn.kaolatt.ui.activity
 
 import com.jxbn.kaolatt.R
+import com.jxbn.kaolatt.R.id.*
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.base.BaseNoDataBean
 import com.jxbn.kaolatt.constants.Constant
+import com.jxbn.kaolatt.event.RefreshNumEvent
 import com.jxbn.kaolatt.event.RefreshOrderListEvent
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.glide.GlideUtils
@@ -46,6 +48,7 @@ class EvaluateActivity :BaseActivity(){
                    override fun onSucceed(t: BaseNoDataBean?) {
                        if (t?.code== Constant.SUCCESSED_CODE){
                            showToast("评价成功")
+                           EventBus.getDefault().post(RefreshNumEvent())
                            EventBus.getDefault().post(RefreshOrderListEvent())
                            finish()
                        }else{

@@ -4,11 +4,13 @@ import android.content.Intent
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.event.PayResultEvent
+import com.jxbn.kaolatt.event.RefreshNumEvent
 import com.jxbn.kaolatt.pay.AlipayUtils
 import com.jxbn.kaolatt.pay.WXPayUtil
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_pay.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -72,6 +74,7 @@ class PayActivity : BaseActivity() {
     fun payResult(event: PayResultEvent) {
         when(event.type){
             1->{//支付成功
+                EventBus.getDefault().post(RefreshNumEvent())//刷新待收货
                 val intent = Intent(this@PayActivity, PaySuccessActivity::class.java)
                 intent.putExtra("money",money)
                 intent.putExtra("oid",oid)

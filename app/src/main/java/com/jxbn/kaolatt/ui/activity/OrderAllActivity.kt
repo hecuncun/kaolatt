@@ -11,14 +11,16 @@ import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.base.BaseNoDataBean
 import com.jxbn.kaolatt.bean.OrderListBean
 import com.jxbn.kaolatt.constants.Constant
+import com.jxbn.kaolatt.event.RefreshNumEvent
 import com.jxbn.kaolatt.event.RefreshOrderListEvent
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.net.CallbackListObserver
 import com.jxbn.kaolatt.net.SLMRetrofit
 import com.jxbn.kaolatt.net.ThreadSwitchTransformer
 import com.jxbn.kaolatt.widget.LoadingView
-import kotlinx.android.synthetic.main.activity_coupon.*
+import kotlinx.android.synthetic.main.fragment_shopping_cart.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -163,6 +165,7 @@ class OrderAllActivity : BaseActivity() {
                                 override fun onSucceed(t: BaseNoDataBean?) {
                                     if (t?.code==Constant.SUCCESSED_CODE){
                                         showToast("确认收货成功")
+                                        EventBus.getDefault().post(RefreshNumEvent())
                                         refreshData()
                                     }else{
                                         showToast("确认收货失败:${t?.message}")
@@ -189,6 +192,7 @@ class OrderAllActivity : BaseActivity() {
                                 override fun onSucceed(t: BaseNoDataBean?) {
                                     if (t?.code == Constant.SUCCESSED_CODE) {
                                         showToast("删除订单成功")
+                                        EventBus.getDefault().post(RefreshNumEvent())
                                         refreshData()
                                     } else {
                                         showToast("删除订单失败:${t?.message}")

@@ -7,6 +7,7 @@ import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.bean.UserDetailBean
 import com.jxbn.kaolatt.constants.Constant
 import com.jxbn.kaolatt.event.LoginEvent
+import com.jxbn.kaolatt.event.RefreshNumEvent
 import com.jxbn.kaolatt.event.UpdateInfoEvent
 import com.jxbn.kaolatt.ext.startActivityCheckLogin
 import com.jxbn.kaolatt.glide.GlideUtils
@@ -132,5 +133,10 @@ class MineFragment : BaseFragment() {
 
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+     fun refreshNum(e:RefreshNumEvent){
+        initWaitNum()
+    }
 
 }

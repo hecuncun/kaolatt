@@ -10,6 +10,7 @@ import com.jxbn.kaolatt.event.PayResultEvent
 import com.jxbn.kaolatt.event.RefreshCarEvent
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.ui.activity.ConfirmOrderActivity
+import com.jxbn.kaolatt.ui.activity.GoodsDetailActivity
 import com.jxbn.kaolatt.ui.activity.LoginActivity
 import com.jxbn.kaolatt.widget.LogoutDialog
 import com.lhzw.bluetooth.base.BaseFragment
@@ -162,6 +163,13 @@ class ShoppingCartFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(activity)
             adapter = cartListAdapter
         }
+        cartListAdapter.setOnItemClickListener { adapter, view, position ->
+            val bean =  adapter.data[position] as CartBean
+            val intent = Intent(activity, GoodsDetailActivity::class.java)
+            intent.putExtra("gid",bean.goodsId)
+            startActivity(intent)
+        }
+
         cartListAdapter.setOnItemChildClickListener { adapter, view, position ->
             val cartBean = (adapter.getItem(position) as CartBean)
             when (view.id) {

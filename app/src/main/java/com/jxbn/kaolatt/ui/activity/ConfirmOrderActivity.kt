@@ -11,6 +11,7 @@ import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.bean.*
 import com.jxbn.kaolatt.constants.Constant
 import com.jxbn.kaolatt.event.PayResultEvent
+import com.jxbn.kaolatt.event.RefreshNumEvent
 import com.jxbn.kaolatt.event.SetDefaultAddressEvent
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.net.CallbackListObserver
@@ -22,6 +23,7 @@ import com.jxbn.kaolatt.widget.MyBottomListDialog
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_confirm_order.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -183,6 +185,8 @@ class ConfirmOrderActivity : BaseActivity() {
                     Logger.e("创建成功")
                     when(t?.code){
                         Constant.SUCCESSED_CODE->{
+                            //刷新我的页面待付款
+                            EventBus.getDefault().post(RefreshNumEvent())
                             Logger.e("oid==${t.data.oid}")
                             showToast("创建成功")
                             score-=integralNum//扣积分

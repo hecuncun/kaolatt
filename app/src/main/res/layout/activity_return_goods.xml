@@ -143,24 +143,24 @@
                 android:text="商品保质期超时"
                 android:textColor="@color/text_color_666666"
                 android:textSize="@dimen/text_size_normal"/>
-            <RadioButton
-                android:id="@+id/r_3"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:text="颜色/大小/尺码不符（未使用）"
-                android:textColor="@color/text_color_666666"
-                android:textSize="@dimen/text_size_normal"/>
-            <RadioButton
-                android:id="@+id/r_4"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:text="型号/款式不符（未使用）"
-                android:textColor="@color/text_color_666666"
-                android:textSize="@dimen/text_size_normal"/>
+            <!--<RadioButton-->
+                <!--android:id="@+id/r_3"-->
+                <!--android:layout_marginTop="@dimen/dp_10"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="70dp"-->
+                <!--android:text="颜色/大小/尺码不符（未使用）"-->
+                <!--android:textColor="@color/text_color_666666"-->
+                <!--android:textSize="@dimen/text_size_normal"/>-->
+            <!--<RadioButton-->
+                <!--android:id="@+id/r_4"-->
+                <!--android:layout_marginTop="@dimen/dp_10"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="70dp"-->
+                <!--android:text="型号/款式不符（未使用）"-->
+                <!--android:textColor="@color/text_color_666666"-->
+                <!--android:textSize="@dimen/text_size_normal"/>-->
         </RadioGroup>
 
         <TextView
@@ -203,6 +203,7 @@
                 android:textSize="13sp"/>
 
             <TextView
+                android:id="@+id/tv_call"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp_10"

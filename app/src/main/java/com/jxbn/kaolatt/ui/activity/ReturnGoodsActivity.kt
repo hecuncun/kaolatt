@@ -16,6 +16,7 @@ import com.jxbn.kaolatt.net.CallbackListObserver
 import com.jxbn.kaolatt.net.CallbackObserver
 import com.jxbn.kaolatt.net.SLMRetrofit
 import com.jxbn.kaolatt.net.ThreadSwitchTransformer
+import com.jxbn.kaolatt.utils.CallPhoneUtil
 import com.jxbn.kaolatt.widget.LoadingView
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
@@ -88,22 +89,44 @@ class ReturnGoodsActivity : BaseActivity() {
 
     private var pic =""
     override fun initListener() {
+        tv_call.setOnClickListener {
+            CallPhoneUtil.callPhone(this@ReturnGoodsActivity,"400-6633998")
+        }
         tv_return.setOnClickListener {
             Intent(this@ReturnGoodsActivity,ReturnAgreementActivity::class.java).run {
                 startActivity(this)
             }
         }
-        tv_confirm.setOnClickListener {
-        var content = ""
-            when(rg_reason.checkedRadioButtonId){
-                R.id.r_1->{content="商品破损（个人原因除外）"}
-                R.id.r_2->{content="商品保质期超时"}
-                R.id.r_3->{content="颜色/大小/尺码不符（未使用）"}
-                R.id.r_4->{content="型号/款式不符（未使用）"}
+        rg_type.setOnCheckedChangeListener { radioGroup, checkedId ->
+            when(checkedId){
+                R.id.rg_btn_1->{r_1.text="商品破损（个人原因除外）"
+                    r_2.text="商品保质期超时" }
+                R.id.rg_btn_2->{  r_1.text="颜色/大小/尺码不符（未使用）"
+                    r_2.text="型号/款式不符（未使用）"
             }
+        }
+        }
+        tv_confirm.setOnClickListener {
 
-        val type =   if (rg_type.checkedRadioButtonId==R.id.rg_btn_1) 1 else 2
 
+            val type =   if (rg_type.checkedRadioButtonId==R.id.rg_btn_1) 1 else 2
+            var content = ""
+            when(rg_reason.checkedRadioButtonId){
+                R.id.r_1->{ if (type==1){
+                    content="商品破损（个人原因除外）"
+                }else{
+                    content="颜色/大小/尺码不符（未使用）"
+                }
+                }
+
+                R.id.r_2->{
+                    if (type==1){
+                        content="商品保质期超时"
+                    }else{
+                        content="颜色/大小/尺码不符（未使用）"
+                    }
+                }
+            }
 
           if (pic.isNotEmpty()){
               val returnOrderCall = SLMRetrofit.getInstance().api.returnOrderCall(uid, oid, type, content, pic)
