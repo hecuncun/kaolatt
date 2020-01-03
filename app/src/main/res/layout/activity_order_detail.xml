@@ -11,115 +11,122 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar"/>
 
-        <com.zyp.cardview.YcCardView
-            android:layout_width="match_parent"
-            android:layout_height="69dp"
-            android:layout_margin="@dimen/dp_10"
-            app:cardElevation="@dimen/dp_2"
-            app:ycCardBackgroundColor="@color/white"
-            app:ycCardCornerRadius="@dimen/dp_6"
-            app:ycStartShadowColor="@color/colorAccent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_state"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="等待买家付款"
-                    android:textSize="15sp"/>
-
-                <TextView
-                    android:id="@+id/tv_desc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="3天后自动关闭"
-                    android:textSize="13sp"/>
-            </LinearLayout>
-
-        </com.zyp.cardview.YcCardView>
+    <com.zyp.cardview.YcCardView
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:layout_margin="@dimen/dp_10"
+        app:cardElevation="@dimen/dp_2"
+        app:ycCardBackgroundColor="@color/white"
+        app:ycCardCornerRadius="@dimen/dp_6"
+        app:ycStartShadowColor="@color/colorAccent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="等待买家付款"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="3天后自动关闭"
+                android:textSize="13sp"/>
+        </LinearLayout>
+
+    </com.zyp.cardview.YcCardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="34dp"
+                android:paddingTop="@dimen/dp_13"
+                android:text="收货人:飞机"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="26dp"
+                android:paddingBottom="@dimen/dp_13"
+                android:paddingTop="@dimen/dp_13"
+                android:text="13456325895"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_name"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:drawableLeft="@mipmap/coordinates"
+                android:drawablePadding="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_13"
+                android:text="收货地址 : 北京昌平区回龙观"
+                android:textSize="14sp"/>
+
+            <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="@dimen/dp_10"-->
+            <!--android:src="@mipmap/right_arrow"/>-->
+
+        </RelativeLayout>
+
+        <View
+            style="@style/horizontalGrayLine"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"/>
+        </RelativeLayout>
+
+
+        <View
+            style="@style/horizontalGrayLine"/>
+
+        <LinearLayout
+            android:id="@+id/detail_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_10">
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="@color/white">
-
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="34dp"
-                    android:paddingTop="@dimen/dp_13"
-                    android:text="收货人:飞机"
-                    android:textSize="15sp"/>
-
-                <TextView
-                    android:id="@+id/tv_phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="26dp"
-                    android:paddingBottom="@dimen/dp_13"
-                    android:paddingTop="@dimen/dp_13"
-                    android:text="13456325895"
-                    android:textSize="15sp"/>
-
-                <TextView
-                    android:id="@+id/tv_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_name"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:drawableLeft="@mipmap/coordinates"
-                    android:drawablePadding="@dimen/dp_15"
-                    android:paddingTop="@dimen/dp_13"
-                    android:text="收货地址 : 北京昌平区回龙观"
-                    android:textSize="14sp"/>
-
-                <!--<ImageView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:layout_marginRight="@dimen/dp_10"-->
-                <!--android:src="@mipmap/right_arrow"/>-->
-
-            </RelativeLayout>
-
-            <View
-                style="@style/horizontalGrayLine"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="none"/>
-            </RelativeLayout>
-
-
-            <View
-                style="@style/horizontalGrayLine"/>
+            android:visibility="visible">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -215,6 +222,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tv_pay_state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_5"
@@ -236,6 +244,62 @@
             <View style="@style/horizontalGrayLine"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/return_container"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="退货原因"
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/text_size_normal"/>
+
+                <TextView
+                    android:id="@+id/tv_reason"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="买错了"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="退款金额"
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/text_size_normal"/>
+
+                <TextView
+                    android:id="@+id/tv_return_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="520"/>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </LinearLayout>
         <TextView
             android:id="@+id/tv_order_no"
             android:layout_width="match_parent"

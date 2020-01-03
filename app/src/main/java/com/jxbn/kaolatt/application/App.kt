@@ -14,6 +14,7 @@ import com.orhanobut.logger.PrettyFormatStrategy
 import com.simple.spiderman.SpiderMan
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
+import com.tencent.bugly.crashreport.CrashReport
 import org.litepal.LitePal
 import kotlin.properties.Delegates
 
@@ -50,6 +51,9 @@ class App : MultiDexApplication() {
         initLoggerConfig()
         //初始化数据库
         LitePal.initialize(this)
+
+        //BUGly初始化
+        CrashReport.initCrashReport(applicationContext, "6ed7ce60df", false)
     }
 
     private fun setupLeakCanary(): RefWatcher? {

@@ -226,6 +226,7 @@ class OrderAllActivity : BaseActivity() {
                                     if (t?.code == Constant.SUCCESSED_CODE) {
                                         showToast("取消订单成功")
                                         //刷新订单
+                                        EventBus.getDefault().post(RefreshNumEvent())
                                         refreshData()
 
                                     } else {

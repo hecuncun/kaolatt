@@ -7,10 +7,11 @@ import java.util.List;
  */
 public class OrderDetailBean {
 
+
     /**
      * code : 10001
      * message : 成功
-     * data : {"oid":"55a5585bcccf40bf93ac8916edd3c133","uid":"fb22796b5c1a48c38c42d0a2034ba27e","orderNo":"20191213205241403","num":12,"priceTotalGood":1056,"priceTotalOrder":1053.45,"priceInteger":2.55,"priceCard":0,"cardId":"","status":1,"isdelete":0,"remark1":"53e73677761d41f99522fa58ccd97f19","remark2":"","remark3":"255","remark4":"","createtime":"2019-12-13 20:52:41","updateid":"fb22796b5c1a48c38c42d0a2034ba27e","updatetime":"2019-12-13 20:52:41","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","orderGoodslList":[{"ogid":"8e45b44093e0404a9843a6318d4d6aa6","picture":"/uploadtemp/image/20180318/20180318225610_961.jpg,/uploadtemp/image/20180318/20180318225713_835.jpg","name":"物品1","priceReal":88,"numTotal":10,"isdelete":0,"specs":"颜色-白色,外观-清颜","remark2":"55a5585bcccf40bf93ac8916edd3c133","remark3":"123","remark4":"","createid":"fb22796b5c1a48c38c42d0a2034ba27e","createtime":"2019-12-13 20:52:41","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"8e45b44093e0404a9843a6318d4d6aa6"},{"ogid":"f62cad46aad74912962b2fca74b4a3d0","picture":"/uploadtemp/image/20180318/20180318225610_961.jpg,/uploadtemp/image/20180318/20180318225713_835.jpg","name":"物品1","priceReal":88,"numTotal":2,"isdelete":0,"specs":"颜色-白色,外观-蓝秀","remark2":"55a5585bcccf40bf93ac8916edd3c133","remark3":"123","remark4":null,"createid":"fb22796b5c1a48c38c42d0a2034ba27e","createtime":"2019-12-13 20:52:41","startIndex":0,"pageSize":0,"orderBy":null,"fieldName":null,"startDate":null,"endDate":null,"myId":"f62cad46aad74912962b2fca74b4a3d0"}],"userAddress":{"magorid":"53e73677761d41f99522fa58ccd97f19","name":"张三","phone":"15210010568","card":"220221199300000000","area":"北京-北京市-昌平区","areaDetail":"回龙观东大街","remark4":"1","isdelete":0,"createid":"fb22796b5c1a48c38c42d0a2034ba27e","createtime":"2019-12-13 20:27:32","updateid":"fb22796b5c1a48c38c42d0a2034ba27e","updatetime":"2019-12-13 20:27:32","startIndex":0,"pageSize":0,"orderBy":null,"fieldName":null,"startDate":null,"endDate":null,"myId":"53e73677761d41f99522fa58ccd97f19"},"myId":"55a5585bcccf40bf93ac8916edd3c133"}
+     * data : {"oid":"c39dd442369d496b80954769e5f60c50","uid":"dc53f0e607a84cc6ada18e9b04c305cf","orderNo":"20191229160911089","num":1,"priceTotalGood":0.01,"priceTotalOrder":0.01,"priceInteger":0,"priceCard":0,"cardId":"","status":6,"isdelete":0,"remark1":"d132f72aaa97499282f928a703f82b02","remark2":"","remark3":"0","remark4":"","createtime":"2019-12-29 16:09:10","updateid":"dc53f0e607a84cc6ada18e9b04c305cf","updatetime":"2019-12-31 09:36:51","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","orderGoodslList":[{"ogid":"576b0d231a0149f0879887f400a9a2da","picture":"/uploadtemp/image/2019/12/4cea32f1e4ac4809a4c1cdd20826dae8.jpg,/uploadtemp/image/2019/12/5b2703c8e19f40e4abeb2cce28c59110.jpg","name":"跑步机","priceReal":0.01,"numTotal":1,"isdelete":0,"specs":"颜色-红色","remark2":"c39dd442369d496b80954769e5f60c50","remark3":"123123","remark4":null,"createid":"dc53f0e607a84cc6ada18e9b04c305cf","createtime":"2019-12-29 16:09:10","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"576b0d231a0149f0879887f400a9a2da"}],"userAddress":{"magorid":"d132f72aaa97499282f928a703f82b02","name":"亚索","phone":"13569826875","card":"23558556666","area":"北京市-北京市-昌平区","areaDetail":"社区","remark4":"1","isdelete":0,"createid":"dc53f0e607a84cc6ada18e9b04c305cf","createtime":"2019-12-23 14:49:39","updateid":"dc53f0e607a84cc6ada18e9b04c305cf","updatetime":"2019-12-26 15:04:44","cardPhotoZ":"","cardPhotoF":"","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"d132f72aaa97499282f928a703f82b02"},"orderReturn":{"rid":"1b631440fcae478b9e1cb2fc65ebdd5a","oid":"c39dd442369d496b80954769e5f60c50","uid":"dc53f0e607a84cc6ada18e9b04c305cf","type":1,"reason":"商品破损（个人原因除外）","picture":"/uploadtemp/image/2019/12/d5124e68f6d24fbd8f56a72640dd1866.JPEG","returnMoney":"","remark":"","isdelete":0,"createtime":"2019-12-31 09:36:51","updateid":"dc53f0e607a84cc6ada18e9b04c305cf","updatetime":"2019-12-31 09:36:51","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"1b631440fcae478b9e1cb2fc65ebdd5a"},"userPhone":"13753638431","nickname":"辣么帅","myId":"c39dd442369d496b80954769e5f60c50"}
      */
 
     private String code;
@@ -43,33 +44,36 @@ public class OrderDetailBean {
 
     public static class DataBean {
         /**
-         * oid : 55a5585bcccf40bf93ac8916edd3c133
-         * uid : fb22796b5c1a48c38c42d0a2034ba27e
-         * orderNo : 20191213205241403
-         * num : 12
-         * priceTotalGood : 1056
-         * priceTotalOrder : 1053.45
-         * priceInteger : 2.55
+         * oid : c39dd442369d496b80954769e5f60c50
+         * uid : dc53f0e607a84cc6ada18e9b04c305cf
+         * orderNo : 20191229160911089
+         * num : 1
+         * priceTotalGood : 0.01
+         * priceTotalOrder : 0.01
+         * priceInteger : 0
          * priceCard : 0
          * cardId :
-         * status : 1
+         * status : 6
          * isdelete : 0
-         * remark1 : 53e73677761d41f99522fa58ccd97f19
+         * remark1 : d132f72aaa97499282f928a703f82b02
          * remark2 :
-         * remark3 : 255
+         * remark3 : 0
          * remark4 :
-         * createtime : 2019-12-13 20:52:41
-         * updateid : fb22796b5c1a48c38c42d0a2034ba27e
-         * updatetime : 2019-12-13 20:52:41
+         * createtime : 2019-12-29 16:09:10
+         * updateid : dc53f0e607a84cc6ada18e9b04c305cf
+         * updatetime : 2019-12-31 09:36:51
          * startIndex : 0
          * pageSize : 0
          * orderBy :
          * fieldName :
          * startDate :
          * endDate :
-         * orderGoodslList : [{"ogid":"8e45b44093e0404a9843a6318d4d6aa6","picture":"/uploadtemp/image/20180318/20180318225610_961.jpg,/uploadtemp/image/20180318/20180318225713_835.jpg","name":"物品1","priceReal":88,"numTotal":10,"isdelete":0,"specs":"颜色-白色,外观-清颜","remark2":"55a5585bcccf40bf93ac8916edd3c133","remark3":"123","remark4":"","createid":"fb22796b5c1a48c38c42d0a2034ba27e","createtime":"2019-12-13 20:52:41","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"8e45b44093e0404a9843a6318d4d6aa6"},{"ogid":"f62cad46aad74912962b2fca74b4a3d0","picture":"/uploadtemp/image/20180318/20180318225610_961.jpg,/uploadtemp/image/20180318/20180318225713_835.jpg","name":"物品1","priceReal":88,"numTotal":2,"isdelete":0,"specs":"颜色-白色,外观-蓝秀","remark2":"55a5585bcccf40bf93ac8916edd3c133","remark3":"123","remark4":null,"createid":"fb22796b5c1a48c38c42d0a2034ba27e","createtime":"2019-12-13 20:52:41","startIndex":0,"pageSize":0,"orderBy":null,"fieldName":null,"startDate":null,"endDate":null,"myId":"f62cad46aad74912962b2fca74b4a3d0"}]
-         * userAddress : {"magorid":"53e73677761d41f99522fa58ccd97f19","name":"张三","phone":"15210010568","card":"220221199300000000","area":"北京-北京市-昌平区","areaDetail":"回龙观东大街","remark4":"1","isdelete":0,"createid":"fb22796b5c1a48c38c42d0a2034ba27e","createtime":"2019-12-13 20:27:32","updateid":"fb22796b5c1a48c38c42d0a2034ba27e","updatetime":"2019-12-13 20:27:32","startIndex":0,"pageSize":0,"orderBy":null,"fieldName":null,"startDate":null,"endDate":null,"myId":"53e73677761d41f99522fa58ccd97f19"}
-         * myId : 55a5585bcccf40bf93ac8916edd3c133
+         * orderGoodslList : [{"ogid":"576b0d231a0149f0879887f400a9a2da","picture":"/uploadtemp/image/2019/12/4cea32f1e4ac4809a4c1cdd20826dae8.jpg,/uploadtemp/image/2019/12/5b2703c8e19f40e4abeb2cce28c59110.jpg","name":"跑步机","priceReal":0.01,"numTotal":1,"isdelete":0,"specs":"颜色-红色","remark2":"c39dd442369d496b80954769e5f60c50","remark3":"123123","remark4":null,"createid":"dc53f0e607a84cc6ada18e9b04c305cf","createtime":"2019-12-29 16:09:10","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"576b0d231a0149f0879887f400a9a2da"}]
+         * userAddress : {"magorid":"d132f72aaa97499282f928a703f82b02","name":"亚索","phone":"13569826875","card":"23558556666","area":"北京市-北京市-昌平区","areaDetail":"社区","remark4":"1","isdelete":0,"createid":"dc53f0e607a84cc6ada18e9b04c305cf","createtime":"2019-12-23 14:49:39","updateid":"dc53f0e607a84cc6ada18e9b04c305cf","updatetime":"2019-12-26 15:04:44","cardPhotoZ":"","cardPhotoF":"","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"d132f72aaa97499282f928a703f82b02"}
+         * orderReturn : {"rid":"1b631440fcae478b9e1cb2fc65ebdd5a","oid":"c39dd442369d496b80954769e5f60c50","uid":"dc53f0e607a84cc6ada18e9b04c305cf","type":1,"reason":"商品破损（个人原因除外）","picture":"/uploadtemp/image/2019/12/d5124e68f6d24fbd8f56a72640dd1866.JPEG","returnMoney":"","remark":"","isdelete":0,"createtime":"2019-12-31 09:36:51","updateid":"dc53f0e607a84cc6ada18e9b04c305cf","updatetime":"2019-12-31 09:36:51","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"1b631440fcae478b9e1cb2fc65ebdd5a"}
+         * userPhone : 13753638431
+         * nickname : 辣么帅
+         * myId : c39dd442369d496b80954769e5f60c50
          */
 
         private String oid;
@@ -78,7 +82,7 @@ public class OrderDetailBean {
         private int num;
         private double priceTotalGood;
         private double priceTotalOrder;
-        private double priceInteger;
+        private int priceInteger;
         private int priceCard;
         private String cardId;
         private int status;
@@ -97,6 +101,9 @@ public class OrderDetailBean {
         private String startDate;
         private String endDate;
         private UserAddressBean userAddress;
+        private OrderReturnBean orderReturn;
+        private String userPhone;
+        private String nickname;
         private String myId;
         private List<OrderGoodslListBean> orderGoodslList;
 
@@ -148,11 +155,11 @@ public class OrderDetailBean {
             this.priceTotalOrder = priceTotalOrder;
         }
 
-        public double getPriceInteger() {
+        public int getPriceInteger() {
             return priceInteger;
         }
 
-        public void setPriceInteger(double priceInteger) {
+        public void setPriceInteger(int priceInteger) {
             this.priceInteger = priceInteger;
         }
 
@@ -300,6 +307,30 @@ public class OrderDetailBean {
             this.userAddress = userAddress;
         }
 
+        public OrderReturnBean getOrderReturn() {
+            return orderReturn;
+        }
+
+        public void setOrderReturn(OrderReturnBean orderReturn) {
+            this.orderReturn = orderReturn;
+        }
+
+        public String getUserPhone() {
+            return userPhone;
+        }
+
+        public void setUserPhone(String userPhone) {
+            this.userPhone = userPhone;
+        }
+
+        public String getNickname() {
+            return nickname;
+        }
+
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
+        }
+
         public String getMyId() {
             return myId;
         }
@@ -318,25 +349,27 @@ public class OrderDetailBean {
 
         public static class UserAddressBean {
             /**
-             * magorid : 53e73677761d41f99522fa58ccd97f19
-             * name : 张三
-             * phone : 15210010568
-             * card : 220221199300000000
-             * area : 北京-北京市-昌平区
-             * areaDetail : 回龙观东大街
+             * magorid : d132f72aaa97499282f928a703f82b02
+             * name : 亚索
+             * phone : 13569826875
+             * card : 23558556666
+             * area : 北京市-北京市-昌平区
+             * areaDetail : 社区
              * remark4 : 1
              * isdelete : 0
-             * createid : fb22796b5c1a48c38c42d0a2034ba27e
-             * createtime : 2019-12-13 20:27:32
-             * updateid : fb22796b5c1a48c38c42d0a2034ba27e
-             * updatetime : 2019-12-13 20:27:32
+             * createid : dc53f0e607a84cc6ada18e9b04c305cf
+             * createtime : 2019-12-23 14:49:39
+             * updateid : dc53f0e607a84cc6ada18e9b04c305cf
+             * updatetime : 2019-12-26 15:04:44
+             * cardPhotoZ :
+             * cardPhotoF :
              * startIndex : 0
              * pageSize : 0
-             * orderBy : null
-             * fieldName : null
-             * startDate : null
-             * endDate : null
-             * myId : 53e73677761d41f99522fa58ccd97f19
+             * orderBy :
+             * fieldName :
+             * startDate :
+             * endDate :
+             * myId : d132f72aaa97499282f928a703f82b02
              */
 
             private String magorid;
@@ -351,12 +384,14 @@ public class OrderDetailBean {
             private String createtime;
             private String updateid;
             private String updatetime;
+            private String cardPhotoZ;
+            private String cardPhotoF;
             private int startIndex;
             private int pageSize;
-            private Object orderBy;
-            private Object fieldName;
-            private Object startDate;
-            private Object endDate;
+            private String orderBy;
+            private String fieldName;
+            private String startDate;
+            private String endDate;
             private String myId;
 
             public String getMagorid() {
@@ -455,6 +490,22 @@ public class OrderDetailBean {
                 this.updatetime = updatetime;
             }
 
+            public String getCardPhotoZ() {
+                return cardPhotoZ;
+            }
+
+            public void setCardPhotoZ(String cardPhotoZ) {
+                this.cardPhotoZ = cardPhotoZ;
+            }
+
+            public String getCardPhotoF() {
+                return cardPhotoF;
+            }
+
+            public void setCardPhotoF(String cardPhotoF) {
+                this.cardPhotoF = cardPhotoF;
+            }
+
             public int getStartIndex() {
                 return startIndex;
             }
@@ -471,35 +522,231 @@ public class OrderDetailBean {
                 this.pageSize = pageSize;
             }
 
-            public Object getOrderBy() {
+            public String getOrderBy() {
                 return orderBy;
             }
 
-            public void setOrderBy(Object orderBy) {
+            public void setOrderBy(String orderBy) {
                 this.orderBy = orderBy;
             }
 
-            public Object getFieldName() {
+            public String getFieldName() {
                 return fieldName;
             }
 
-            public void setFieldName(Object fieldName) {
+            public void setFieldName(String fieldName) {
                 this.fieldName = fieldName;
             }
 
-            public Object getStartDate() {
+            public String getStartDate() {
                 return startDate;
             }
 
-            public void setStartDate(Object startDate) {
+            public void setStartDate(String startDate) {
                 this.startDate = startDate;
             }
 
-            public Object getEndDate() {
+            public String getEndDate() {
                 return endDate;
             }
 
-            public void setEndDate(Object endDate) {
+            public void setEndDate(String endDate) {
+                this.endDate = endDate;
+            }
+
+            public String getMyId() {
+                return myId;
+            }
+
+            public void setMyId(String myId) {
+                this.myId = myId;
+            }
+        }
+
+        public static class OrderReturnBean {
+            /**
+             * rid : 1b631440fcae478b9e1cb2fc65ebdd5a
+             * oid : c39dd442369d496b80954769e5f60c50
+             * uid : dc53f0e607a84cc6ada18e9b04c305cf
+             * type : 1
+             * reason : 商品破损（个人原因除外）
+             * picture : /uploadtemp/image/2019/12/d5124e68f6d24fbd8f56a72640dd1866.JPEG
+             * returnMoney :
+             * remark :
+             * isdelete : 0
+             * createtime : 2019-12-31 09:36:51
+             * updateid : dc53f0e607a84cc6ada18e9b04c305cf
+             * updatetime : 2019-12-31 09:36:51
+             * startIndex : 0
+             * pageSize : 0
+             * orderBy :
+             * fieldName :
+             * startDate :
+             * endDate :
+             * myId : 1b631440fcae478b9e1cb2fc65ebdd5a
+             */
+
+            private String rid;
+            private String oid;
+            private String uid;
+            private int type;
+            private String reason;
+            private String picture;
+            private String returnMoney;
+            private String remark;
+            private int isdelete;
+            private String createtime;
+            private String updateid;
+            private String updatetime;
+            private int startIndex;
+            private int pageSize;
+            private String orderBy;
+            private String fieldName;
+            private String startDate;
+            private String endDate;
+            private String myId;
+
+            public String getRid() {
+                return rid;
+            }
+
+            public void setRid(String rid) {
+                this.rid = rid;
+            }
+
+            public String getOid() {
+                return oid;
+            }
+
+            public void setOid(String oid) {
+                this.oid = oid;
+            }
+
+            public String getUid() {
+                return uid;
+            }
+
+            public void setUid(String uid) {
+                this.uid = uid;
+            }
+
+            public int getType() {
+                return type;
+            }
+
+            public void setType(int type) {
+                this.type = type;
+            }
+
+            public String getReason() {
+                return reason;
+            }
+
+            public void setReason(String reason) {
+                this.reason = reason;
+            }
+
+            public String getPicture() {
+                return picture;
+            }
+
+            public void setPicture(String picture) {
+                this.picture = picture;
+            }
+
+            public String getReturnMoney() {
+                return returnMoney;
+            }
+
+            public void setReturnMoney(String returnMoney) {
+                this.returnMoney = returnMoney;
+            }
+
+            public String getRemark() {
+                return remark;
+            }
+
+            public void setRemark(String remark) {
+                this.remark = remark;
+            }
+
+            public int getIsdelete() {
+                return isdelete;
+            }
+
+            public void setIsdelete(int isdelete) {
+                this.isdelete = isdelete;
+            }
+
+            public String getCreatetime() {
+                return createtime;
+            }
+
+            public void setCreatetime(String createtime) {
+                this.createtime = createtime;
+            }
+
+            public String getUpdateid() {
+                return updateid;
+            }
+
+            public void setUpdateid(String updateid) {
+                this.updateid = updateid;
+            }
+
+            public String getUpdatetime() {
+                return updatetime;
+            }
+
+            public void setUpdatetime(String updatetime) {
+                this.updatetime = updatetime;
+            }
+
+            public int getStartIndex() {
+                return startIndex;
+            }
+
+            public void setStartIndex(int startIndex) {
+                this.startIndex = startIndex;
+            }
+
+            public int getPageSize() {
+                return pageSize;
+            }
+
+            public void setPageSize(int pageSize) {
+                this.pageSize = pageSize;
+            }
+
+            public String getOrderBy() {
+                return orderBy;
+            }
+
+            public void setOrderBy(String orderBy) {
+                this.orderBy = orderBy;
+            }
+
+            public String getFieldName() {
+                return fieldName;
+            }
+
+            public void setFieldName(String fieldName) {
+                this.fieldName = fieldName;
+            }
+
+            public String getStartDate() {
+                return startDate;
+            }
+
+            public void setStartDate(String startDate) {
+                this.startDate = startDate;
+            }
+
+            public String getEndDate() {
+                return endDate;
+            }
+
+            public void setEndDate(String endDate) {
                 this.endDate = endDate;
             }
 
@@ -514,25 +761,25 @@ public class OrderDetailBean {
 
         public static class OrderGoodslListBean {
             /**
-             * ogid : 8e45b44093e0404a9843a6318d4d6aa6
-             * picture : /uploadtemp/image/20180318/20180318225610_961.jpg,/uploadtemp/image/20180318/20180318225713_835.jpg
-             * name : 物品1
-             * priceReal : 88
-             * numTotal : 10
+             * ogid : 576b0d231a0149f0879887f400a9a2da
+             * picture : /uploadtemp/image/2019/12/4cea32f1e4ac4809a4c1cdd20826dae8.jpg,/uploadtemp/image/2019/12/5b2703c8e19f40e4abeb2cce28c59110.jpg
+             * name : 跑步机
+             * priceReal : 0.01
+             * numTotal : 1
              * isdelete : 0
-             * specs : 颜色-白色,外观-清颜
-             * remark2 : 55a5585bcccf40bf93ac8916edd3c133
-             * remark3 : 123
-             * remark4 :
-             * createid : fb22796b5c1a48c38c42d0a2034ba27e
-             * createtime : 2019-12-13 20:52:41
+             * specs : 颜色-红色
+             * remark2 : c39dd442369d496b80954769e5f60c50
+             * remark3 : 123123
+             * remark4 : null
+             * createid : dc53f0e607a84cc6ada18e9b04c305cf
+             * createtime : 2019-12-29 16:09:10
              * startIndex : 0
              * pageSize : 0
              * orderBy :
              * fieldName :
              * startDate :
              * endDate :
-             * myId : 8e45b44093e0404a9843a6318d4d6aa6
+             * myId : 576b0d231a0149f0879887f400a9a2da
              */
 
             private String ogid;
@@ -544,7 +791,7 @@ public class OrderDetailBean {
             private String specs;
             private String remark2;
             private String remark3;
-            private String remark4;
+            private Object remark4;
             private String createid;
             private String createtime;
             private int startIndex;
@@ -627,11 +874,11 @@ public class OrderDetailBean {
                 this.remark3 = remark3;
             }
 
-            public String getRemark4() {
+            public Object getRemark4() {
                 return remark4;
             }
 
-            public void setRemark4(String remark4) {
+            public void setRemark4(Object remark4) {
                 this.remark4 = remark4;
             }
 

@@ -16,6 +16,7 @@ import com.jxbn.kaolatt.widget.LogoutDialog
 import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_shopping_cart.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.litepal.LitePal
@@ -98,10 +99,11 @@ class ShoppingCartFragment : BaseFragment() {
                                 //删除指定id的商品
                                 LitePal.delete<CartBean>(it.id)
                                 //删除完就刷新
-                                refreshList(RefreshCarEvent())
+                                //refreshList(RefreshCarEvent())
                                 tv_confirm.text="移除"
                             }
                     }
+                        EventBus.getDefault().post(RefreshCarEvent())
                     }else{
                         showToast("请先选中商品")
                     }

@@ -52,7 +52,7 @@ class OrderDetailActivity : BaseActivity() {
                        1->{ tv_btn_left.visibility = View.GONE
                             tv_btn_middle.text="取消订单"
                             tv_confirm_right.text="立即付款"
-
+                            tv_pay_state.text="需付款"
                             tv_state.text="等待买家付款 "
                             tv_desc.visibility=View.VISIBLE
                             tv_desc.text="3天后自动关闭"
@@ -62,7 +62,7 @@ class OrderDetailActivity : BaseActivity() {
                            tv_btn_left.text="查看物流"
                            tv_btn_middle.text="申请退换货"
                            tv_confirm_right.text="确认收货"
-
+                           tv_pay_state.text="已付款"
                            tv_state.text="等待买家收货 "
                            tv_desc.visibility=View.GONE
                        }
@@ -70,7 +70,7 @@ class OrderDetailActivity : BaseActivity() {
                            tv_btn_left.visibility = View.GONE
                            tv_btn_middle.text="申请退换货"
                            tv_confirm_right.text="立即评价"
-
+                           tv_pay_state.text="已付款"
                            tv_state.text="等待买家评价 "
                            tv_desc.visibility=View.GONE
                        }
@@ -78,7 +78,7 @@ class OrderDetailActivity : BaseActivity() {
                            tv_btn_left.visibility = View.GONE
                            tv_btn_middle.text="申请退换货"
                            tv_confirm_right.text="删除订单"
-
+                           tv_pay_state.text="已付款"
                            tv_state.text="订单已完成 "
                            tv_desc.visibility=View.GONE
                        }
@@ -86,17 +86,39 @@ class OrderDetailActivity : BaseActivity() {
                            tv_btn_left.visibility = View.GONE
                            tv_btn_middle.visibility = View.GONE
                            tv_confirm_right.visibility = View.GONE
-
+                           tv_pay_state.text="已付款"
                            tv_state.text="退货中 "
                            tv_desc.visibility=View.GONE
+
+                           detail_container.visibility=View.GONE
+                           return_container.visibility=View.VISIBLE
+
+                           tv_reason.text=t.data.orderReturn.reason
+                           tv_return_money.text="¥${t.data.orderReturn.returnMoney}"
                        }
                        7->{
                            tv_btn_left.visibility = View.GONE
                            tv_btn_middle.visibility = View.GONE
                            tv_confirm_right.visibility = View.GONE
-
+                           tv_pay_state.text="已付款"
                            tv_state.text="退货完成"
                            tv_desc.visibility=View.GONE
+                           tv_desc.visibility=View.GONE
+
+                           detail_container.visibility=View.VISIBLE
+                           return_container.visibility=View.GONE
+//                           tv_reason.text=t.data.orderReturn?.reason
+//                           tv_return_money.text="¥${t.data.orderReturn?.returnMoney}"
+                       }
+                       8->{
+                           tv_btn_left.visibility = View.GONE
+                           tv_btn_middle.visibility = View.GONE
+                           tv_confirm_right.visibility = View.GONE
+                           detail_container.visibility=View.VISIBLE
+                           return_container.visibility=View.GONE
+                           tv_pay_state.text="已付款"
+//                           tv_reason.text=t.data.orderReturn?.reason
+//                           tv_return_money.text="¥${t.data.orderReturn?.returnMoney}"
                        }
                        else->{
                            tv_btn_left.visibility = View.GONE

@@ -3,16 +3,21 @@ package com.jxbn.kaolatt.ui.activity
 import android.Manifest
 import android.content.Intent
 import android.support.design.bottomnavigation.LabelVisibilityMode
+import android.support.design.internal.BottomNavigationItemView
+import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.FragmentTransaction
 import android.view.KeyEvent
+import android.view.LayoutInflater
 import android.view.View
 import com.flyco.animation.BounceEnter.BounceTopEnter
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.base.BaseNoDataBean
+import com.jxbn.kaolatt.bean.CartBean
 import com.jxbn.kaolatt.bean.MsgListBean
 import com.jxbn.kaolatt.constants.Constant
+import com.jxbn.kaolatt.event.RefreshCarEvent
 import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.ext.startActivityCheckLogin
 import com.jxbn.kaolatt.net.CallbackListObserver
@@ -25,8 +30,12 @@ import com.jxbn.kaolatt.ui.fragment.SortFragment
 import com.jxbn.kaolatt.widget.TopMsgDialog
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.menu_badge.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.litepal.LitePal
+import org.litepal.extension.findAll
 
 
 class MainActivity : BaseActivity() {
@@ -42,6 +51,8 @@ class MainActivity : BaseActivity() {
     private var mShoppingCartFragment: ShoppingCartFragment? = null
     private var mMineFragment: MineFragment? = null
     private val PERMISS_REQUEST_CODE = 0x100
+
+    override fun useEventBus()=true
 
     override fun attachLayoutRes(): Int = R.layout.activity_main
 
@@ -59,6 +70,7 @@ class MainActivity : BaseActivity() {
         } else {
             requestPermission(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE), PERMISS_REQUEST_CODE)
         }
+        initCarNum(RefreshCarEvent())
         var unReadNum=0
         //初始化用户未读消息
         val unReadMsgCall = SLMRetrofit.getInstance().api.unReadMsgCall(uid)
@@ -111,12 +123,23 @@ class MainActivity : BaseActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (PERMISS_REQUEST_CODE == requestCode) {
             //先初始化一个用户对象
-          //  val user = PersonalInfoBean("野顽玩家", "60")
-           // user.save()
             LitePal.getDatabase()
+
         }
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+     fun initCarNum(event:RefreshCarEvent) {
+        val list =LitePal.findAll<CartBean>()
 
+
+        if (list.isEmpty()){
+            tv_car_num.visibility=View.GONE
+        }else{
+            tv_car_num.visibility=View.VISIBLE
+            tv_car_num.text = list.size.toString()
+        }
+
+    }
 
     override fun initView() {
 
@@ -136,7 +159,12 @@ class MainActivity : BaseActivity() {
             setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
         }
+        val childAt = bottom_navigation.getChildAt(0) as BottomNavigationMenuView
+        val  tab = childAt.getChildAt(2) as BottomNavigationItemView
 
+
+        val badge = LayoutInflater.from(this).inflate(R.layout.menu_badge, tab, false)
+        tab.addView(badge)
         showFragment(mIndex)
     }
 

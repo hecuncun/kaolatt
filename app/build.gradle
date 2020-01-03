@@ -12,6 +12,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true//分包
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -64,7 +65,8 @@ dependencies {
     //奔溃日志显示
     debugImplementation 'com.simple:spiderman:1.1.3'
     releaseImplementation 'com.simple:spiderman-no-op:1.1.3'
-
+    //bugly
+    implementation 'com.tencent.bugly:crashreport:latest.release'
     //日志库
     implementation 'com.orhanobut:logger:2.1.1'
     //EventBus

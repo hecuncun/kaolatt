@@ -231,7 +231,7 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:drawableLeft="@mipmap/icon_menu01"
                     android:drawablePadding="@dimen/dp_6"
                     android:padding="@dimen/dp_16"
