@@ -47,7 +47,7 @@ class ConfirmOrderActivity : BaseActivity() {
         OrderGoodsListAdapter()
     }
 
-    private var addressId: String? = null
+    private var addressId=""
     private var orderList = mutableListOf<CartBean>()
     private var totalMoney = 0.00
     private var numTotal = "0"
@@ -172,6 +172,10 @@ class ConfirmOrderActivity : BaseActivity() {
         }
       //todo 先下单  下单成功进入支付页
         tv_pay.setOnClickListener {
+            if (addressId.isEmpty()){
+                showToast("请先添加地址")
+                return@setOnClickListener
+            }
             //处理orderList 转化为json  OrderGoodsBean
             val list = mutableListOf<OrderGoodsBean>()
             orderList.forEach {
@@ -179,6 +183,7 @@ class ConfirmOrderActivity : BaseActivity() {
             }
             val json = ToJsonUtil.getInstance().toJson(list)
             Logger.e(json)
+
             val addOrderCall = SLMRetrofit.getInstance().api.addOrderCall(uid, addressId, couponId, integralNum, json)
             addOrderCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<AddOrderBean>(){
                 override fun onSucceed(t: AddOrderBean?) {

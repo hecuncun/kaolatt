@@ -5,7 +5,7 @@
               android:layout_marginTop="@dimen/dp_10"
               android:layout_marginLeft="@dimen/dp_10"
               android:background="@drawable/bg_white_round"
-              android:layout_height="229dp">
+              android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/iv_goods"
         android:layout_width="172dp"
@@ -14,12 +14,14 @@
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:ellipsize="end"
         android:textSize="14sp"
         android:paddingTop="@dimen/dp_10"
         android:paddingLeft="@dimen/dp_10"
         android:paddingRight="@dimen/dp_10"
         android:textColor="@color/text_color_gray"
-        android:text="兰蔻小黑瓶安瓶精华"/>
+        android:text="兰蔻小黑瓶安瓶精华兰蔻小黑瓶安瓶精华兰蔻小黑瓶安瓶精华兰蔻小黑瓶安瓶精华兰蔻小黑瓶安瓶精华"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

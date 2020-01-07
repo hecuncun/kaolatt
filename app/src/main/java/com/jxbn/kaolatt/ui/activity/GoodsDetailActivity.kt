@@ -174,7 +174,7 @@ class GoodsDetailActivity : BaseActivity() {
                     //产品参数
                     val listParam = t.data.goodsParamList
                     listParam.forEach {
-                        paramList.add(it.name + "                               " + it.info)
+                        paramList.add(it.name+","+it.info)
                     }
                     goodsInfoBottomDialog = GoodsInfoBottomDialog(this@GoodsDetailActivity, null, paramList)
 

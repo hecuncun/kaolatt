@@ -2,7 +2,6 @@ package com.jxbn.kaolatt.widget;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -55,9 +54,9 @@ public class GoodsInfoBottomDialog extends BottomBaseDialog<GoodsInfoBottomDialo
         listView.setAdapter(new CommonAdapter<String>(mContext, R.layout.item_select_list, data) {
             @Override
             protected void convert(ViewHolder viewHolder, String item, int position) {
-                String str = item;
-                viewHolder.setText(R.id.tv_content, str);
-                ((TextView)(viewHolder.getView(R.id.tv_content))).setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
+                String[] split = item.split(",");
+                viewHolder.setText(R.id.tv_name,split[0]);
+                viewHolder.setText(R.id.tv_info, split[1]);
             }
         });
         listView.setSelection(data.size() / 2);
