@@ -21,6 +21,7 @@ import com.jxbn.kaolatt.net.ThreadSwitchTransformer
 import com.jxbn.kaolatt.widget.SortEditDialog
 import kotlinx.android.synthetic.main.activity_search.*
 import org.litepal.LitePal
+import org.litepal.extension.find
 import kotlin.properties.Delegates
 
 /**
@@ -228,8 +229,11 @@ class SearchActivity : BaseActivity() {
                 return@setOnClickListener
             } else {
                 //入库
-                CommOperation.insert(OldTagBean(etName))
-                oldTagList.add(etName)
+                val list = LitePal.where("tag = ?", etName).find<OldTagBean>()
+                if (list.isEmpty()){
+                    CommOperation.insert(OldTagBean(etName))
+                    oldTagList.add(etName)
+                }
                 oldTagAdapter.clearAndAddAll(oldTagList)
                 if (oldTagList.isEmpty()) {
                     old_tag.visibility = View.GONE

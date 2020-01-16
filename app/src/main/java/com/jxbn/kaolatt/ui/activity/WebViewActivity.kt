@@ -4,9 +4,9 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.view.KeyEvent
 import android.webkit.WebSettings
-import android.webkit.WebView
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
+import com.jxbn.kaolatt.widget.MyWebView
 import kotlinx.android.synthetic.main.toolbar.*
 
 /**
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 class WebViewActivity :BaseActivity() {
     private var type = 0
     private var url =""
-    private var mWebView: WebView? = null
+    private var mWebView: MyWebView? = null
     override fun attachLayoutRes(): Int= R.layout.activity_webview
     override fun initData() {
 //        val bundle = intent.extras
@@ -76,7 +76,7 @@ class WebViewActivity :BaseActivity() {
         val settings = mWebView?.settings
         settings?.defaultTextEncodingName = "utf-8"
         settings?.javaScriptEnabled = true
-        settings?.setSupportZoom(true)
+        settings?.setSupportZoom(false)
         settings?.builtInZoomControls = true
         settings?.useWideViewPort = true
         settings?.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN

@@ -50,7 +50,7 @@ public class MyBottomListDialog extends BottomBaseDialog<MyBottomListDialog> {
                 CornerUtils.cornerDrawable(Color.parseColor("#FFFFFF"), dp2px(5)));
 
         //绑定适配器
-        listView.setAdapter(new CommonAdapter<String>(mContext, R.layout.item_select_list, data) {
+        listView.setAdapter(new CommonAdapter<String>(mContext, R.layout.item_select_list_coupon, data) {
             @Override
             protected void convert(ViewHolder viewHolder, String item, int position) {
                 String str = item;

@@ -51,6 +51,9 @@ class HomeFragment : BaseFragment() {
 
             override fun onScrollToEnd() {
                 currentPage++
+                if (total<1){
+                    tv_loading_tip.text="已全部加载完成"
+                }
                 if (currentPage > total) {
                     return
                 }
