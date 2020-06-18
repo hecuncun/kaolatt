@@ -146,6 +146,13 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
             public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
                 if (selectedList.size() > 0) {
                     mTab1 = (String) parent.getAdapter().getItem(selectedList.get(0));
+                    if (mBean.getMaskNum()==1){
+                        for (int i=0;i<mBean.getList().size();i++){
+                            if (mTab1.equals(mBean.getList().get(i).getName())){
+                                mTvPrice.setText("￥" + mBean.getList().get(i).getPrice());
+                            }
+                        }
+                    }
                 }
 
             }
@@ -155,6 +162,13 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
             public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
                 if (selectedList.size() > 0) {
                     mTab2 = (String) parent.getAdapter().getItem(selectedList.get(0));
+                    if (mBean.getMaskNum()==2){
+                        for (int i=0;i<mBean.getList().size();i++){
+                            if (mTab1.equals(mBean.getList().get(i).getName())){
+                                mTvPrice.setText("￥" + mBean.getList().get(i).getPrice());
+                            }
+                        }
+                    }
                 }
             }
         });
@@ -164,6 +178,13 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
             public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
                 if (selectedList.size() > 0) {
                     mTab3 = (String) parent.getAdapter().getItem(selectedList.get(0));
+                }
+                if (mBean.getMaskNum()==3){
+                    for (int i=0;i<mBean.getList().size();i++){
+                        if (mTab1.equals(mBean.getList().get(i).getName())){
+                            mTvPrice.setText("￥" + mBean.getList().get(i).getPrice());
+                        }
+                    }
                 }
             }
         });

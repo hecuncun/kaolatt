@@ -191,7 +191,15 @@ class HomeFragment : BaseFragment() {
         })
         xbanner.setOnItemClickListener { banner, model, view, position ->
            // showToast("点击$position")
-            jumpToWebViewActivity(bannerList[position].cpContent, 0)
+            if (bannerList[position].cpLink.isNullOrEmpty()){
+                jumpToWebViewActivity(bannerList[position].cpContent, 0)
+            }else{
+                val intent = Intent(activity, GoodsFamousActivity::class.java)
+                intent.putExtra("bcid",bannerList[position].cpLink)
+                intent.putExtra("picture",bannerList[position].cpPicture)
+                startActivity(intent)
+            }
+
 
         }
 

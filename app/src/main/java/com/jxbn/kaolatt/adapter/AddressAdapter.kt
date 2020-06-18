@@ -9,7 +9,7 @@ import com.jxbn.kaolatt.bean.AddressListBean
 /**
  * Created by heCunCun on 2019/12/10
  */
-class AddressAdapter : BaseQuickAdapter<AddressListBean.DataBean, BaseViewHolder>(R.layout.item_address_list) {
+class   AddressAdapter : BaseQuickAdapter<AddressListBean.DataBean, BaseViewHolder>(R.layout.item_address_list) {
     override fun convert(helper: BaseViewHolder, item: AddressListBean.DataBean?) {
         item ?: return
         helper.setText(R.id.tv_user_name, item.name)
