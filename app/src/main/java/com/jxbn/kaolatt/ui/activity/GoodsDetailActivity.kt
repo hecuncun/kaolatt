@@ -138,7 +138,7 @@ class GoodsDetailActivity : BaseActivity() {
                     }
                     val goodsMaskBean = GoodsMaskBean(desc,t.data.goodsSpecsList.size,Constant.BASE_URL + imgList[0], t.data.priceReal.toString(), t.data.salesVolume, maskName1, mask1, maskName2, mask2,maskName3,mask3,list)
                     maskDialog = MaskBottomDialog(this@GoodsDetailActivity, goodsMaskBean)
-                    maskDialog!!.setOnChoseListener(MaskBottomDialog.OnChoseListener { isAddCar, mask1, tab1, mask2, tab2,mask3,tab3, num ->
+                    maskDialog!!.setOnChoseListener(MaskBottomDialog.OnChoseListener { isAddCar, mask1, tab1, mask2, tab2,mask3,tab3, num,realPrice->
                        // showToast("addCar=$isAddCar,mask1=$mask1-tab1=$tab1,mask2=$mask2-tab2=$tab2,mask23=$mask3-tab3=$tab3,num=$num")
                         //todo 根据addCar 添加数据库  创建订单
                         var masks =when( t.data.goodsSpecsList.size){
@@ -151,7 +151,7 @@ class GoodsDetailActivity : BaseActivity() {
                             3->{"$mask1-$tab1,$mask2-$tab2,$mask3-$tab3"}
                             else->{"$mask1-$tab1,$mask2-$tab2,$mask3-$tab3"}
                         }
-                        val bean = CartBean(gid, imgList[0], t.data.name, masks, t.data.priceReal.toString(), num.toInt(), false)
+                        val bean = CartBean(gid, imgList[0], t.data.name, masks,realPrice, num.toInt(), false)
                         totalMoney=t.data.priceReal.times(num.toInt())
                         if (isAddCar) {//数据库添加
                             bean.save()
