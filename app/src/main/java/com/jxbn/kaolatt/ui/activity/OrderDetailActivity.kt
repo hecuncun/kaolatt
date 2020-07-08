@@ -41,7 +41,7 @@ class OrderDetailActivity : BaseActivity() {
             override fun onSucceed(t: OrderDetailBean?) {
                if (t?.code==Constant.SUCCESSED_CODE){
                    //快递信息
-                   if (t.data.express.isNotEmpty()){
+                   if (t.data.express!=null && t.data.express.isNotEmpty()){
                        expressBean = ToJsonUtil.fromJson<ExpressBean>(t.data.express, ExpressBean::class.java)
                    }
                    tv_name.text="收货人：${t.data.userAddress.name}"

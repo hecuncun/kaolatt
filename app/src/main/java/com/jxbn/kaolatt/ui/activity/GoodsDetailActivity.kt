@@ -152,7 +152,8 @@ class GoodsDetailActivity : BaseActivity() {
                             else->{"$mask1-$tab1,$mask2-$tab2,$mask3-$tab3"}
                         }
                         val bean = CartBean(gid, imgList[0], t.data.name, masks,realPrice, num.toInt(), false)
-                        totalMoney=t.data.priceReal.times(num.toInt())
+                       // totalMoney=t.data.priceReal.times(num.toInt())
+                        totalMoney=realPrice.toDouble().times(num.toInt())
                         if (isAddCar) {//数据库添加
                             bean.save()
                             initCarNum()
