@@ -124,7 +124,7 @@ public class BannerInfoBean {
         private String cpSerialNumber;
         private String cpTitle;
         private String cpContent;
-        private Object cpLink;
+        private String cpLink;
         private String cpPicture;
         private int cpIsDelete;
         private String cpCreateDate;
@@ -169,11 +169,11 @@ public class BannerInfoBean {
             this.cpContent = cpContent;
         }
 
-        public Object getCpLink() {
+        public String getCpLink() {
             return cpLink;
         }
 
-        public void setCpLink(Object cpLink) {
+        public void setCpLink(String cpLink) {
             this.cpLink = cpLink;
         }
 

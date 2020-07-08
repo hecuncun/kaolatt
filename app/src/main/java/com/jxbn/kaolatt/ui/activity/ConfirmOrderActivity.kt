@@ -80,7 +80,17 @@ class ConfirmOrderActivity : BaseActivity() {
                 if (t?.code== Constant.SUCCESSED_CODE){
                     couponList = t.data
                     couponList.forEach {
-                        list.add("满${it.valueMax}减${it.valueSubtraction}优惠券" )
+                        if (it.remark3.isNullOrEmpty()){
+                            list.add("满${it.valueMax}减${it.valueSubtraction}优惠券" )
+                        }else{
+                            for (item in orderList){//如果remark3字段有值 且和购物车某商品的一级分类id相同可以显示.
+                                if (it.remark3==item.goodsId){
+                                    list.add("满${it.valueMax}减${it.valueSubtraction}优惠券" )
+                                }
+                            }
+
+                        }
+
                     }
                     myBottomListDialog = MyBottomListDialog(this@ConfirmOrderActivity, null, list)
                 }

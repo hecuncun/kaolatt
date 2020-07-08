@@ -2,6 +2,7 @@ package com.jxbn.kaolatt.widget;
 
 import android.content.Context;
 import android.support.design.widget.BottomSheetDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -135,17 +136,37 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
 
         GlideUtils.showRound(mImageView, mBean.getImgUrl(), R.mipmap.pic_good, 8);
         mTvPrice.setText("￥" + mBean.getPrice());
+        mRealPrice=mBean.getPrice();
         mTvSaleNum.setText("累计销售" + mBean.getSaleNum() + "件");
 
 
     }
-
+   private String mRealPrice ="";
     private void initListener() {
         mFlowTab1.setOnTagSelectListener(new OnTagSelectListener() {
             @Override
             public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
                 if (selectedList.size() > 0) {
                     mTab1 = (String) parent.getAdapter().getItem(selectedList.get(0));
+                    if (mBean.getMaskNum()==1){
+                        for (int i=0;i<mBean.getList().size();i++){
+                            if (mTab1.equals(mBean.getList().get(i).getName())){
+                                mTvPrice.setText("￥" + mBean.getList().get(i).getPrice());
+                                mRealPrice=mBean.getList().get(i).getPrice();
+                                String desc="";
+                                if (TextUtils.isEmpty(mBean.getList().get(i).getStock())){
+                                    desc="无货";
+                                }
+//                                else if(Integer.parseInt(mBean.getList().get(i).getStock())==0){
+//                                    desc="无货";
+//                                }
+                                else{
+                                    desc="有货";
+                                }
+                                mTvDesc.setText(desc);
+                            }
+                        }
+                    }
                 }
 
             }
@@ -155,6 +176,25 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
             public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
                 if (selectedList.size() > 0) {
                     mTab2 = (String) parent.getAdapter().getItem(selectedList.get(0));
+                    if (mBean.getMaskNum()==2){
+                        for (int i=0;i<mBean.getList().size();i++){
+                            if (mTab2.equals(mBean.getList().get(i).getName())){
+                                mTvPrice.setText("￥" + mBean.getList().get(i).getPrice());
+                               mRealPrice = mBean.getList().get(i).getPrice();
+                                String desc="";
+                                if (TextUtils.isEmpty(mBean.getList().get(i).getStock())){
+                                    desc="无货";
+                                }
+//                                else if(Integer.parseInt(mBean.getList().get(i).getStock())==0){
+//                                    desc="无货";
+//                                }
+                                else{
+                                    desc="有货";
+                                }
+                                mTvDesc.setText(desc);
+                            }
+                        }
+                    }
                 }
             }
         });
@@ -165,6 +205,26 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
                 if (selectedList.size() > 0) {
                     mTab3 = (String) parent.getAdapter().getItem(selectedList.get(0));
                 }
+                if (mBean.getMaskNum()==3){
+                    for (int i=0;i<mBean.getList().size();i++){
+                        if (mTab3.equals(mBean.getList().get(i).getName())){
+                            mTvPrice.setText("￥" + mBean.getList().get(i).getPrice());
+                            mRealPrice = mBean.getList().get(i).getPrice();
+                            String desc="";
+                            if (TextUtils.isEmpty(mBean.getList().get(i).getStock())){
+                                desc="无货";
+                            }
+//                            else if(Integer.parseInt(mBean.getList().get(i).getStock())==0){
+//                                desc="无货";
+//                            }
+                            else{
+                                desc="有货";
+                            }
+                            mTvDesc.setText(desc);
+                        }
+                    }
+                }
+
             }
         });
 
@@ -185,19 +245,19 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
     public void onClick(View view) {
         if (view.getId() == R.id.tv_confirm) {
             if (mOnChoseListener != null) {
-                if(mBean.getMaskNum()>2 && mTab1!=null && mTab2!=null && mTab3!=null){
-                    mOnChoseListener.select(false, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3,mCounterView.getInitNum() + "");
+                if(mBean.getMaskNum()==3 && mTab1!=null && mTab2!=null && mTab3!=null){
+                    mOnChoseListener.select(false, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3,mCounterView.getInitNum() + "",mRealPrice);
                     dismiss();
                 }else if(mBean.getMaskNum()==2 && mTab1!=null && mTab2!=null){
-                    mOnChoseListener.select(false, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3,mCounterView.getInitNum() + "");
+                    mOnChoseListener.select(false, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3,mCounterView.getInitNum() + "",mRealPrice);
                     dismiss();
                 }else if (mBean.getMaskNum()==1&& mTab1!=null){
-                    mOnChoseListener.select(false, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3,mCounterView.getInitNum() + "");
+                    mOnChoseListener.select(false, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3,mCounterView.getInitNum() + "",mRealPrice);
                     dismiss();
                 }else if (mBean.getMaskNum()!=0){
                     ToastUtils.showShort("请选择规格");
                 }else {
-                    mOnChoseListener.select(false, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3,mCounterView.getInitNum() + "");
+                    mOnChoseListener.select(false, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3,mCounterView.getInitNum() + "",mRealPrice);
                     dismiss();
                 }
 
@@ -207,18 +267,18 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
             if (mOnChoseListener != null) {
 
                 if(mBean.getMaskNum()>2 && mTab1!=null && mTab2!=null && mTab3!=null){
-                    mOnChoseListener.select(true, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3, mCounterView.getInitNum() + "");
+                    mOnChoseListener.select(true, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3, mCounterView.getInitNum() + "",mRealPrice);
                     dismiss();
                 }else if(mBean.getMaskNum()==2 && mTab1!=null && mTab2!=null){
-                    mOnChoseListener.select(true, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3, mCounterView.getInitNum() + "");
+                    mOnChoseListener.select(true, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3, mCounterView.getInitNum() + "",mRealPrice);
                     dismiss();
                 }else if (mBean.getMaskNum()==1&& mTab1!=null){
-                    mOnChoseListener.select(true, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3, mCounterView.getInitNum() + "");
+                    mOnChoseListener.select(true, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3, mCounterView.getInitNum() + "",mRealPrice);
                     dismiss();
                 }else if (mBean.getMaskNum()!=0){
                     ToastUtils.showShort("请选择规格");
                 }else {
-                    mOnChoseListener.select(false, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3,mCounterView.getInitNum() + "");
+                    mOnChoseListener.select(false, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3,mCounterView.getInitNum() + "",mRealPrice);
                     dismiss();
                 }
 
@@ -227,18 +287,18 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
 
             if (mOnChoseListener != null) {
                 if(mBean.getMaskNum()>2 && mTab1!=null && mTab2!=null && mTab3!=null){
-                    mOnChoseListener.select(mIsAddCar, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3, mCounterView.getInitNum() + "");
+                    mOnChoseListener.select(mIsAddCar, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3, mCounterView.getInitNum() + "",mRealPrice);
                     dismiss();
                 }else if(mBean.getMaskNum()==2 && mTab1!=null && mTab2!=null){
-                    mOnChoseListener.select(mIsAddCar, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3, mCounterView.getInitNum() + "");
+                    mOnChoseListener.select(mIsAddCar, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3, mCounterView.getInitNum() + "",mRealPrice);
                     dismiss();
                 }else if (mBean.getMaskNum()==1&& mTab1!=null){
-                    mOnChoseListener.select(mIsAddCar, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3, mCounterView.getInitNum() + "");
+                    mOnChoseListener.select(mIsAddCar, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3, mCounterView.getInitNum() + "",mRealPrice);
                     dismiss();
                 }else if (mBean.getMaskNum()!=0){
                     ToastUtils.showShort("请选择规格");
                 }else {
-                    mOnChoseListener.select(false, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3,mCounterView.getInitNum() + "");
+                    mOnChoseListener.select(false, mBean.getMaskName1(), mTab1, mBean.getMaskName2(), mTab2,mBean.getMaskName3(), mTab3,mCounterView.getInitNum() + "",mRealPrice);
                     dismiss();
                 }
             }
@@ -250,7 +310,7 @@ public class MaskBottomDialog extends BottomSheetDialog implements View.OnClickL
     }
 
     public interface OnChoseListener {
-        void select(boolean isAddCar, String mask1, String tab1, String mask2, String tab2, String mask3, String tab3,String num);
+        void select(boolean isAddCar, String mask1, String tab1, String mask2, String tab2, String mask3, String tab3,String num,String realPrice);
     }
 
     public void setOnChoseListener(OnChoseListener onChoseListener) {

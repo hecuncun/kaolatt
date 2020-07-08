@@ -76,55 +76,57 @@ class GoodsDetailActivity : BaseActivity() {
 
                     //商品名
                     tv_name.text = t.data.name
-                    tv_price.text = "￥${t.data.priceReal}"
-                    tv_old_price.text = "￥${t.data.priceSecond}"
+                    tv_price.text = "¥${t.data.priceReal}"
+                    tv_old_price.text = "¥${t.data.priceSecond}"
                     tv_old_price.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG
                     tv_sale_num.text = "销量${t.data.salesVolume}"
-
+                   // val list:MutableList<GoodsDetailBean.DataBean.GoodsSpecsListBean.GoodsSpecsAttributeListBean>
+                    var list = mutableListOf<GoodsDetailBean.DataBean.GoodsSpecsListBean.GoodsSpecsAttributeListBean>()
                     //规格弹窗  最多显示三种规格
-                    val listMask = t.data.goodsSpecslList
+                    val listMask = t.data.goodsSpecsList
                     var maskName1 = ""
                     var maskName2 = ""
                     var maskName3= ""
                     if (listMask.size == 1) {
                         maskName1 = listMask[0].name
-                        val split = listMask[0].info.split(",")
+                        val split = listMask[0].goodsSpecsAttributeList
                         split.forEach {
-                            mask1.add(it)
+                            mask1.add(it.name)
                         }
+                        list=split
                         Logger.e("mask1==>$mask1")
                     } else if (listMask.size == 2) {
                         maskName1 = listMask[0].name
-                        val split1 = listMask[0].info.split(",")
+                        val split1 = listMask[0].goodsSpecsAttributeList
                         split1.forEach {
-                            mask1.add(it)
+                            mask1.add(it.name)
                         }
 
                         maskName2 = listMask[1].name
-                        val split2 = listMask[1].info.split(",")
+                        val split2 = listMask[1].goodsSpecsAttributeList
                         split2.forEach {
-                            mask2.add(it)
+                            mask2.add(it.name)
                         }
-
+                        list=split2
                     }else if (listMask.size>2){
                         maskName1 = listMask[0].name
-                        val split1 = listMask[0].info.split(",")
+                        val split1 = listMask[0].goodsSpecsAttributeList
                         split1.forEach {
-                            mask1.add(it)
+                            mask1.add(it.name)
                         }
 
                         maskName2 = listMask[1].name
-                        val split2 = listMask[1].info.split(",")
+                        val split2 = listMask[1].goodsSpecsAttributeList
                         split2.forEach {
-                            mask2.add(it)
+                            mask2.add(it.name)
                         }
 
                         maskName3 = listMask[2].name
-                        val split3 = listMask[2].info.split(",")
+                        val split3 = listMask[2].goodsSpecsAttributeList
                         split3.forEach {
-                            mask3.add(it)
+                            mask3.add(it.name)
                         }
-
+                        list=split3
                     }
                     var desc =""
                     if (t.data.numTotal==0 ){
@@ -134,19 +136,22 @@ class GoodsDetailActivity : BaseActivity() {
                     }else{
                         desc="有货"
                     }
-                    val goodsMaskBean = GoodsMaskBean(desc,t.data.goodsSpecslList.size,Constant.BASE_URL + imgList[0], t.data.priceReal.toString(), t.data.salesVolume, maskName1, mask1, maskName2, mask2,maskName3,mask3)
+                    val goodsMaskBean = GoodsMaskBean(desc,t.data.goodsSpecsList.size,Constant.BASE_URL + imgList[0], t.data.priceReal.toString(), t.data.salesVolume, maskName1, mask1, maskName2, mask2,maskName3,mask3,list)
                     maskDialog = MaskBottomDialog(this@GoodsDetailActivity, goodsMaskBean)
-                    maskDialog!!.setOnChoseListener(MaskBottomDialog.OnChoseListener { isAddCar, mask1, tab1, mask2, tab2,mask3,tab3, num ->
+                    maskDialog!!.setOnChoseListener(MaskBottomDialog.OnChoseListener { isAddCar, mask1, tab1, mask2, tab2,mask3,tab3, num,realPrice->
                        // showToast("addCar=$isAddCar,mask1=$mask1-tab1=$tab1,mask2=$mask2-tab2=$tab2,mask23=$mask3-tab3=$tab3,num=$num")
                         //todo 根据addCar 添加数据库  创建订单
-                        var masks =when( t.data.goodsSpecslList.size){
-                            0->{""}
-                            1->{"$mask1-$tab1"}
+                        var masks =when( t.data.goodsSpecsList.size){
+                                0->{""}
+                            1->{
+                                "$mask1-$tab1"
+
+                            }
                             2->{"$mask1-$tab1,$mask2-$tab2"}
                             3->{"$mask1-$tab1,$mask2-$tab2,$mask3-$tab3"}
                             else->{"$mask1-$tab1,$mask2-$tab2,$mask3-$tab3"}
                         }
-                        val bean = CartBean(gid, imgList[0], t.data.name, masks, t.data.priceReal.toString(), num.toInt(), false)
+                        val bean = CartBean(gid, imgList[0], t.data.name, masks,realPrice, num.toInt(), false)
                         totalMoney=t.data.priceReal.times(num.toInt())
                         if (isAddCar) {//数据库添加
                             bean.save()
@@ -178,7 +183,6 @@ class GoodsDetailActivity : BaseActivity() {
                     }
                     goodsInfoBottomDialog = GoodsInfoBottomDialog(this@GoodsDetailActivity, null, paramList)
 
-                    //goodsDetailBottomDialog = GoodsDetailBottomDialog(this@GoodsDetailActivity)
 
                     //WebView详情
                     mWebView?.loadDataWithBaseURL(null, getHtmlData(t.data.content), "text/html", "utf-8", null)
@@ -224,10 +228,7 @@ class GoodsDetailActivity : BaseActivity() {
     override fun initView() {
         initTab()
         initWeb()
-       // mWebView=findViewById(R.id.webView)
         initRecyclerView()
-        // initBanner()
-
         initCarNum()
 
     }
@@ -288,19 +289,13 @@ class GoodsDetailActivity : BaseActivity() {
     }
 
     private fun initBanner() {
-//        for (i in 0..3) {
-//            bannerList.add(BannerBean("https://icweiliimg6.pstatp.com/weili/l/799597196884705367.webp", "https://www.iqiyi.com/"))
-//        }
         xbanner.setBannerData(bannerList)
         xbanner.loadImage(XBanner.XBannerAdapter { banner, model, view, position ->
             //1、此处使用的Glide加载图片，可自行替换自己项目中的图片加载框架
             //2、返回的图片路径为Object类型，你只需要强转成你传输的类型就行，切记不要胡乱强转！
             GlideUtils.showRound(view as ImageView, (model as BannerBean).imgUrl, R.mipmap.pic_banner, 6)
         })
-//        xbanner.setOnItemClickListener { banner, model, view, position ->
-//            showToast("点击$position")
-//
-//        }
+
 
     }
 
@@ -379,10 +374,6 @@ class GoodsDetailActivity : BaseActivity() {
 
         }
     }
-
-
-    val js2Android = "yxbl_app"
-    private val webViewHeight: Int = 0
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun initWeb() {

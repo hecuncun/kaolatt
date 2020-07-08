@@ -64,6 +64,11 @@ class OrderAllActivity : BaseActivity() {
                 if (t?.code == Constant.SUCCESSED_CODE) {
                     list.addAll(t.data.rows)
                     total = t.data.total
+                    if(total==0){
+                        tv_no_data.visibility = View.VISIBLE
+                        loadingView?.dismiss()
+                        return
+                    }
                     if (type == 10) {//全部
                         orderAdapter.setNewData(list)
                     } else if (type == 2) {//待收货

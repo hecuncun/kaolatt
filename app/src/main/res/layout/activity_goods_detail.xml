@@ -91,6 +91,7 @@
                         android:textSize="23sp"/>
 
                     <TextView
+                        android:visibility="invisible"
                         android:id="@+id/tv_old_price"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

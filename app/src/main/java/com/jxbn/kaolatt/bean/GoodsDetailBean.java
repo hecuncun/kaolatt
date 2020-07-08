@@ -7,10 +7,11 @@ import java.util.List;
  */
 public class GoodsDetailBean {
 
+
     /**
      * code : 10001
      * message : 成功
-     * data : {"gid":"123","cid":"1-2","picture":"/uploadtemp/image/20180318/20180318225610_961.jpg,/uploadtemp/image/20180318/20180318225713_835.jpg","name":"物品1","priceReal":88,"priceSecond":128,"salesVolume":"0","content":"这个物品有点好","numTotal":0,"numRemainder":255,"exquisite":1,"isdelete":0,"remark1":"","remark2":"0","remark3":"","remark4":"","createid":"1","max":"","min":"","createtime":"2019-12-09 17:36:20","updateid":"1","updatetime":"2019-12-09 17:36:23","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","collectId":"aae347b61d564880a7a976ede22de04c","goodsSpecslList":[{"sid":"asdfsaf","gid":"123","isdelete":0,"name":"颜色","info":"白色,黑色,红色","remark3":"","remark4":"","createid":"1","createtime":"2019-12-10 17:58:26","updateid":"1","updatetime":"2019-12-10 17:58:29","startIndex":0,"pageSize":0,"orderBy":null,"fieldName":"","startDate":"","endDate":"","myId":"asdfsaf"},{"sid":"dsafaf","gid":"13","isdelete":0,"name":"外观","info":"炫彩,清颜,蓝秀","remark3":null,"remark4":null,"createid":"1","createtime":"2019-12-10 17:59:23","updateid":"1","updatetime":"2019-12-10 17:59:26","startIndex":0,"pageSize":0,"orderBy":null,"fieldName":null,"startDate":null,"endDate":null,"myId":"dsafaf"}],"goodsParamList":[{"gpid":"fdasfd","gid":"123","isdelete":0,"name":"产品品牌","info":"lancome/兰蔻","remark3":null,"remark4":null,"createid":"1","createtime":"2019-12-10 18:00:29","updateid":"1","updatetime":"2019-12-10 18:00:31","startIndex":0,"pageSize":0,"orderBy":null,"fieldName":null,"startDate":null,"endDate":null,"myId":"fdasfd"},{"gpid":"adsfsaf","gid":"123","isdelete":0,"name":"兰蔻单品","info":"新精华肌底液","remark3":null,"remark4":null,"createid":"1","createtime":"2019-12-10 18:01:20","updateid":"1","updatetime":"2019-12-10 18:01:22","startIndex":0,"pageSize":0,"orderBy":null,"fieldName":null,"startDate":null,"endDate":null,"myId":"adsfsaf"},{"gpid":"dsafasfd","gid":"123","isdelete":0,"name":"产品产地","info":"法国","remark3":null,"remark4":null,"createid":"1","createtime":"2019-12-10 18:02:09","updateid":"1","updatetime":"2019-12-10 18:02:12","startIndex":0,"pageSize":0,"orderBy":null,"fieldName":null,"startDate":null,"endDate":null,"myId":"dsafasfd"},{"gpid":"adafsad","gid":"123","isdelete":0,"name":"产品功效","info":"补水 保湿 滋润","remark3":null,"remark4":null,"createid":"1","createtime":"2019-12-10 18:09:12","updateid":"1","updatetime":"2019-12-10 18:09:16","startIndex":0,"pageSize":0,"orderBy":null,"fieldName":null,"startDate":null,"endDate":null,"myId":"adafsad"},{"gpid":"asdfasfsadf","gid":"123","isdelete":0,"name":"规格类型","info":"正常规格","remark3":null,"remark4":null,"createid":"1","createtime":"2019-12-10 18:09:14","updateid":"1","updatetime":"2019-12-10 18:09:19","startIndex":0,"pageSize":0,"orderBy":null,"fieldName":null,"startDate":null,"endDate":null,"myId":"asdfasfsadf"}],"myId":"123"}
+     * data : {"gid":"9e21d968300f466c9f591bac4b598527","cid":"d461d1a6ead34b508446216ef1fb6fb4-732917d58867414e880aa8bfb9d1e033_54a94e0c01074863bda7ef72be09aeb7","picture":"/uploadtemp/image/2020/6/17393c2f60fa452ca76e941296eff6af.jpg,/uploadtemp/image/2020/6/6c5bcffe683549cd9b00bd7ac77ddb79.jpg","name":"测试商品","priceReal":155,"priceSecond":0,"salesVolume":"0","content":"<p>阿发斯蒂芬<\/p><p><img src=\"/uploadtemp/ueditor/image/20200615/1592153921219013094.png\" title=\"1592153921219013094.png\"/><\/p><p><img src=\"/uploadtemp/ueditor/image/20200615/1592153921323063413.jpg\" title=\"1592153921323063413.jpg\"/><\/p><p><video class=\"edui-upload-video  vjs-default-skin      video-js\" controls=\"\" preload=\"none\" width=\"420\" height=\"280\" src=\"/uploadtemp/ueditor/video/20200615/1592154165810000422.mp4\" data-setup=\"{}\"><\/video><\/p><p><br/><\/p>","numTotal":31,"numRemainder":32,"exquisite":0,"isdelete":0,"remark1":"0","remark2":"0","remark3":"","remark4":"","createid":"","max":"","min":"","createtime":"2020-06-14 22:33:45","updateid":"","updatetime":"2020-06-17 22:23:46","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","collectId":"","goodsSpecsList":[{"sid":"07577c85a4ad4571a493cd14a3ca2845","gid":"9e21d968300f466c9f591bac4b598527","isdelete":0,"name":"样式","info":"","remark3":"","remark4":"","createid":"","createtime":"2020-06-17 22:23:46","updateid":"","updatetime":"2020-06-17 22:23:48","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","goodsSpecsAttributeList":[{"said":"0e189886f19246e0a85cdfea1eef1a59","sid":"07577c85a4ad4571a493cd14a3ca2845","gid":"9e21d968300f466c9f591bac4b598527","sort":0,"isdelete":0,"name":"圆的","price":"","stock":"","remark3":"","remark4":"","updateid":"","updatetime":"2020-06-17 22:23:46","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"0e189886f19246e0a85cdfea1eef1a59"},{"said":"74216f66c193409c81e4f9b3b8f26354","sid":"07577c85a4ad4571a493cd14a3ca2845","gid":"9e21d968300f466c9f591bac4b598527","sort":1,"isdelete":0,"name":"方的","price":"","stock":"","remark3":"","remark4":"","updateid":"","updatetime":"2020-06-17 22:23:46","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"74216f66c193409c81e4f9b3b8f26354"}],"myId":"07577c85a4ad4571a493cd14a3ca2845"},{"sid":"823337b0557c435aa1608ff92c444184","gid":"9e21d968300f466c9f591bac4b598527","isdelete":0,"name":"颜色","info":"","remark3":"","remark4":"","createid":"","createtime":"2020-06-17 22:23:46","updateid":"","updatetime":"2020-06-17 22:23:49","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","goodsSpecsAttributeList":[{"said":"6141fdd5977f439db026b5078bc3841f","sid":"823337b0557c435aa1608ff92c444184","gid":"9e21d968300f466c9f591bac4b598527","sort":0,"isdelete":0,"name":"红色","price":30,"stock":300,"remark3":"","remark4":"","updateid":"","updatetime":"2020-06-17 22:23:46","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"6141fdd5977f439db026b5078bc3841f"},{"said":"83c520169bf14feaa0a6ca4d69e97835","sid":"823337b0557c435aa1608ff92c444184","gid":"9e21d968300f466c9f591bac4b598527","sort":1,"isdelete":0,"name":"白色","price":40,"stock":400,"remark3":"","remark4":"","updateid":"","updatetime":"2020-06-17 22:23:46","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"83c520169bf14feaa0a6ca4d69e97835"},{"said":"dd4a86ceb2534dc4b033f661d0c89924","sid":"823337b0557c435aa1608ff92c444184","gid":"9e21d968300f466c9f591bac4b598527","sort":2,"isdelete":0,"name":"蓝色","price":40,"stock":500,"remark3":"","remark4":"","updateid":"","updatetime":"2020-06-17 22:23:46","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"dd4a86ceb2534dc4b033f661d0c89924"}],"myId":"823337b0557c435aa1608ff92c444184"}],"goodsParamList":[{"gpid":"1c0a8711953c41c48b4f0a95f6588030","gid":"9e21d968300f466c9f591bac4b598527","isdelete":0,"name":"22","info":"333","remark3":"","remark4":"","createid":"","createtime":"2020-06-17 22:23:46","updateid":"","updatetime":"2020-06-17 22:23:48","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"1c0a8711953c41c48b4f0a95f6588030"},{"gpid":"867624badf8d4cb59b84b355e77eea84","gid":"9e21d968300f466c9f591bac4b598527","isdelete":0,"name":"沙发23啊啊阿范德萨1","info":"大师傅14法司法所2","remark3":"","remark4":"","createid":"","createtime":"2020-06-17 22:23:46","updateid":"","updatetime":"2020-06-17 22:23:49","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"867624badf8d4cb59b84b355e77eea84"},{"gpid":"0f41e239470c4f83ab411d04fb9a2782","gid":"9e21d968300f466c9f591bac4b598527","isdelete":0,"name":"12","info":"33","remark3":"","remark4":"","createid":"","createtime":"2020-06-17 22:23:46","updateid":"","updatetime":"2020-06-17 22:23:50","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"0f41e239470c4f83ab411d04fb9a2782"},{"gpid":"81a114d98f0542cf95c808eca5c41bb5","gid":"9e21d968300f466c9f591bac4b598527","isdelete":0,"name":"1234","info":"1235","remark3":"","remark4":"","createid":"","createtime":"2020-06-17 22:23:46","updateid":"","updatetime":"2020-06-17 22:23:51","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"81a114d98f0542cf95c808eca5c41bb5"}],"className":"","bigName":"","myId":"9e21d968300f466c9f591bac4b598527"}
      */
 
     private String code;
@@ -43,46 +44,48 @@ public class GoodsDetailBean {
 
     public static class DataBean {
         /**
-         * gid : 123
-         * cid : 1-2
-         * picture : /uploadtemp/image/20180318/20180318225610_961.jpg,/uploadtemp/image/20180318/20180318225713_835.jpg
-         * name : 物品1
-         * priceReal : 88
-         * priceSecond : 128
+         * gid : 9e21d968300f466c9f591bac4b598527
+         * cid : d461d1a6ead34b508446216ef1fb6fb4-732917d58867414e880aa8bfb9d1e033_54a94e0c01074863bda7ef72be09aeb7
+         * picture : /uploadtemp/image/2020/6/17393c2f60fa452ca76e941296eff6af.jpg,/uploadtemp/image/2020/6/6c5bcffe683549cd9b00bd7ac77ddb79.jpg
+         * name : 测试商品
+         * priceReal : 155
+         * priceSecond : 0
          * salesVolume : 0
-         * content : 这个物品有点好
-         * numTotal : 0
-         * numRemainder : 255
-         * exquisite : 1
+         * content : <p>阿发斯蒂芬</p><p><img src="/uploadtemp/ueditor/image/20200615/1592153921219013094.png" title="1592153921219013094.png"/></p><p><img src="/uploadtemp/ueditor/image/20200615/1592153921323063413.jpg" title="1592153921323063413.jpg"/></p><p><video class="edui-upload-video  vjs-default-skin      video-js" controls="" preload="none" width="420" height="280" src="/uploadtemp/ueditor/video/20200615/1592154165810000422.mp4" data-setup="{}"></video></p><p><br/></p>
+         * numTotal : 31
+         * numRemainder : 32
+         * exquisite : 0
          * isdelete : 0
-         * remark1 :
+         * remark1 : 0
          * remark2 : 0
          * remark3 :
          * remark4 :
-         * createid : 1
+         * createid :
          * max :
          * min :
-         * createtime : 2019-12-09 17:36:20
-         * updateid : 1
-         * updatetime : 2019-12-09 17:36:23
+         * createtime : 2020-06-14 22:33:45
+         * updateid :
+         * updatetime : 2020-06-17 22:23:46
          * startIndex : 0
          * pageSize : 0
          * orderBy :
          * fieldName :
          * startDate :
          * endDate :
-         * collectId : aae347b61d564880a7a976ede22de04c
-         * goodsSpecslList : [{"sid":"asdfsaf","gid":"123","isdelete":0,"name":"颜色","info":"白色,黑色,红色","remark3":"","remark4":"","createid":"1","createtime":"2019-12-10 17:58:26","updateid":"1","updatetime":"2019-12-10 17:58:29","startIndex":0,"pageSize":0,"orderBy":null,"fieldName":"","startDate":"","endDate":"","myId":"asdfsaf"},{"sid":"dsafaf","gid":"13","isdelete":0,"name":"外观","info":"炫彩,清颜,蓝秀","remark3":null,"remark4":null,"createid":"1","createtime":"2019-12-10 17:59:23","updateid":"1","updatetime":"2019-12-10 17:59:26","startIndex":0,"pageSize":0,"orderBy":null,"fieldName":null,"startDate":null,"endDate":null,"myId":"dsafaf"}]
-         * goodsParamList : [{"gpid":"fdasfd","gid":"123","isdelete":0,"name":"产品品牌","info":"lancome/兰蔻","remark3":null,"remark4":null,"createid":"1","createtime":"2019-12-10 18:00:29","updateid":"1","updatetime":"2019-12-10 18:00:31","startIndex":0,"pageSize":0,"orderBy":null,"fieldName":null,"startDate":null,"endDate":null,"myId":"fdasfd"},{"gpid":"adsfsaf","gid":"123","isdelete":0,"name":"兰蔻单品","info":"新精华肌底液","remark3":null,"remark4":null,"createid":"1","createtime":"2019-12-10 18:01:20","updateid":"1","updatetime":"2019-12-10 18:01:22","startIndex":0,"pageSize":0,"orderBy":null,"fieldName":null,"startDate":null,"endDate":null,"myId":"adsfsaf"},{"gpid":"dsafasfd","gid":"123","isdelete":0,"name":"产品产地","info":"法国","remark3":null,"remark4":null,"createid":"1","createtime":"2019-12-10 18:02:09","updateid":"1","updatetime":"2019-12-10 18:02:12","startIndex":0,"pageSize":0,"orderBy":null,"fieldName":null,"startDate":null,"endDate":null,"myId":"dsafasfd"},{"gpid":"adafsad","gid":"123","isdelete":0,"name":"产品功效","info":"补水 保湿 滋润","remark3":null,"remark4":null,"createid":"1","createtime":"2019-12-10 18:09:12","updateid":"1","updatetime":"2019-12-10 18:09:16","startIndex":0,"pageSize":0,"orderBy":null,"fieldName":null,"startDate":null,"endDate":null,"myId":"adafsad"},{"gpid":"asdfasfsadf","gid":"123","isdelete":0,"name":"规格类型","info":"正常规格","remark3":null,"remark4":null,"createid":"1","createtime":"2019-12-10 18:09:14","updateid":"1","updatetime":"2019-12-10 18:09:19","startIndex":0,"pageSize":0,"orderBy":null,"fieldName":null,"startDate":null,"endDate":null,"myId":"asdfasfsadf"}]
-         * myId : 123
+         * collectId :
+         * goodsSpecsList : [{"sid":"07577c85a4ad4571a493cd14a3ca2845","gid":"9e21d968300f466c9f591bac4b598527","isdelete":0,"name":"样式","info":"","remark3":"","remark4":"","createid":"","createtime":"2020-06-17 22:23:46","updateid":"","updatetime":"2020-06-17 22:23:48","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","goodsSpecsAttributeList":[{"said":"0e189886f19246e0a85cdfea1eef1a59","sid":"07577c85a4ad4571a493cd14a3ca2845","gid":"9e21d968300f466c9f591bac4b598527","sort":0,"isdelete":0,"name":"圆的","price":"","stock":"","remark3":"","remark4":"","updateid":"","updatetime":"2020-06-17 22:23:46","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"0e189886f19246e0a85cdfea1eef1a59"},{"said":"74216f66c193409c81e4f9b3b8f26354","sid":"07577c85a4ad4571a493cd14a3ca2845","gid":"9e21d968300f466c9f591bac4b598527","sort":1,"isdelete":0,"name":"方的","price":"","stock":"","remark3":"","remark4":"","updateid":"","updatetime":"2020-06-17 22:23:46","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"74216f66c193409c81e4f9b3b8f26354"}],"myId":"07577c85a4ad4571a493cd14a3ca2845"},{"sid":"823337b0557c435aa1608ff92c444184","gid":"9e21d968300f466c9f591bac4b598527","isdelete":0,"name":"颜色","info":"","remark3":"","remark4":"","createid":"","createtime":"2020-06-17 22:23:46","updateid":"","updatetime":"2020-06-17 22:23:49","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","goodsSpecsAttributeList":[{"said":"6141fdd5977f439db026b5078bc3841f","sid":"823337b0557c435aa1608ff92c444184","gid":"9e21d968300f466c9f591bac4b598527","sort":0,"isdelete":0,"name":"红色","price":30,"stock":300,"remark3":"","remark4":"","updateid":"","updatetime":"2020-06-17 22:23:46","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"6141fdd5977f439db026b5078bc3841f"},{"said":"83c520169bf14feaa0a6ca4d69e97835","sid":"823337b0557c435aa1608ff92c444184","gid":"9e21d968300f466c9f591bac4b598527","sort":1,"isdelete":0,"name":"白色","price":40,"stock":400,"remark3":"","remark4":"","updateid":"","updatetime":"2020-06-17 22:23:46","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"83c520169bf14feaa0a6ca4d69e97835"},{"said":"dd4a86ceb2534dc4b033f661d0c89924","sid":"823337b0557c435aa1608ff92c444184","gid":"9e21d968300f466c9f591bac4b598527","sort":2,"isdelete":0,"name":"蓝色","price":40,"stock":500,"remark3":"","remark4":"","updateid":"","updatetime":"2020-06-17 22:23:46","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"dd4a86ceb2534dc4b033f661d0c89924"}],"myId":"823337b0557c435aa1608ff92c444184"}]
+         * goodsParamList : [{"gpid":"1c0a8711953c41c48b4f0a95f6588030","gid":"9e21d968300f466c9f591bac4b598527","isdelete":0,"name":"22","info":"333","remark3":"","remark4":"","createid":"","createtime":"2020-06-17 22:23:46","updateid":"","updatetime":"2020-06-17 22:23:48","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"1c0a8711953c41c48b4f0a95f6588030"},{"gpid":"867624badf8d4cb59b84b355e77eea84","gid":"9e21d968300f466c9f591bac4b598527","isdelete":0,"name":"沙发23啊啊阿范德萨1","info":"大师傅14法司法所2","remark3":"","remark4":"","createid":"","createtime":"2020-06-17 22:23:46","updateid":"","updatetime":"2020-06-17 22:23:49","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"867624badf8d4cb59b84b355e77eea84"},{"gpid":"0f41e239470c4f83ab411d04fb9a2782","gid":"9e21d968300f466c9f591bac4b598527","isdelete":0,"name":"12","info":"33","remark3":"","remark4":"","createid":"","createtime":"2020-06-17 22:23:46","updateid":"","updatetime":"2020-06-17 22:23:50","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"0f41e239470c4f83ab411d04fb9a2782"},{"gpid":"81a114d98f0542cf95c808eca5c41bb5","gid":"9e21d968300f466c9f591bac4b598527","isdelete":0,"name":"1234","info":"1235","remark3":"","remark4":"","createid":"","createtime":"2020-06-17 22:23:46","updateid":"","updatetime":"2020-06-17 22:23:51","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"81a114d98f0542cf95c808eca5c41bb5"}]
+         * className :
+         * bigName :
+         * myId : 9e21d968300f466c9f591bac4b598527
          */
 
         private String gid;
         private String cid;
         private String picture;
         private String name;
-        private double priceReal;
-        private String priceSecond;
+        private Double priceReal;
+        private int priceSecond;
         private String salesVolume;
         private String content;
         private int numTotal;
@@ -106,8 +109,10 @@ public class GoodsDetailBean {
         private String startDate;
         private String endDate;
         private String collectId;
+        private String className;
+        private String bigName;
         private String myId;
-        private List<GoodsSpecslListBean> goodsSpecslList;
+        private List<GoodsSpecsListBean> goodsSpecsList;
         private List<GoodsParamListBean> goodsParamList;
 
         public String getGid() {
@@ -142,19 +147,19 @@ public class GoodsDetailBean {
             this.name = name;
         }
 
-        public double getPriceReal() {
+        public Double getPriceReal() {
             return priceReal;
         }
 
-        public void setPriceReal(double priceReal) {
+        public void setPriceReal(Double priceReal) {
             this.priceReal = priceReal;
         }
 
-        public String getPriceSecond() {
+        public int getPriceSecond() {
             return priceSecond;
         }
 
-        public void setPriceSecond(String priceSecond) {
+        public void setPriceSecond(int priceSecond) {
             this.priceSecond = priceSecond;
         }
 
@@ -342,6 +347,22 @@ public class GoodsDetailBean {
             this.collectId = collectId;
         }
 
+        public String getClassName() {
+            return className;
+        }
+
+        public void setClassName(String className) {
+            this.className = className;
+        }
+
+        public String getBigName() {
+            return bigName;
+        }
+
+        public void setBigName(String bigName) {
+            this.bigName = bigName;
+        }
+
         public String getMyId() {
             return myId;
         }
@@ -350,12 +371,12 @@ public class GoodsDetailBean {
             this.myId = myId;
         }
 
-        public List<GoodsSpecslListBean> getGoodsSpecslList() {
-            return goodsSpecslList;
+        public List<GoodsSpecsListBean> getGoodsSpecsList() {
+            return goodsSpecsList;
         }
 
-        public void setGoodsSpecslList(List<GoodsSpecslListBean> goodsSpecslList) {
-            this.goodsSpecslList = goodsSpecslList;
+        public void setGoodsSpecsList(List<GoodsSpecsListBean> goodsSpecsList) {
+            this.goodsSpecsList = goodsSpecsList;
         }
 
         public List<GoodsParamListBean> getGoodsParamList() {
@@ -366,26 +387,27 @@ public class GoodsDetailBean {
             this.goodsParamList = goodsParamList;
         }
 
-        public static class GoodsSpecslListBean {
+        public static class GoodsSpecsListBean {
             /**
-             * sid : asdfsaf
-             * gid : 123
+             * sid : 07577c85a4ad4571a493cd14a3ca2845
+             * gid : 9e21d968300f466c9f591bac4b598527
              * isdelete : 0
-             * name : 颜色
-             * info : 白色,黑色,红色
+             * name : 样式
+             * info :
              * remark3 :
              * remark4 :
-             * createid : 1
-             * createtime : 2019-12-10 17:58:26
-             * updateid : 1
-             * updatetime : 2019-12-10 17:58:29
+             * createid :
+             * createtime : 2020-06-17 22:23:46
+             * updateid :
+             * updatetime : 2020-06-17 22:23:48
              * startIndex : 0
              * pageSize : 0
-             * orderBy : null
+             * orderBy :
              * fieldName :
              * startDate :
              * endDate :
-             * myId : asdfsaf
+             * goodsSpecsAttributeList : [{"said":"0e189886f19246e0a85cdfea1eef1a59","sid":"07577c85a4ad4571a493cd14a3ca2845","gid":"9e21d968300f466c9f591bac4b598527","sort":0,"isdelete":0,"name":"圆的","price":"","stock":"","remark3":"","remark4":"","updateid":"","updatetime":"2020-06-17 22:23:46","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"0e189886f19246e0a85cdfea1eef1a59"},{"said":"74216f66c193409c81e4f9b3b8f26354","sid":"07577c85a4ad4571a493cd14a3ca2845","gid":"9e21d968300f466c9f591bac4b598527","sort":1,"isdelete":0,"name":"方的","price":"","stock":"","remark3":"","remark4":"","updateid":"","updatetime":"2020-06-17 22:23:46","startIndex":0,"pageSize":0,"orderBy":"","fieldName":"","startDate":"","endDate":"","myId":"74216f66c193409c81e4f9b3b8f26354"}]
+             * myId : 07577c85a4ad4571a493cd14a3ca2845
              */
 
             private String sid;
@@ -401,11 +423,12 @@ public class GoodsDetailBean {
             private String updatetime;
             private int startIndex;
             private int pageSize;
-            private Object orderBy;
+            private String orderBy;
             private String fieldName;
             private String startDate;
             private String endDate;
             private String myId;
+            private List<GoodsSpecsAttributeListBean> goodsSpecsAttributeList;
 
             public String getSid() {
                 return sid;
@@ -511,11 +534,11 @@ public class GoodsDetailBean {
                 this.pageSize = pageSize;
             }
 
-            public Object getOrderBy() {
+            public String getOrderBy() {
                 return orderBy;
             }
 
-            public void setOrderBy(Object orderBy) {
+            public void setOrderBy(String orderBy) {
                 this.orderBy = orderBy;
             }
 
@@ -550,28 +573,232 @@ public class GoodsDetailBean {
             public void setMyId(String myId) {
                 this.myId = myId;
             }
+
+            public List<GoodsSpecsAttributeListBean> getGoodsSpecsAttributeList() {
+                return goodsSpecsAttributeList;
+            }
+
+            public void setGoodsSpecsAttributeList(List<GoodsSpecsAttributeListBean> goodsSpecsAttributeList) {
+                this.goodsSpecsAttributeList = goodsSpecsAttributeList;
+            }
+
+            public static class GoodsSpecsAttributeListBean {
+                /**
+                 * said : 0e189886f19246e0a85cdfea1eef1a59
+                 * sid : 07577c85a4ad4571a493cd14a3ca2845
+                 * gid : 9e21d968300f466c9f591bac4b598527
+                 * sort : 0
+                 * isdelete : 0
+                 * name : 圆的
+                 * price :
+                 * stock :
+                 * remark3 :
+                 * remark4 :
+                 * updateid :
+                 * updatetime : 2020-06-17 22:23:46
+                 * startIndex : 0
+                 * pageSize : 0
+                 * orderBy :
+                 * fieldName :
+                 * startDate :
+                 * endDate :
+                 * myId : 0e189886f19246e0a85cdfea1eef1a59
+                 */
+
+                private String said;
+                private String sid;
+                private String gid;
+                private int sort;
+                private int isdelete;
+                private String name;
+                private String price;
+                private String stock;
+                private String remark3;
+                private String remark4;
+                private String updateid;
+                private String updatetime;
+                private int startIndex;
+                private int pageSize;
+                private String orderBy;
+                private String fieldName;
+                private String startDate;
+                private String endDate;
+                private String myId;
+
+                public String getSaid() {
+                    return said;
+                }
+
+                public void setSaid(String said) {
+                    this.said = said;
+                }
+
+                public String getSid() {
+                    return sid;
+                }
+
+                public void setSid(String sid) {
+                    this.sid = sid;
+                }
+
+                public String getGid() {
+                    return gid;
+                }
+
+                public void setGid(String gid) {
+                    this.gid = gid;
+                }
+
+                public int getSort() {
+                    return sort;
+                }
+
+                public void setSort(int sort) {
+                    this.sort = sort;
+                }
+
+                public int getIsdelete() {
+                    return isdelete;
+                }
+
+                public void setIsdelete(int isdelete) {
+                    this.isdelete = isdelete;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getPrice() {
+                    return price;
+                }
+
+                public void setPrice(String price) {
+                    this.price = price;
+                }
+
+                public String getStock() {
+                    return stock;
+                }
+
+                public void setStock(String stock) {
+                    this.stock = stock;
+                }
+
+                public String getRemark3() {
+                    return remark3;
+                }
+
+                public void setRemark3(String remark3) {
+                    this.remark3 = remark3;
+                }
+
+                public String getRemark4() {
+                    return remark4;
+                }
+
+                public void setRemark4(String remark4) {
+                    this.remark4 = remark4;
+                }
+
+                public String getUpdateid() {
+                    return updateid;
+                }
+
+                public void setUpdateid(String updateid) {
+                    this.updateid = updateid;
+                }
+
+                public String getUpdatetime() {
+                    return updatetime;
+                }
+
+                public void setUpdatetime(String updatetime) {
+                    this.updatetime = updatetime;
+                }
+
+                public int getStartIndex() {
+                    return startIndex;
+                }
+
+                public void setStartIndex(int startIndex) {
+                    this.startIndex = startIndex;
+                }
+
+                public int getPageSize() {
+                    return pageSize;
+                }
+
+                public void setPageSize(int pageSize) {
+                    this.pageSize = pageSize;
+                }
+
+                public String getOrderBy() {
+                    return orderBy;
+                }
+
+                public void setOrderBy(String orderBy) {
+                    this.orderBy = orderBy;
+                }
+
+                public String getFieldName() {
+                    return fieldName;
+                }
+
+                public void setFieldName(String fieldName) {
+                    this.fieldName = fieldName;
+                }
+
+                public String getStartDate() {
+                    return startDate;
+                }
+
+                public void setStartDate(String startDate) {
+                    this.startDate = startDate;
+                }
+
+                public String getEndDate() {
+                    return endDate;
+                }
+
+                public void setEndDate(String endDate) {
+                    this.endDate = endDate;
+                }
+
+                public String getMyId() {
+                    return myId;
+                }
+
+                public void setMyId(String myId) {
+                    this.myId = myId;
+                }
+            }
         }
 
         public static class GoodsParamListBean {
             /**
-             * gpid : fdasfd
-             * gid : 123
+             * gpid : 1c0a8711953c41c48b4f0a95f6588030
+             * gid : 9e21d968300f466c9f591bac4b598527
              * isdelete : 0
-             * name : 产品品牌
-             * info : lancome/兰蔻
-             * remark3 : null
-             * remark4 : null
-             * createid : 1
-             * createtime : 2019-12-10 18:00:29
-             * updateid : 1
-             * updatetime : 2019-12-10 18:00:31
+             * name : 22
+             * info : 333
+             * remark3 :
+             * remark4 :
+             * createid :
+             * createtime : 2020-06-17 22:23:46
+             * updateid :
+             * updatetime : 2020-06-17 22:23:48
              * startIndex : 0
              * pageSize : 0
-             * orderBy : null
-             * fieldName : null
-             * startDate : null
-             * endDate : null
-             * myId : fdasfd
+             * orderBy :
+             * fieldName :
+             * startDate :
+             * endDate :
+             * myId : 1c0a8711953c41c48b4f0a95f6588030
              */
 
             private String gpid;
@@ -579,18 +806,18 @@ public class GoodsDetailBean {
             private int isdelete;
             private String name;
             private String info;
-            private Object remark3;
-            private Object remark4;
+            private String remark3;
+            private String remark4;
             private String createid;
             private String createtime;
             private String updateid;
             private String updatetime;
             private int startIndex;
             private int pageSize;
-            private Object orderBy;
-            private Object fieldName;
-            private Object startDate;
-            private Object endDate;
+            private String orderBy;
+            private String fieldName;
+            private String startDate;
+            private String endDate;
             private String myId;
 
             public String getGpid() {
@@ -633,19 +860,19 @@ public class GoodsDetailBean {
                 this.info = info;
             }
 
-            public Object getRemark3() {
+            public String getRemark3() {
                 return remark3;
             }
 
-            public void setRemark3(Object remark3) {
+            public void setRemark3(String remark3) {
                 this.remark3 = remark3;
             }
 
-            public Object getRemark4() {
+            public String getRemark4() {
                 return remark4;
             }
 
-            public void setRemark4(Object remark4) {
+            public void setRemark4(String remark4) {
                 this.remark4 = remark4;
             }
 
@@ -697,35 +924,35 @@ public class GoodsDetailBean {
                 this.pageSize = pageSize;
             }
 
-            public Object getOrderBy() {
+            public String getOrderBy() {
                 return orderBy;
             }
 
-            public void setOrderBy(Object orderBy) {
+            public void setOrderBy(String orderBy) {
                 this.orderBy = orderBy;
             }
 
-            public Object getFieldName() {
+            public String getFieldName() {
                 return fieldName;
             }
 
-            public void setFieldName(Object fieldName) {
+            public void setFieldName(String fieldName) {
                 this.fieldName = fieldName;
             }
 
-            public Object getStartDate() {
+            public String getStartDate() {
                 return startDate;
             }
 
-            public void setStartDate(Object startDate) {
+            public void setStartDate(String startDate) {
                 this.startDate = startDate;
             }
 
-            public Object getEndDate() {
+            public String getEndDate() {
                 return endDate;
             }
 
-            public void setEndDate(Object endDate) {
+            public void setEndDate(String endDate) {
                 this.endDate = endDate;
             }
 

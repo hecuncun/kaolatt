@@ -277,6 +277,7 @@
             <View style="@style/horizontalGrayLine"/>
 
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/rl_my_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -300,7 +301,7 @@
                     android:src="@mipmap/right_arrow"/>
             </RelativeLayout>
 
-            <View style="@style/horizontalGrayLine"/>
+            <View style="@style/horizontalGrayLine" android:visibility="gone"/>
 
             <RelativeLayout
                 android:id="@+id/rl_setting"
