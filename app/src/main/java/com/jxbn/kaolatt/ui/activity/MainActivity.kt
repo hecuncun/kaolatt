@@ -7,6 +7,7 @@ import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.FragmentTransaction
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.base.BaseNoDataBean
 import com.jxbn.kaolatt.bean.CartBean
+import com.jxbn.kaolatt.bean.ExpressBean
 import com.jxbn.kaolatt.bean.MsgListBean
 import com.jxbn.kaolatt.constants.Constant
 import com.jxbn.kaolatt.event.RefreshCarEvent
@@ -27,6 +29,8 @@ import com.jxbn.kaolatt.ui.fragment.HomeFragment
 import com.jxbn.kaolatt.ui.fragment.MineFragment
 import com.jxbn.kaolatt.ui.fragment.ShoppingCartFragment
 import com.jxbn.kaolatt.ui.fragment.SortFragment
+import com.jxbn.kaolatt.utils.ToJsonUtil
+import com.jxbn.kaolatt.widget.ExpressDialog
 import com.jxbn.kaolatt.widget.TopMsgDialog
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_main.*
@@ -92,9 +96,24 @@ class MainActivity : BaseActivity() {
             }
         })
 
-
-        //有未读就弹窗消息
-
+//        val s="{\n" +
+//                "    \"code\":\"OK\",\n" +
+//                "    \"no\":\"SF1191344514992:2862\",\n" +
+//                "    \"type\":\"SF\",\n" +
+//                "    \"list\":[\n" +
+//                "        {\n" +
+//                "            \"content\":\"廊坊市\",\n" +
+//                "            \"time\":\"2020-06-14 14:56:16\"\n" +
+//                "        },\n" +
+//                "        {\n" +
+//                "            \"content\":\"[廊坊市]您的快件已签收，如有疑问请电联小哥【于福波，电话：13552739211】。疫情期间顺丰每日对网点消毒、小哥每日测温、配戴口罩，感谢您使用顺丰，期待再次为您服务。（主单总件数：1件）\",\n" +
+//                "            \"time\":\"2020-06-14 14:56:13\"\n" +
+//                "        }]\n" +
+//                "}"
+//        //有未读就弹窗消息
+//      val  expressBean = ToJsonUtil.fromJson(s, ExpressBean::class.java)
+//        Logger.e("expressBean==${expressBean.list[0].content}")
+//        ExpressDialog.newInstance(expressBean).show(supportFragmentManager,"express")
 
     }
 

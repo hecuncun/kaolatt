@@ -4,10 +4,13 @@ import android.content.Intent
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.adapter.OrderDetailAdapter
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.base.BaseNoDataBean
+import com.jxbn.kaolatt.bean.ExpressBean
 import com.jxbn.kaolatt.bean.OrderDetailBean
 import com.jxbn.kaolatt.constants.Constant
 import com.jxbn.kaolatt.event.RefreshOrderListEvent
@@ -15,6 +18,8 @@ import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.net.CallbackListObserver
 import com.jxbn.kaolatt.net.SLMRetrofit
 import com.jxbn.kaolatt.net.ThreadSwitchTransformer
+import com.jxbn.kaolatt.utils.ToJsonUtil
+import com.jxbn.kaolatt.widget.ExpressDialog
 import kotlinx.android.synthetic.main.activity_order_detail.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
@@ -29,11 +34,16 @@ class OrderDetailActivity : BaseActivity() {
     override fun attachLayoutRes(): Int = R.layout.activity_order_detail
     private var money =""
     private var orderGoodslList= mutableListOf<OrderDetailBean.DataBean.OrderGoodslListBean>()
+    private var expressBean:ExpressBean?=null
     override fun initData() {
         val orderDetailCall = SLMRetrofit.getInstance().api.orderDetailCall(oid)
         orderDetailCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<OrderDetailBean>(){
             override fun onSucceed(t: OrderDetailBean?) {
                if (t?.code==Constant.SUCCESSED_CODE){
+                   //快递信息
+                   if (t.data.express.isNotEmpty()){
+                       expressBean = ToJsonUtil.fromJson<ExpressBean>(t.data.express, ExpressBean::class.java)
+                   }
                    tv_name.text="收货人：${t.data.userAddress.name}"
                    tv_phone.text=t.data.userAddress.phone
                    tv_address.text="收货地址 : ${t.data.userAddress.area} ${t.data.userAddress.areaDetail}"
@@ -154,7 +164,9 @@ class OrderDetailActivity : BaseActivity() {
 
     override fun initListener() {
         tv_btn_left.setOnClickListener {
-            jumpToWebViewActivity("",2)
+            //jumpToWebViewActivity("",2)
+            //物流信息
+            ExpressDialog.newInstance(expressBean).show(supportFragmentManager,"express")
         }
 
         tv_btn_middle.setOnClickListener {
