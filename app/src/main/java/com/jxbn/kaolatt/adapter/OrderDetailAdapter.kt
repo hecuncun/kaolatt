@@ -17,6 +17,7 @@ class OrderDetailAdapter:BaseQuickAdapter<OrderDetailBean.DataBean.OrderGoodslLi
         helper.setText(R.id.tv_goods_name, item.name)
                 .setText(R.id.tv_goods_num, "x${item.numTotal}")
                 .setText(R.id.tv_money, "¥${item.priceReal}")
+                .setText(R.id.tv_mark, item.specs)
 
         val ivGoods = helper.getView<ImageView>(R.id.iv_goods)
         val ivList = item.picture.split(",")
