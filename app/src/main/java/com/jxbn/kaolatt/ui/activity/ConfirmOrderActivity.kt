@@ -52,6 +52,7 @@ class ConfirmOrderActivity : BaseActivity() {
     private var totalMoney = 0.00
     private var numTotal = "0"
     private var couponList= mutableListOf<CouponListBean.DataBean>()
+    private var couponCanUseList= mutableListOf<CouponListBean.DataBean>()
     override fun initData() {
         //获取订单商品列表
         orderList = intent.getSerializableExtra("list") as MutableList<CartBean>
@@ -82,10 +83,12 @@ class ConfirmOrderActivity : BaseActivity() {
                     couponList.forEach {
                         if (it.remark3.isNullOrEmpty()){
                             list.add("满${it.valueMax}减${it.valueSubtraction}优惠券" )
+                            couponCanUseList.add(it)
                         }else{
                             for (item in orderList){//如果remark3字段有值 且和购物车某商品的一级分类id相同可以显示.
                                 if (it.remark3==item.goodsId){
                                     list.add("满${it.valueMax}减${it.valueSubtraction}优惠券" )
+                                    couponCanUseList.add(it)
                                 }
                             }
 
@@ -165,14 +168,14 @@ class ConfirmOrderActivity : BaseActivity() {
             myBottomListDialog?.show()
             myBottomListDialog?.setListener { p0, p1, position, p3 ->
                // showToast(list[position])
-                if (couponList[position].valueMax>totalMoney){
+                if (couponCanUseList[position].valueMax>totalMoney){
                     showToast("该优惠券未达到使用门槛")
-                }else if(System.currentTimeMillis()- DateUtils.stringToLong(couponList[position].endTime,"yyyy-MM-dd HH:mm:ss")>0){
+                }else if(System.currentTimeMillis()- DateUtils.stringToLong(couponCanUseList[position].endTime,"yyyy-MM-dd HH:mm:ss")>0){
                     showToast("该优惠券已过期")
                 }else{
-                    couponId = couponList[position].sid
+                    couponId = couponCanUseList[position].sid
                     tv_coupon.text = list[position]
-                    couponMoney= couponList[position].valueSubtraction
+                    couponMoney= couponCanUseList[position].valueSubtraction
                     tv_bottom_pay_money.text="¥${totalMoney-couponMoney}"
                     tv_pay_money.text="¥${totalMoney-couponMoney}"
                     myBottomListDialog?.dismiss()
