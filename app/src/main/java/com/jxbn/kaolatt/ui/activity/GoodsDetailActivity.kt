@@ -184,9 +184,12 @@ class GoodsDetailActivity : BaseActivity() {
                     }
                     goodsInfoBottomDialog = GoodsInfoBottomDialog(this@GoodsDetailActivity, null, paramList)
 
+                    val temp = t.data.content
+                    val replace1 = temp.replace("src=\"http://59.110.230.192", "src=\"")
+                    val replace = replace1.replace("src=\"", "src=\"${Constant.BASE_URL}")
 
                     //WebView详情
-                    mWebView?.loadDataWithBaseURL(null, getHtmlData(t.data.content), "text/html", "utf-8", null)
+                    mWebView?.loadDataWithBaseURL(null, getHtmlData(replace), "text/html", "utf-8", null)
                     ll_web_container.addView(mWebView)
                    Logger.e("地址==》${t.data.content}")
 
