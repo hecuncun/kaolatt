@@ -69,6 +69,8 @@ class SortFragment : BaseFragment() {
     private var total = 0
     private var current = 0
     private var isLoading =false
+
+    private var idSort=0
     private fun initLinkageDatas(rv: LinkageRecyclerView<ElemeGroupedItem.ItemInfo>) {
         val sortListFirstCall = SLMRetrofit.getInstance().api.sortListCall("0")
         sortListFirstCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<SortListBean>(){
@@ -76,25 +78,30 @@ class SortFragment : BaseFragment() {
                 if (t?.code==Constant.SUCCESSED_CODE){
                     val listFirst = t.data//一级分类集合
                     total=listFirst.size
-                    listFirst.forEach {
+                    for (i in listFirst.indices){
+                        val  it = listFirst[i]
                         val group = it.name
-
                         //进行循环请求二级列表
                         //isLoading =true
                         val sortListSecondCall = SLMRetrofit.getInstance().api.sortListCall(it.cid)
                         sortListSecondCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<SortListBean>(){
                             override fun onSucceed(t: SortListBean?) {
                                if (t?.code==Constant.SUCCESSED_CODE){
-                                   list.add(ElemeGroupedItem(true, group))
+                                   val headBean =  ElemeGroupedItem(true, group)
+                                   headBean.id=i
+                                   list.add(headBean)
                                    //***大坑！！！ 添加一级分类，必须接着马上添加二级分类，如果顺序错乱就会出现头连着头，数据错乱问题，
                                    val listSecond = t.data
                                    listSecond.forEach {
                                        val itemInfo= ElemeGroupedItem.ItemInfo(it.name?:"",group,it.cid,it.remark1?:"")
-                                       list.add( ElemeGroupedItem(itemInfo))
+                                     val childBean=  ElemeGroupedItem(itemInfo)
+                                       childBean.id=i
+                                       list.add( childBean)
                                    }
                                    current++
                                    LogUtils.e("current==$current,total==$total")
                                    if (current==total){//所有接口请求完毕就显示
+                                       list.sort()
                                        rv.init(list as MutableList<BaseGroupedItem<ElemeGroupedItem.ItemInfo>>, ElemeLinkagePrimaryAdapterConfig(), ElemeLinkageSecondaryAdapterConfig())
                                        rv.isGridMode = true
                                        Logger.e("json==>"+Gson().toJson(list))

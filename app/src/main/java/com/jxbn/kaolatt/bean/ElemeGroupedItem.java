@@ -17,12 +17,23 @@ package com.jxbn.kaolatt.bean;
  */
 
 
+import android.support.annotation.NonNull;
+
 import com.kunminx.linkage.bean.BaseGroupedItem;
 
 /**
  * Create by KunMinX at 19/4/27
  */
-public class ElemeGroupedItem extends BaseGroupedItem<ElemeGroupedItem.ItemInfo> {
+public class ElemeGroupedItem extends BaseGroupedItem<ElemeGroupedItem.ItemInfo> implements Comparable<ElemeGroupedItem>{
+     private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public ElemeGroupedItem(boolean isHeader, String header) {
         super(isHeader, header);
@@ -30,6 +41,11 @@ public class ElemeGroupedItem extends BaseGroupedItem<ElemeGroupedItem.ItemInfo>
 
     public ElemeGroupedItem(ItemInfo item) {
         super(item);
+    }
+
+    @Override
+    public int compareTo(@NonNull ElemeGroupedItem o) {
+        return this.id-o.id;
     }
 
     public static class ItemInfo extends BaseGroupedItem.ItemInfo {

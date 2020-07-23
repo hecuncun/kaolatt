@@ -63,6 +63,15 @@ public class SortListBean {
          * endDate :
          * myId : 09b1df5dbeaf4660a2aaa29497245d34
          */
+        private int id;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
 
         private String cid;
         private String name;
