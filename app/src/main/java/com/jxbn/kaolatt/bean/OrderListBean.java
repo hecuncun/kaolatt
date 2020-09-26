@@ -174,6 +174,15 @@ public class OrderListBean {
             private Object userAddress;
             private String myId;
             private List<OrderGoodslListBean> orderGoodslList;
+            private String express;//快递信息
+
+            public String getExpress() {
+                return express;
+            }
+
+            public void setExpress(String express) {
+                this.express = express;
+            }
 
             public String getOid() {
                 return oid;

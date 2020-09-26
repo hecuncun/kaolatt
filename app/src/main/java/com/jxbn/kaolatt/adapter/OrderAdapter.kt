@@ -23,12 +23,12 @@ class OrderAdapter : BaseQuickAdapter<OrderListBean.DataBean.RowsBean, BaseViewH
     override fun convert(helper: BaseViewHolder, item: OrderListBean.DataBean.RowsBean?) {
         item ?: return
         helper.setText(R.id.tv_order_num,"订单号：${ item.orderNo}")
-                .setText(R.id.tv_goods_name, item.orderGoodslList[0].name)
-                .setText(R.id.tv_goods_num, "x${item.orderGoodslList[0].numTotal}")
-                .setText(R.id.tv_money, "¥${item.orderGoodslList[0].priceReal}")
+                .setText(R.id.tv_goods_name, if(item.orderGoodslList.size>0) item.orderGoodslList[0].name else "")
+                .setText(R.id.tv_goods_num, if(item.orderGoodslList.size>0) "x${item.orderGoodslList[0].numTotal}" else "")
+                .setText(R.id.tv_money, if(item.orderGoodslList.size>0) "¥${item.orderGoodslList[0].priceReal}" else "")
                 .setText(R.id.tv_goods_total, "共${item.num}件商品")
                 .setText(R.id.tv_total_money, "合计：¥${item.priceTotalOrder}")
-                .setText(R.id.tv_mark, "型号：${item.orderGoodslList[0].specs}")
+                .setText(R.id.tv_mark, if(item.orderGoodslList.size>0) "型号：${item.orderGoodslList[0].specs}" else "")
                 .setText(R.id.tv_cancel_order, if (item.status == 1) {
                     "取消订单"
                 } else {
@@ -59,8 +59,10 @@ class OrderAdapter : BaseQuickAdapter<OrderListBean.DataBean.RowsBean, BaseViewH
             else -> ""
         }
         val ivGoods = helper.getView<ImageView>(R.id.iv_goods)
-        val ivList = item.orderGoodslList[0].picture.split(",")
-        GlideUtils.showRound(ivGoods,Constant.BASE_URL+ivList[0],R.mipmap.pic_good,6)
+        if (item.orderGoodslList.size>0){
+            val ivList = item.orderGoodslList[0].picture.split(",")
+            GlideUtils.showRound(ivGoods,Constant.BASE_URL+ivList[0],R.mipmap.pic_good,6)
+        }
         helper.addOnClickListener(R.id.tv_confirm_order)
         helper.addOnClickListener(R.id.tv_cancel_order)
     }

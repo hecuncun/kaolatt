@@ -9,6 +9,7 @@ import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.adapter.OrderAdapter
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.base.BaseNoDataBean
+import com.jxbn.kaolatt.bean.ExpressBean
 import com.jxbn.kaolatt.bean.OrderListBean
 import com.jxbn.kaolatt.constants.Constant
 import com.jxbn.kaolatt.event.RefreshNumEvent
@@ -17,6 +18,8 @@ import com.jxbn.kaolatt.ext.showToast
 import com.jxbn.kaolatt.net.CallbackListObserver
 import com.jxbn.kaolatt.net.SLMRetrofit
 import com.jxbn.kaolatt.net.ThreadSwitchTransformer
+import com.jxbn.kaolatt.utils.ToJsonUtil
+import com.jxbn.kaolatt.widget.ExpressDialog
 import com.jxbn.kaolatt.widget.LoadingView
 import kotlinx.android.synthetic.main.fragment_shopping_cart.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -142,7 +145,7 @@ class OrderAllActivity : BaseActivity() {
         // iv_back.visibility= View.VISIBLE
         initRecyclerView()
     }
-
+    var expressBean:ExpressBean?=null
     override fun initListener() {
         //  iv_back.setOnClickListener { finish() }
         orderAdapter.setOnItemClickListener { adapter, view, position ->
@@ -246,9 +249,16 @@ class OrderAllActivity : BaseActivity() {
                         }
                         2, 3 -> {//查看物流
                             //jumpToWebViewActivity("", 2)
-                            Intent(this@OrderAllActivity,DeliveryActivity::class.java).run{
-                                startActivity(this)
+//                            Intent(this@OrderAllActivity,DeliveryActivity::class.java).run{
+//                                startActivity(this)
+//                            }
+
+                            if (rowsBean.express!=null && rowsBean.express.isNotEmpty()){
+                                expressBean = ToJsonUtil.fromJson<ExpressBean>(rowsBean.express, ExpressBean::class.java)
                             }
+                            ExpressDialog.newInstance(expressBean).show(supportFragmentManager,"express")
+
+
 
                         }
                     }
