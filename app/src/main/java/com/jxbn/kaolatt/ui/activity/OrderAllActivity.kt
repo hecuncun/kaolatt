@@ -10,6 +10,7 @@ import com.jxbn.kaolatt.adapter.OrderAdapter
 import com.jxbn.kaolatt.base.BaseActivity
 import com.jxbn.kaolatt.base.BaseNoDataBean
 import com.jxbn.kaolatt.bean.ExpressBean
+import com.jxbn.kaolatt.bean.OrderDetailBean
 import com.jxbn.kaolatt.bean.OrderListBean
 import com.jxbn.kaolatt.constants.Constant
 import com.jxbn.kaolatt.event.RefreshNumEvent
@@ -252,14 +253,23 @@ class OrderAllActivity : BaseActivity() {
 //                            Intent(this@OrderAllActivity,DeliveryActivity::class.java).run{
 //                                startActivity(this)
 //                            }
+                            val orderDetailCall = SLMRetrofit.getInstance().api.orderDetailCall(rowsBean.oid)
+                            orderDetailCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<OrderDetailBean>(){
+                                override fun onSucceed(t: OrderDetailBean?) {
+                                    if (t?.code==Constant.SUCCESSED_CODE){
+                                        //快递信息
+                                        if (t.data.express!=null && t.data.express.isNotEmpty()){
+                                            expressBean = ToJsonUtil.fromJson<ExpressBean>(t.data.express, ExpressBean::class.java)
+                                            ExpressDialog.newInstance(expressBean).show(supportFragmentManager,"express")
+                                        }
+                                    }
+                                }
 
-                            if (rowsBean.express!=null && rowsBean.express.isNotEmpty()){
-                                expressBean = ToJsonUtil.fromJson<ExpressBean>(rowsBean.express, ExpressBean::class.java)
-                            }
-                            ExpressDialog.newInstance(expressBean).show(supportFragmentManager,"express")
+                                override fun onFailed() {
 
+                                }
 
-
+                            })
                         }
                     }
 

@@ -12,35 +12,36 @@
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp">
 
-        <android.support.constraint.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_marginBottom="15dp">
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:text="物流信息"
-                android:textColor="@color/text_color_gray"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/iv_close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:layout_marginRight="15dp"
-                android:src="@mipmap/icon_dialog_close"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/title" />
-
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal">
+             <TextView
+                 android:id="@+id/title"
+                 android:layout_width="0dp"
+                 android:layout_weight="1"
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="15dp"
+                 android:layout_marginLeft="15dp"
+                 android:layout_marginTop="15dp"
+                 android:text="物流信息"
+                 android:textColor="@color/text_color_gray"
+                 android:textSize="16sp"
+                 android:textStyle="bold" />
+             <ImageView
+                 android:id="@+id/iv_close"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginEnd="15dp"
+                 android:layout_gravity="center_vertical"
+                 android:layout_marginRight="15dp"
+                 android:src="@mipmap/icon_dialog_close" />
+         </LinearLayout>
             <TextView
                 android:id="@+id/company"
                 android:layout_width="wrap_content"
@@ -49,13 +50,16 @@
                 android:text="物流公司:"
                 android:textColor="@color/text_color_gray"
                 android:textSize="13sp"
-                app:layout_constraintLeft_toLeftOf="@+id/title"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp" />
 
             <TextView
                 android:id="@+id/tv_company"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
                 android:text="123"
                 android:textColor="@color/text_color_gray"
                 app:layout_constraintLeft_toRightOf="@id/company"
@@ -63,44 +67,45 @@
 
             <TextView
                 android:id="@+id/order_num"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="物流单号:"
                 android:textColor="@color/text_color_gray"
-                android:textSize="13sp"
-                app:layout_constraintLeft_toLeftOf="@+id/title"
-                app:layout_constraintTop_toBottomOf="@+id/company" />
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/tv_order_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="123"
-                android:textColor="@color/text_color_gray"
-                app:layout_constraintLeft_toRightOf="@id/order_num"
-                app:layout_constraintTop_toTopOf="@id/order_num" />
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/text_color_gray"/>
 
             <TextView
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
                 android:id="@+id/express"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="物流跟踪:"
                 android:textColor="@color/text_color_gray"
-                android:textSize="13sp"
-                app:layout_constraintLeft_toLeftOf="@+id/title"
-                app:layout_constraintTop_toBottomOf="@+id/order_num" />
+                android:textSize="13sp"/>
 
             <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="5dp"
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginBottom="15dp"
-                android:overScrollMode="never"
-                app:layout_constraintTop_toBottomOf="@+id/express" />
-        </android.support.constraint.ConstraintLayout>
+                android:overScrollMode="never"/>
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 </FrameLayout>
