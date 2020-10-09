@@ -46,6 +46,14 @@ android {
     packagingOptions {
 
     }
+
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                //在这里修改apk文件名，引号内的字符串都可以随便定义
+                outputFileName = "kaolatt_${variant.versionName}.apk"
+            }
+    }
 }
 
 dependencies {

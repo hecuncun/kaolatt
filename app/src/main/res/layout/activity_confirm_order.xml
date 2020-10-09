@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
         <RelativeLayout
             android:id="@+id/rl_address"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_10"
             android:background="@color/white">
 
@@ -48,7 +49,7 @@
                 android:drawableLeft="@mipmap/coordinates"
                 android:drawablePadding="@dimen/dp_15"
                 android:paddingTop="@dimen/dp_13"
-                android:text="收货地址 : 北京昌平区回龙观"
+                tools:text="收货地址 : 北京昌平区回龙观北京昌平区回龙观北京昌平区回龙观北京昌平区回龙观北京昌平区回龙观北京昌平区回龙观北京昌平区回龙观北京昌平区回龙观"
                 android:textSize="14sp"/>
 
             <ImageView
