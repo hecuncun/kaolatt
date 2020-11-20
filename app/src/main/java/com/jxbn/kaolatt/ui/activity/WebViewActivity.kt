@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import android.webkit.WebSettings
 import com.jxbn.kaolatt.R
 import com.jxbn.kaolatt.base.BaseActivity
+import com.jxbn.kaolatt.constants.Constant
 import com.jxbn.kaolatt.widget.MyWebView
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -62,7 +63,11 @@ class WebViewActivity :BaseActivity() {
     private fun setUrl(type:Int) {
         mWebView?.post {
            when(type){
-               0,1,3,4,5,6->mWebView?.loadDataWithBaseURL(null,getHtmlData(url), "text/html" , "utf-8", null)
+               0,1,3,4,5,6->{
+                   val replace1 = url.replace("src=\"http://59.110.230.192", "src=\"")
+                   val replace = replace1.replace("src=\"", "src=\"${Constant.BASE_URL}")
+                   mWebView?.loadDataWithBaseURL(null,getHtmlData(replace), "text/html" , "utf-8", null)
+               }
                2->{mWebView?.loadUrl(url)}
                else->{}
            }
