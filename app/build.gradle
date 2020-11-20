@@ -10,7 +10,7 @@ android {
         applicationId "com.jxbn.kaolatt"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 2
+        versionCode 3
         versionName "1.3.0"
         multiDexEnabled true//分包
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
