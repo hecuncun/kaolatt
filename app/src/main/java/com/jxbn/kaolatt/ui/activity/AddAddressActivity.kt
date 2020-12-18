@@ -230,7 +230,7 @@ class AddAddressActivity : BaseActivity() {
             }
 
             override fun onCancel() {
-                // ToastUtils.showLongToast(this@CitypickerWheelActivity, "已取消")
+
             }
         })
         cityPickerView.showCityPicker()
