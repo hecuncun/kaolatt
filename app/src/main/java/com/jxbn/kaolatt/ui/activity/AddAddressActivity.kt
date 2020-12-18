@@ -148,7 +148,6 @@ class AddAddressActivity : BaseActivity() {
                         }
 
                         override fun onFailed() {
-
                         }
                     })
                 } else {//修改
