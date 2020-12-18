@@ -178,7 +178,6 @@ class AddAddressActivity : BaseActivity() {
                 showToast("请先将信息填写完整")
             }
 
-
         }
 
 
